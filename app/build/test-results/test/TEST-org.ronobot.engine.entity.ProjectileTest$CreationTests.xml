@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Creation" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:18:21.775Z" hostname="cherokee" time="0.001">
+  <properties/>
+  <testcase name="Projectile damage is non-negative" classname="org.ronobot.engine.entity.ProjectileTest$CreationTests" time="0.0"/>
+  <testcase name="Projectile is created successfully" classname="org.ronobot.engine.entity.ProjectileTest$CreationTests" time="0.0"/>
+  <testcase name="Projectile has default lifetime" classname="org.ronobot.engine.entity.ProjectileTest$CreationTests" time="0.0"/>
+  <testcase name="Projectile without name uses default" classname="org.ronobot.engine.entity.ProjectileTest$CreationTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

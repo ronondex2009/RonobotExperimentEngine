@@ -1,0 +1,5 @@
+Project file check:
+- Main sources in org/ronobot/engine/
+- Test sources in org/ronobot/engine/
+- No extra source directories
+- All classes properly packaged

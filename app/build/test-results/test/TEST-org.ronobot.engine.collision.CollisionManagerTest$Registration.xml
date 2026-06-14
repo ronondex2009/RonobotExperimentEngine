@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Entity registration" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:18:21.748Z" hostname="cherokee" time="0.002">
+  <properties/>
+  <testcase name="Entity can be registered" classname="org.ronobot.engine.collision.CollisionManagerTest$Registration" time="0.0"/>
+  <testcase name="Manager can find collisions" classname="org.ronobot.engine.collision.CollisionManagerTest$Registration" time="0.002"/>
+  <testcase name="Entity can be unregistered" classname="org.ronobot.engine.collision.CollisionManagerTest$Registration" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
