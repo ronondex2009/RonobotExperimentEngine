@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.powerups.PowerUpTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2026-06-09T16:16:38.110Z" hostname="cherokee" time="0.005">
+<testsuite name="org.ronobot.engine.powerups.PowerUpTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2026-06-09T17:13:53.932Z" hostname="cherokee" time="0.005">
   <properties/>
-  <testcase name="testUpdateDecrementsLifespan()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testUpdateDecrementsLifespan()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testGetLifespan()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
-  <testcase name="testCreationWithCustomDimensions()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testCreationWithCustomDimensions()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
   <testcase name="testSetTypeWithNull()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testTypeGetterAndSetter()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testReduceLifespan()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
-  <testcase name="testSetTimeRemainingClamped()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testSetTimeRemainingClamped()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testCreationWithDefaultType()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testResurrect()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
-  <testcase name="testToString()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testToString()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.002"/>
   <testcase name="testUpdateExpires()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testCanPickupWhenExpired()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testGetEffectValue()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
@@ -23,8 +23,8 @@
   <testcase name="testGetTimeRemaining()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testCreationWithCustomSize()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testUpdateExpiresAfterExactFrames()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
-  <testcase name="testGetCategory()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
-  <testcase name="testGetVisual()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testGetCategory()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testGetVisual()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testDeactivate()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testCanPickupWhenCollected()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
   <testcase name="testPickup()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>

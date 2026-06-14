@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.render.RendererTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-09T16:16:38.125Z" hostname="cherokee" time="0.003">
+<testsuite name="org.ronobot.engine.render.RendererTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-09T17:13:53.944Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="testDefaultDimensions()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testRenderNullGame()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
@@ -7,7 +7,7 @@
   <testcase name="testTextureCount()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testHasTexture()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testClearTextures()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
-  <testcase name="testLoadTextureNullName()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
+  <testcase name="testLoadTextureNullName()" classname="org.ronobot.engine.render.RendererTest" time="0.001"/>
   <testcase name="testLoadTextureNullPath()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testRenderProjectile()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testRenderEmptyGame()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>

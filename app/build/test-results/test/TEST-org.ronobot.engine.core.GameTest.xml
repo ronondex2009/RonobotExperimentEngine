@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.core.GameTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-06-09T16:16:37.922Z" hostname="cherokee" time="0.006">
+<testsuite name="org.ronobot.engine.core.GameTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-06-09T17:13:53.778Z" hostname="cherokee" time="0.006">
   <properties/>
   <testcase name="testRegisterEntity()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
-  <testcase name="testUpdateNotRunning()" classname="org.ronobot.engine.core.GameTest" time="0.001"/>
+  <testcase name="testUpdateNotRunning()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testEnd()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
-  <testcase name="testDefaultValues()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
+  <testcase name="testDefaultValues()" classname="org.ronobot.engine.core.GameTest" time="0.001"/>
   <testcase name="testUpdateEnded()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testStart()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testStop()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testToString()" classname="org.ronobot.engine.core.GameTest" time="0.002"/>
   <testcase name="testSetStateNull()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testEntityCount()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
-  <testcase name="testCollisionDetection()" classname="org.ronobot.engine.core.GameTest" time="0.001"/>
+  <testcase name="testCollisionDetection()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testRestart()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testUnregisterEntity()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testSetPlayer()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>

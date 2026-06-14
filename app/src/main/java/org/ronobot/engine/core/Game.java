@@ -9,7 +9,9 @@ import org.ronobot.engine.map.GameMap;
 import org.ronobot.engine.math.Position;
 import org.ronobot.engine.physics.PhysicsEngine;
 import org.ronobot.engine.render.Renderer;
-import org.ronobot.engine.render.Renderer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,7 @@
 package org.ronobot.engine.entity;
 
 import org.ronobot.engine.core.Entity;
+import org.ronobot.engine.core.Game;
 import org.ronobot.engine.math.Position;
 import org.ronobot.engine.math.Size;
 import org.ronobot.engine.math.Velocity;
@@ -93,6 +94,11 @@ public class EnemyEntity extends Entity {
     private Entity soundSource;
 
     /**
+     * Game instance for accessing player and world state.
+     */
+    private Game game;
+
+    /**
      * Cooldown frames until next attack.
      */
     private int attackCooldown = ATTACK_COOLDOWN_MAX;
@@ -159,6 +165,26 @@ public class EnemyEntity extends Entity {
     public EnemyEntity(int id, float x, float y, int width, int height, String name) {
         this(id, x, y, width, height, EnemyType.ZOMBIE);
         this.name = name;
+    }
+
+    /**
+     * Sets the game instance.
+     *
+     * @param game The game instance
+     */
+    public void setGame(Game game) {
+        if (game != null) {
+            this.game = game;
+        }
+    }
+
+    /**
+     * Gets the game instance.
+     *
+     * @return The game instance, or null if not set
+     */
+    public Game getGame() {
+        return game;
     }
 
     /**
@@ -502,8 +528,8 @@ public class EnemyEntity extends Entity {
             return;
         }
 
-        // Find player target if exists
-        if (game != null) {
+        // Find player target if game and player exist
+        if (game != null && game.getPlayer() != null) {
             this.target = game.getPlayer();
         }
         

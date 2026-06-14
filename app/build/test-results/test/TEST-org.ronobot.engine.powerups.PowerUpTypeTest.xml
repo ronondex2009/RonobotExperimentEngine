@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.powerups.PowerUpTypeTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-09T16:16:38.115Z" hostname="cherokee" time="0.003">
+<testsuite name="org.ronobot.engine.powerups.PowerUpTypeTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-09T17:13:53.937Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="testEnumValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testIsValuePowerUp()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
@@ -13,7 +13,7 @@
   <testcase name="testEnumVisuals()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testIsUpgradePowerUp()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testAmmoRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testEffectValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001"/>
+  <testcase name="testEffectValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testAllTypesExist()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
