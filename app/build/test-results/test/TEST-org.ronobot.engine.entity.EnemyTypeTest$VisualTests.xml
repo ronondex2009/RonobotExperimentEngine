@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Visual Name Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:07:50.772Z" hostname="cherokee" time="0.002">
+<testsuite name="Visual Name Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:15:53.329Z" hostname="cherokee" time="0.002">
   <properties/>
-  <testcase name="Imp has imp emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.0"/>
-  <testcase name="Knight has sword emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.001"/>
+  <testcase name="Imp has imp emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.001"/>
+  <testcase name="Knight has sword emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.0"/>
   <testcase name="Baron has baron emoji with crown" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.0"/>
-  <testcase name="Demon has demon emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.0"/>
-  <testcase name="Zombie has zombie emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.001"/>
+  <testcase name="Demon has demon emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.001"/>
+  <testcase name="Zombie has zombie emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Physics Engine Integration" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:07:50.828Z" hostname="cherokee" time="0.0">
+<testsuite name="Physics Engine Integration" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:15:53.362Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="physics engine processes collisions" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$PhysicsIntegrationTests" time="0.0"/>
-  <testcase name="projectile velocity decays" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$PhysicsIntegrationTests" time="0.0"/>
+  <testcase name="projectile velocity decays" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$PhysicsIntegrationTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

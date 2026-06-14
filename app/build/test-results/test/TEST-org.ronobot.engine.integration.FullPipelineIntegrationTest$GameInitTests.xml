@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Game Initialization" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:07:50.821Z" hostname="cherokee" time="0.001">
+<testsuite name="Game Initialization" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:15:53.358Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="game frame counter works" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$GameInitTests" time="0.0"/>
   <testcase name="game initializes with all components" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$GameInitTests" time="0.0"/>
-  <testcase name="game can set and get player" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$GameInitTests" time="0.0"/>
+  <testcase name="game can set and get player" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$GameInitTests" time="0.001"/>
   <testcase name="game can set and get map" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$GameInitTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
