@@ -10,7 +10,7 @@ import org.ronobot.engine.math.Position;
  * <p>
  * This class handles keyboard input processing and translates key presses
  * into player movement and game actions. It supports basic movement keys:
- * WASD/Arrow keys for movement, space for actions, etc.
+ * WASD/Arrow keys for movement, space for actions (jump/shoot), etc.
  * </p>
  *
  * @author ronobot
@@ -24,7 +24,7 @@ public class InputHandler {
     private static final float MOVE_SPEED = 0.5f;
 
     /**
-     * Vertical movement speed factor.
+     * Vertical movement speed factor (strafing).
      */
     private static final float STRAFING_SPEED = 0.5f;
 
@@ -59,9 +59,24 @@ public class InputHandler {
     private boolean isMovingDown = false;
 
     /**
-     * Whether an action is triggered (space bar).
+     * Whether an action is triggered (space bar or action key).
      */
     private boolean actionPressed = false;
+
+    /**
+     * Whether an action is held down.
+     */
+    private boolean actionHeld = false;
+
+    /**
+     * Whether the jump key is pressed.
+     */
+    private boolean jumpPressed = false;
+
+    /**
+     * Whether the shoot key is pressed.
+     */
+    private boolean shootPressed = false;
 
     /**
      * The current game map for boundary checking.
@@ -129,12 +144,57 @@ public class InputHandler {
     }
 
     /**
-     * Gets whether an action was pressed (space bar).
+     * Gets whether an action was pressed (space bar or action key).
      *
      * @return true if action was pressed
      */
     public boolean isActionPressed() {
         return actionPressed;
+    }
+
+    /**
+     * Gets whether an action is currently held.
+     *
+     * @return true if action is held
+     */
+    public boolean isActionHeld() {
+        return actionHeld;
+    }
+
+    /**
+     * Gets whether the jump key is pressed.
+     *
+     * @return true if jump key is pressed
+     */
+    public boolean isJumpPressed() {
+        return jumpPressed;
+    }
+
+    /**
+     * Gets whether the shoot key is pressed.
+     *
+     * @return true if shoot key is pressed
+     */
+    public boolean isShootPressed() {
+        return shootPressed;
+    }
+
+    /**
+     * Checks if horizontal movement is active.
+     *
+     * @return true if moving horizontally
+     */
+    public boolean isMoving() {
+        return isMovingRight || isMovingLeft;
+    }
+
+    /**
+     * Checks if any vertical movement is active.
+     *
+     * @return true if moving vertically
+     */
+    public boolean isStrafing() {
+        return isMovingUp || isMovingDown;
     }
 
     /**
@@ -183,13 +243,40 @@ public class InputHandler {
     }
 
     /**
+     * Marks an action key as held.
+     *
+     * @param held true if action is held
+     */
+    public void setActionHeld(boolean held) {
+        this.actionHeld = held;
+    }
+
+    /**
+     * Marks the jump key as pressed.
+     *
+     * @param pressed true if jump key was pressed
+     */
+    public void setJumpPressed(boolean pressed) {
+        this.jumpPressed = pressed;
+    }
+
+    /**
+     * Marks the shoot key as pressed.
+     *
+     * @param pressed true if shoot key was pressed
+     */
+    public void setShootPressed(boolean pressed) {
+        this.shootPressed = pressed;
+    }
+
+    /**
      * Processes keyboard input and updates player movement state.
      * <p>
      * This method handles player movement. Movement is applied to the player
      * without boundary clamping in the InputHandler. Boundary checks should be
      * handled at the game level or by the PhysicsEngine.
      * </p>
-     * 
+     *
      * @param player The player entity (can be null)
      */
     public void handle(PlayerEntity player) {
@@ -241,7 +328,7 @@ public class InputHandler {
             player.setPosition(newX, newY);
         }
 
-        // Reset action pressed flag
+        // Reset action pressed flag after movement handling
         actionPressed = false;
     }
 
@@ -262,21 +349,46 @@ public class InputHandler {
     }
 
     /**
-     * Checks if horizontal movement is active.
+     * Processes action input and triggers game actions (shoot, jump, interact).
+     * <p>
+     * This method handles action key input and can be extended to trigger
+     * various game actions like shooting, jumping, or interacting with items.
+     * </p>
      *
-     * @return true if moving horizontally
+     * @param game The game state containing player and world
      */
-    public boolean isMoving() {
-        return isMovingRight || isMovingLeft;
-    }
+    public void handleActions(Game game) {
+        if (game == null) {
+            return;
+        }
+        PlayerEntity player = game.getPlayer();
+        if (player == null) {
+            return;
+        }
 
-    /**
-     * Checks if any vertical movement is active.
-     *
-     * @return true if moving vertically
-     */
-    public boolean isStrafing() {
-        return isMovingUp || isMovingDown;
+        // Handle jump action
+        if (jumpPressed) {
+            game.triggerAction("jump");
+            jumpPressed = false; // Auto-reset on each frame
+        }
+
+        // Handle shoot action
+        if (shootPressed) {
+            game.triggerAction("shoot");
+            shootPressed = false; // Auto-reset on each frame
+        }
+
+        // Handle action key (e.g., use item, interact)
+        if (actionPressed) {
+            game.triggerAction("action");
+            actionPressed = false; // Auto-reset on each frame
+        }
+
+        // Handle held action
+        if (actionHeld) {
+            game.triggerAction("action_held");
+            // Keep held flag true, don't auto-reset
+        }
     }
 
     /**
@@ -288,6 +400,9 @@ public class InputHandler {
         isMovingUp = false;
         isMovingDown = false;
         actionPressed = false;
+        actionHeld = false;
+        jumpPressed = false;
+        shootPressed = false;
     }
 
     /**
@@ -303,6 +418,9 @@ public class InputHandler {
                 ", isMovingUp=" + isMovingUp +
                 ", isMovingDown=" + isMovingDown +
                 ", actionPressed=" + actionPressed +
+                ", actionHeld=" + actionHeld +
+                ", jumpPressed=" + jumpPressed +
+                ", shootPressed=" + shootPressed +
                 '}';
     }
 }

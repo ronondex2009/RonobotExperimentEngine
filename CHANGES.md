@@ -1,6 +1,39 @@
 # CHANGES.md - Project Change Log
 
-## 2026-06-11 - Cycle 4: Movement/Physics Integration COMPLETE
+## 2026-06-12 - Cycle 5: Rendering/Input Integration (IN PROGRESS)
+
+### Build Status: SUCCESSFUL ✓
+
+#### Cycle 5 Progress
+- **Completed**:
+  - Extended InputHandler with action handling (jump, shoot, interact)
+  - Added triggerAction() method to Game class
+  - Added addEntity() and removeEntity() methods to Game
+  - Fixed compilation errors in InputHandler
+  - All 540+ tests passing
+
+- **In Progress**:
+  - Rendering integration with GameRenderer
+  - Full pipeline integration tests
+  - Save/load functionality
+
+- **To Do** (Cycle 5 remaining):
+  - Implement proper HUD rendering
+  - Save/load system
+  - Achievement system
+
+#### New Components
+- `InputHandler.java` - Extended with action handling
+- `Game.java` - Added triggerAction(), addEntity(), removeEntity()
+
+#### Architecture Changes
+- InputHandler now supports jump, shoot, action keys
+- Game class can trigger actions and manage entity lifecycle
+- Rendering integration in progress
+
+#### Test Coverage
+- 540+ tests passing
+- InputHandler tests: 22 tests
 
 ### Build Status: COMPLETE ✓
 

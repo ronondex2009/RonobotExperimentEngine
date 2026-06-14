@@ -172,6 +172,16 @@ public class Game {
     }
 
     /**
+     * Triggers a game action (shoot, jump, interact, etc).
+     *
+     * @param actionName The action name
+     */
+    public void triggerAction(String actionName) {
+        // Action trigger logic goes here
+        // Currently a stub - can be implemented later
+    }
+
+    /**
      * Gets the physics engine.
      */
     public PhysicsEngine getPhysicsEngine() {
@@ -199,6 +209,34 @@ public class Game {
      */
     public void setPhysicsEngine(PhysicsEngine physicsEngine) {
         this.physicsEngine = physicsEngine;
+    }
+
+    /**
+     * Adds an entity to the game.
+     *
+     * @param entity The entity to add
+     * @return true if entity added successfully
+     */
+    public boolean addEntity(Entity entity) {
+        if (entity == null) {
+            return false;
+        }
+        entities.addEntity(entity);
+        return true;
+    }
+
+    /**
+     * Removes an entity from the game.
+     *
+     * @param entity The entity to remove
+     * @return true if entity removed successfully
+     */
+    public boolean removeEntity(Entity entity) {
+        if (entity == null) {
+            return false;
+        }
+        entities.removeEntity(entity);
+        return true;
     }
 
     /**

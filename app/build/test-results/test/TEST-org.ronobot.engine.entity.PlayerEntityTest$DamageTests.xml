@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Damage" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-06-11T19:13:56.382Z" hostname="cherokee" time="0.002">
+<testsuite name="Damage" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-06-12T10:30:33.681Z" hostname="cherokee" time="0.007">
   <properties/>
-  <testcase name="PlayerEntity dies at zero health" classname="org.ronobot.engine.entity.PlayerEntityTest$DamageTests" time="0.0"/>
+  <testcase name="PlayerEntity dies at zero health" classname="org.ronobot.engine.entity.PlayerEntityTest$DamageTests" time="0.001"/>
   <testcase name="Healing increases health" classname="org.ronobot.engine.entity.PlayerEntityTest$DamageTests" time="0.0"/>
   <testcase name="PlayerEntity cannot exceed max health" classname="org.ronobot.engine.entity.PlayerEntityTest$DamageTests" time="0.0"/>
   <testcase name="PlayerEntity cannot go below zero health" classname="org.ronobot.engine.entity.PlayerEntityTest$DamageTests" time="0.0"/>
