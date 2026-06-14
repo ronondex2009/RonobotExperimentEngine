@@ -59,11 +59,6 @@ public class AIStateMachine {
     private Entity target;
 
     /**
-     * The patrol position for patrol state.
-     */
-    private AIState.PatrolPosition patrolPosition;
-
-    /**
      * The remaining duration for the current state in frames.
      */
     private int remainingDuration;
@@ -100,25 +95,16 @@ public class AIStateMachine {
         this.stateChangeCooldown = 0;
     }
 
-    /**
-     * Creates a new AIStateMachine with custom settings.
-     *
-     * @param initialState The initial AI state
-     * @param initialDuration The initial duration
-     * @param target The initial target
-     * @param patrolPosition The initial patrol position
-     */
-    public AIStateMachine(AIState initialState, int initialDuration,
-                         Entity target, AIState.PatrolPosition patrolPosition) {
-        this.currentState = initialState;
-        this.remainingDuration = initialDuration;
-        this.target = target;
-        this.patrolPosition = patrolPosition;
-        this.isActive = true;
-        this.stateChangeCooldown = 0;
-    }
+    // ==================== Getters ==================
 
-    // ==================== Getters/Setters ==================
+    /**
+     * Gets whether the state machine is active.
+     *
+     * @return true if active
+     */
+    public boolean isActive() {
+        return isActive;
+    }
 
     /**
      * Gets the current AI state.
@@ -136,24 +122,6 @@ public class AIStateMachine {
      */
     public Entity getTarget() {
         return target;
-    }
-
-    /**
-     * Gets the patrol position.
-     *
-     * @return The patrol position, or null if none
-     */
-    public AIState.PatrolPosition getPatrolPosition() {
-        return patrolPosition;
-    }
-
-    /**
-     * Gets whether the state machine is active.
-     *
-     * @return true if active
-     */
-    public boolean isActive() {
-        return isActive;
     }
 
     /**
@@ -208,21 +176,20 @@ public class AIStateMachine {
      * Handles state transitions.
      */
     private void switchStates() {
-        if (currentState == AIState.PATROL) {
-            switchToChase();
-        } else if (currentState == AIState.CHASE) {
-            switchToAttack();
-        } else if (currentState == AIState.ATTACK) {
-            switchToIdle();
-        } else if (currentState == AIState.IDLE) {
-            if (target != null) {
-                switchToChase();
-            } else {
-                // Start patrolling without a specific position
-                switchToPatrol(AIState.PatrolPosition.X_AXIS);
+        switch (currentState) {
+            case PATROL -> switchToChase();
+            case CHASE -> switchToAttack();
+            case ATTACK -> switchToIdle();
+            case IDLE -> {
+                if (target != null) {
+                    switchToChase();
+                } else {
+                    switchToPatrol();
+                }
             }
-        } else if (currentState == AIState.RETREAT) {
-            switchToIdle();
+            case RETREAT -> switchToIdle();
+            case STUNNED -> switchToPatrol();
+            default -> switchToPatrol();
         }
     }
 
@@ -244,29 +211,35 @@ public class AIStateMachine {
     }
 
     /**
-     * Transitions to the PATROL state with a position.
-     *
-     * @param position The patrol position
+     * Transitions to the PATROL state without a specific position.
      */
-    public void switchToPatrol(AIState.PatrolPosition position) {
+    public void switchToPatrol() {
         currentState = AIState.PATROL;
         remainingDuration = DEFAULT_PATROL_DURATION;
-        patrolPosition = position;
         target = null;
     }
 
     /**
-     * Transitions to the CHASE state.
+     * Transitions to the CHASE state with a target.
      */
     public void switchToChase() {
         if (target == null) {
-            currentState = AIState.IDLE;
-            remainingDuration = DEFAULT_PATROL_DURATION;
+            switchToIdle();
             return;
         }
 
         currentState = AIState.CHASE;
         remainingDuration = DEFAULT_CHASE_DURATION;
+    }
+
+    /**
+     * Sets a new target entity to chase.
+     *
+     * @param target The target entity
+     */
+    public void switchToChase(Entity target) {
+        this.target = target;
+        switchToChase();
     }
 
     /**
@@ -302,7 +275,7 @@ public class AIStateMachine {
      *
      * @param cooldown The cooldown frames
      */
-    public void setStateChangedCooldown(int cooldown) {
+    public void setStateChangeCooldown(int cooldown) {
         this.stateChangeCooldown = Math.max(cooldown, 0);
     }
 

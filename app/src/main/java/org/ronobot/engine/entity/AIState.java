@@ -1,98 +1,107 @@
-/**
- * AI State - Represents an enemy's behavioral state in the AI state machine.
- * <p>
- * Each state has associated behavior that determines the enemy's actions:
- * - IDLE: Enemy is waiting, not actively pursuing anything
- * - PATROL: Enemy is moving along a patrol route
- * - CHASE: Enemy is pursuing a target
- * - ATTACK: Enemy is attacking a target
- * - RETREAT: Enemy is retreating when low on health
- * - STUNNED: Enemy is stunned and unable to act
- * </p>
- *
- * @author ronobot
- * @since 1.0
- */
 package org.ronobot.engine.entity;
 
 /**
- * AI State enum for enemy AI behavior management.
+ * AI states for enemy entity behavior.
+ * <p>
+ * Represents different behavioral states an enemy can be in:
+ * - PATROL: Moving around looking for player
+ * - CHASE: Actively pursuing the player
+ * - ATTACK: Performing an attack animation
+ * - RETREAT: Running away from danger
+ * - STUNNED: Unable to act temporarily
+ * - IDLE: Waiting in a neutral state
+ * </p>
  *
  * @author ronobot
- * @since 1.0
  */
 public enum AIState {
 
     /**
-     * Enemy is idle, waiting for stimuli.
+     * Enemy is idle/neutral.
      */
-    IDLE(0),
+    IDLE,
 
     /**
-     * Enemy is patrolling a route.
+     * Enemy is patrolling the map.
      */
-    PATROL(1),
+    PATROL("patrol"),
 
     /**
-     * Enemy is chasing a target.
+     * Enemy is chasing the player.
      */
-    CHASE(2),
+    CHASE("chase"),
 
     /**
-     * Enemy is attacking a target.
+     * Enemy is attacking.
      */
-    ATTACK(3),
+    ATTACK("attack"),
 
     /**
      * Enemy is retreating.
      */
-    RETREAT(4),
+    RETREAT("retreat"),
 
     /**
      * Enemy is stunned.
      */
-    STUNNED(5);
+    STUNNED("stunned");
 
     /**
-     * Patrol position enum for patrol state.
+     * The state name used for serialization or logging.
      */
-    public enum PatrolPosition {
-        /**
-         * Patrol along the x-axis.
-         */
-        X_AXIS,
-
-        /**
-         * Patrol along the y-axis.
-         */
-        Y_AXIS,
-
-        /**
-         * Patrol along the diagonal.
-         */
-        DIAGONAL
-    };
+    private final String name;
 
     /**
-     * The priority value for this state.
-     */
-    private final int priority;
-
-    /**
-     * Creates a new AIState with the given priority.
+     * Creates an AIState with the given name.
      *
-     * @param priority The priority for this state
+     * @param name The state name
      */
-    AIState(int priority) {
-        this.priority = priority;
+    AIState(String name) {
+        this.name = name;
     }
 
     /**
-     * Gets the priority value for this state.
-     *
-     * @return The priority value
+     * Creates an AIState with no name (for IDLE).
      */
-    public int getPriority() {
-        return priority;
+    AIState() {
+        this.name = "idle";
+    }
+
+    /**
+     * Gets the state name.
+     *
+     * @return The state name
+     */
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    /**
+     * Represents a patrol position.
+     */
+    public enum PatrolPosition {
+        X_AXIS("x"),
+        Y_AXIS("y"),
+        RANDOM("random");
+
+        private final String name;
+
+        PatrolPosition(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }
