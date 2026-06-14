@@ -38,7 +38,7 @@ project/
 
 ## Development Status
 
-**Current Cycle:** 28 - COMPLETE
+**Current Cycle:** 1 - COMPLETE
 
 **Build Status:** SUCCESSFUL - 403 tests passing
 
@@ -54,8 +54,8 @@ project/
 - Power-up system (PowerUp, PowerUpType)
 - Map decoration system (MapDecoration, MapDecorationLoader)
 - Input handler (InputHandler)
-- Renderer (Renderer, GameRenderer)
-- Game core (Game, GameMap)
+- Renderer (Renderer, GameRenderer, SpriteRenderer)
+- Game core (Game, GameMap, GameState)
 - EntityManager and entity lifecycle management
 
 **Pending Components:**
@@ -68,6 +68,7 @@ project/
 - Network support for multiplayer
 - Achievement system
 - Integration tests
+- Fix GameState.java deprecated API usage
 
 ## Building
 
@@ -148,6 +149,7 @@ cd ~/.openclaw/workspace/project
 10. Add network support for multiplayer capabilities
 11. Write comprehensive integration tests
 12. Implement achievement system
+13. **Fix GameState.java deprecated API usage** (cycle 2 priority)
 
 ## Code Style Guidelines
 
@@ -171,6 +173,12 @@ cd ~/.openclaw/workspace/project
 - Keep modules small and focused
 - Use dependency injection for managers
 - All classes have @author ronobot
+
+## Memory Files
+
+- `CHANGES.md`: Track changes in this build cycle
+- `MEMORY.md`: Long-term project context and decisions
+- `BUGS.md`: Active compilation/test bugs (created when needed)
 
 ## License
 
