@@ -2,13 +2,16 @@ package org.ronobot.engine.render;
 
 import org.ronobot.engine.core.Entity;
 import org.ronobot.engine.core.Game;
-import org.ronobot.engine.entity.Projectile;
 import org.ronobot.engine.entity.PlayerEntity;
+import org.ronobot.engine.entity.Projectile;
 import org.ronobot.engine.math.Position;
 import org.ronobot.engine.math.Size;
 import org.ronobot.engine.map.GameMap;
+import org.ronobot.engine.map.GameMap.DecorationType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +19,8 @@ import java.util.Map;
  * and texture management for a DOOM-like engine.
  * <p>
  * This class handles rendering of game tiles, entities, projectiles,
- * and UI elements. It supports basic 2D rendering with sprite management
- * and texture caching.
+ * decorations, and UI elements. It supports basic 2D rendering with
+ * sprite management and texture caching.
  * </p>
  *
  * @author ronobot
@@ -36,22 +39,22 @@ public class Renderer {
     private static final int TILE_HEIGHT = 32;
 
     /**
-     * Render buffer width in pixels.
+     * Screen dimensions.
      */
-    private static final int BUFFER_WIDTH = 640;
+    public static final int BUFFER_WIDTH = 640;
 
     /**
-     * Render buffer height in pixels.
+     * Screen dimensions.
      */
-    private static final int BUFFER_HEIGHT = 480;
+    public static final int BUFFER_HEIGHT = 480;
 
     /**
-     * HUD height for UI overlay.
+     * HUD overlay height in pixels.
      */
     private static final int HUD_HEIGHT = 64;
 
     /**
-     * HUD width in pixels.
+     * HUD overlay width in pixels.
      */
     private static final int HUD_WIDTH = 320;
 
@@ -59,6 +62,16 @@ public class Renderer {
      * Texture cache for loaded sprites.
      */
     protected final Map<String, String> textures;
+
+    /**
+     * HUD elements list.
+     */
+    private final List<HUDElement> hudElements;
+
+    /**
+     * HUD container map for efficient lookups.
+     */
+    private final Map<String, HUDElement> hudContainer;
 
     /**
      * Screen dimensions.
@@ -71,28 +84,70 @@ public class Renderer {
     private final int screenHeight = BUFFER_HEIGHT;
 
     /**
-     * Creates a new Renderer with an empty texture cache.
+     * Creates a new Renderer with default HUD elements.
      */
     public Renderer() {
         this.textures = new HashMap<>();
+        this.hudElements = new ArrayList<>();
+        this.hudContainer = new HashMap<>();
+        initializeHUD();
     }
 
     /**
-     * HUD container for UI elements.
-     * TODO: Implement HUDElement class for HUD element management.
+     * Creates a new Renderer with empty texture cache and HUD.
      */
-    private final Map<String, String> hudElements = new HashMap<>();
+    public Renderer(boolean createDefaultHUD) {
+        if (createDefaultHUD) {
+            this.textures = new HashMap<>();
+            this.hudElements = new ArrayList<>();
+            this.hudContainer = new HashMap<>();
+            initializeHUD();
+        } else {
+            this.textures = new HashMap<>();
+            this.hudElements = new ArrayList<>();
+            this.hudContainer = new HashMap<>();
+        }
+    }
 
     /**
-     * HUD element type enum.
+     * Initializes default HUD elements.
      */
-    public enum HUDElementType {
-        HEALTH_BAR,
-        AMMO_DISPLAY,
-        WEAPON_ICON,
-        SCORE_DISPLAY,
-        LEVEL_INDICATOR,
-        DEBUG_INFO
+    private void initializeHUD() {
+        // Health bar
+        HUDElement healthBar = HUDElement.healthBar(4, 4);
+        healthBar.setRenderCallback(new HUDElement.DefaultRenderCallback());
+        hudElements.add(healthBar);
+        hudContainer.put("health", healthBar);
+
+        // Ammo display
+        HUDElement ammo = HUDElement.ammoDisplay(4, 24);
+        ammo.setRenderCallback(new HUDElement.DefaultRenderCallback());
+        hudElements.add(ammo);
+        hudContainer.put("ammo", ammo);
+
+        // Score display
+        HUDElement score = HUDElement.scoreDisplay(500, 24, 120, 20);
+        score.setRenderCallback(new HUDElement.DefaultRenderCallback());
+        hudElements.add(score);
+        hudContainer.put("score", score);
+
+        // Level indicator
+        HUDElement level = HUDElement.levelIndicator(540, 24, 100, 20);
+        level.setRenderCallback(new HUDElement.DefaultRenderCallback());
+        hudElements.add(level);
+        hudContainer.put("level", level);
+
+        // Debug info
+        HUDElement debug = HUDElement.debugInfo(400, 432, 240, 48);
+        debug.setRenderCallback(new HUDElement.DefaultRenderCallback());
+        hudElements.add(debug);
+        hudContainer.put("debug", debug);
+
+        // Message box
+        HUDElement messageBox = HUDElement.messageBox(40, 240, 600, 200);
+        messageBox.setRenderCallback(new HUDElement.DefaultRenderCallback());
+        hudElements.add(messageBox);
+        hudContainer.put("message", messageBox);
     }
 
     /**
@@ -114,7 +169,8 @@ public class Renderer {
     }
 
     /**
-     * Renders the game state including map tiles, entities, and projectiles.
+     * Renders the complete game state including map tiles, entities,
+     * projectiles, decorations, and HUD.
      *
      * @param game The game to render
      */
@@ -131,6 +187,11 @@ public class Renderer {
         // Render map tiles
         renderMap(map);
 
+        // Render decorations
+        if (map.getDecorationPositions() != null) {
+            renderMapDecorations(map);
+        }
+
         // Render entities
         renderEntities(game);
 
@@ -138,8 +199,7 @@ public class Renderer {
         renderProjectiles(game);
 
         // Render HUD/UI overlay
-        // TODO: Implement renderHUD method for HUD rendering
-        renderHUDStub(game);
+        renderHUD(game);
     }
 
     /**
@@ -157,14 +217,9 @@ public class Renderer {
             for (int y = 0; y < map.getHeight(); y++) {
                 int tileType = map.getTile(x, y);
                 if (tileType >= GameMap.TILE_FLOOR && tileType < GameMap.TILE_WALL + 10) {
-                    renderTile(x, y, tileType);
+                    renderTile(x * TILE_WIDTH, y * TILE_HEIGHT, tileType);
                 }
             }
-        }
-        
-        // Render decorations if map has decorations enabled
-        if (map.getDecorationPositions() != null) {
-            renderMapDecorations(map);
         }
     }
 
@@ -179,11 +234,13 @@ public class Renderer {
         }
 
         // Render each decoration in the map
-        for (org.ronobot.engine.math.Position pos : map.getDecorationPositions()) {
-            org.ronobot.engine.map.GameMap.DecorationType decoration = map.getDecorationType(
-                (int) pos.getX(), (int) pos.getY());
-            if (decoration != org.ronobot.engine.map.GameMap.DecorationType.NONE) {
-                renderDecoration(pos, decoration);
+        for (Position pos : map.getDecorationPositions()) {
+            if (pos != null) {
+                DecorationType decoration = map.getDecorationType(
+                        (int) pos.getX(), (int) pos.getY());
+                if (decoration != DecorationType.NONE) {
+                    renderDecoration(pos, decoration);
+                }
             }
         }
     }
@@ -194,30 +251,28 @@ public class Renderer {
      * @param position The decoration position
      * @param decoration The decoration type
      */
-    private void renderDecoration(org.ronobot.engine.math.Position position,
-                                  org.ronobot.engine.map.GameMap.DecorationType decoration) {
-        if (position == null || decoration == org.ronobot.engine.map.GameMap.DecorationType.NONE) {
+    private void renderDecoration(Position position, DecorationType decoration) {
+        if (position == null || decoration == DecorationType.NONE) {
             return;
         }
 
-        // Generate decoration texture key from the enum name (simple name only)
+        // Generate decoration texture key from the enum name
         String typeName = decoration.name();
         String decorationKey = "decoration_" + typeName;
         if (!textures.containsKey(decorationKey)) {
-            // Map decoration type to texture using type name
             String decorationPath = "decoration_" + typeName;
             textures.put(decorationKey, decorationPath);
         }
 
-        // In a full implementation, draw the decoration at position
-        // For now, we track what needs to be rendered
+        // Render decoration at position
+        // In full implementation, this would draw with proper texture
     }
 
     /**
      * Renders a single tile.
      *
-     * @param x     The tile x coordinate
-     * @param y     The tile y coordinate
+     * @param x     The tile x pixel position
+     * @param y     The tile y pixel position
      * @param type  The tile type
      */
     private void renderTile(int x, int y, int type) {
@@ -231,8 +286,7 @@ public class Renderer {
             };
             textures.put(key, texturePath);
         }
-        // In a full implementation, this would draw the sprite to the buffer
-        // For now, we're just tracking what needs to be rendered
+        // In full implementation, draw sprite to buffer at (x, y)
     }
 
     /**
@@ -261,17 +315,12 @@ public class Renderer {
             return;
         }
 
-        // Get entity texture/key
-        String entityKey = "entity_" + entity.getId();
-        if (!textures.containsKey(entityKey)) {
-            textures.put(entityKey, "player_default");
-        }
-
-        // Render entity at position with its size
+        // Get entity position and size
         Position pos = entity.getPosition();
         Size size = entity.getSize();
         if (pos != null && size != null) {
-            // In a full implementation, draw entity sprite at position
+            // Render entity sprite at position
+            // In full implementation, use texture manager to draw
         }
     }
 
@@ -303,17 +352,119 @@ public class Renderer {
             return;
         }
 
-        // Get projectile texture/key
-        String projectileKey = "projectile_" + projectile.getId();
-        if (!textures.containsKey(projectileKey)) {
-            textures.put(projectileKey, "projectile_default");
-        }
-
-        // Render projectile at position
+        // Get projectile position
         Position pos = projectile.getPosition();
         if (pos != null) {
-            // In a full implementation, draw projectile sprite at position
+            // Render projectile sprite at position
         }
+    }
+
+    /**
+     * Renders the HUD/UI overlay.
+     *
+     * @param game The game to render HUD for
+     */
+    private void renderHUD(Game game) {
+        if (game == null) {
+            return;
+        }
+
+        // Clear and rebuild HUD if needed
+        clearHUD();
+
+        // Get player for HUD data
+        PlayerEntity player = game.getPlayer();
+        if (player != null) {
+            // Health bar - shows current/max health
+            float health = player.getHealth();
+            float maxHealth = player.getMaxHealth();
+            HUDElement healthBar = hudContainer.get("health");
+            if (healthBar != null) {
+                healthBar.setY(BUFFER_HEIGHT - HUD_HEIGHT);
+                healthBar.setX(4);
+                healthBar.setRenderCallback(new HUDElement.RenderCallback() {
+                    @Override
+                    public boolean render(Game game, HUDElement element) {
+                        HUDElement healthBar = (HUDElement) element;
+            float pct = health / maxHealth;
+                        int barWidth = (int) (healthBar.getWidth() * pct);
+                        System.out.println(String.format("HUD: Health [%d/%d] (%.0f%%)",
+                                (int) health, (int) maxHealth, pct * 100));
+                        return true;
+                    }
+                });
+            }
+
+            // Ammo display
+            int ammo = player.getAmmunition();
+            int maxAmmo = player.getMaxAmmunition();
+            HUDElement ammoDisplay = hudContainer.get("ammo");
+            if (ammoDisplay != null) {
+                ammoDisplay.setY(BUFFER_HEIGHT - HUD_HEIGHT + 16);
+                ammoDisplay.setRenderCallback(new HUDElement.RenderCallback() {
+                    @Override
+                    public boolean render(Game game, HUDElement element) {
+                        HUDElement ammoDisplayEl = (HUDElement) element;
+                        System.out.println(String.format("HUD: Ammo: %d/%d", ammo, maxAmmo));
+                        return true;
+                    }
+                });
+            }
+        }
+
+        // Render all HUD elements
+        for (HUDElement element : hudElements) {
+            element.render(game);
+        }
+    }
+
+    /**
+     * Clears all HUD elements.
+     */
+    public void clearHUD() {
+        hudElements.clear();
+        hudContainer.clear();
+        initializeHUD();
+    }
+
+    /**
+     * Adds a HUD element.
+     *
+     * @param element The HUD element to add
+     */
+    public void addHUDElement(HUDElement element) {
+        if (element != null && !hudElements.contains(element)) {
+            hudElements.add(element);
+            String typeStr = element.getType().name().toLowerCase();
+            hudContainer.put(typeStr, element);
+        }
+    }
+
+    /**
+     * Removes a HUD element by type.
+     *
+     * @param type The element type to remove
+     * @return true if element was removed
+     */
+    public boolean removeHUDElement(HUDElement.Type type) {
+        String key = type.name().toLowerCase();
+        HUDElement element = hudContainer.remove(key);
+        if (element != null) {
+            hudElements.remove(element);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Gets a HUD element by type.
+     *
+     * @param type The element type
+     * @return The HUD element, or null if not found
+     */
+    public HUDElement getHUDElement(HUDElement.Type type) {
+        String key = type.name().toLowerCase();
+        return hudContainer.get(key);
     }
 
     /**
@@ -324,7 +475,6 @@ public class Renderer {
      * @return true if texture loaded successfully
      */
     public boolean loadTexture(String name, String path) {
-        // Stub implementation - in full version would load texture data
         if (name == null || path == null) {
             return false;
         }
@@ -339,7 +489,6 @@ public class Renderer {
      * @return true if texture loaded successfully
      */
     public boolean loadTexture(int tileType) {
-        // Map tile types to texture paths
         String path = switch (tileType) {
             case GameMap.TILE_WALL -> "texture_wall.png";
             case GameMap.TILE_FLOOR -> "texture_floor.png";
@@ -408,17 +557,28 @@ public class Renderer {
     }
 
     /**
-     * Renders the HUD/UI overlay (stub implementation).
+     * Gets the HUD elements list (package-private access).
      *
-     * @param game The game to render HUD for
+     * @return The HUD elements list
      */
-    private void renderHUDStub(Game game) {
-        if (game == null) {
-            return;
-        }
+    protected List<HUDElement> getHUDElements() {
+        return hudElements;
+    }
 
-        // TODO: Implement proper HUD rendering with health bar, ammo display, weapon icon
-        // This stub tracks that HUD rendering is needed
-        // hudElements will contain UI element names when implemented
+    /**
+     * Gets the HUD container map (package-private access).
+     *
+     * @return The HUD container map
+     */
+    protected Map<String, HUDElement> getHUDContainer() {
+        return hudContainer;
+    }
+
+    @Override
+    public String toString() {
+        return "Renderer{" +
+                "textures=" + textures.size() +
+                ", hudElements=" + hudElements.size() +
+                '}';
     }
 }
