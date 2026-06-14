@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="App Creation" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:08:26.357Z" hostname="cherokee" time="0.001">
+<testsuite name="App Creation" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:00.897Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="Should have default game set to null" classname="org.ronobot.engine.AppTest$AppCreationTests" time="0.0"/>
   <testcase name="Should create App instance" classname="org.ronobot.engine.AppTest$AppCreationTests" time="0.0"/>

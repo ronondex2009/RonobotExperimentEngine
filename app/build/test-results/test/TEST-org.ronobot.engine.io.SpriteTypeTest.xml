@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.io.SpriteTypeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:08:26.479Z" hostname="cherokee" time="0.004">
+<testsuite name="org.ronobot.engine.io.SpriteTypeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:01.022Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="testGetValue()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.0"/>
   <testcase name="testGetNameInvalidTypes()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.0"/>

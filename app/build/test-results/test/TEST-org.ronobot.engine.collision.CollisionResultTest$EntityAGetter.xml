@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Entity A getter" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:08:26.378Z" hostname="cherokee" time="0.0">
+<testsuite name="Entity A getter" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:00.924Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="Entity A getter returns correct entity" classname="org.ronobot.engine.collision.CollisionResultTest$EntityAGetter" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
