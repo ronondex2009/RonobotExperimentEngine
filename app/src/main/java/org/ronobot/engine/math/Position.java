@@ -72,12 +72,86 @@ public class Position {
     }
 
     /**
+     * Gets the x coordinate.
+     *
+     * @return The x coordinate
+     */
+    public float x() {
+        return x;
+    }
+
+    /**
+     * Gets the y coordinate.
+     *
+     * @return The y coordinate
+     */
+    public float y() {
+        return y;
+    }
+
+    /**
      * Creates a zero position at origin (0, 0).
      *
      * @return A new Position at origin
      */
     public static Position origin() {
         return of(0f, 0f);
+    }
+
+    /**
+     * Creates a copy of this position.
+     *
+     * @return A new Position with same values
+     */
+    public Position copy() {
+        return new Position(x, y);
+    }
+
+    /**
+     * Sets the x coordinate.
+     *
+     * @param x the new x value
+     */
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    /**
+     * Sets the y coordinate.
+     *
+     * @param y the new y value
+     */
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    /**
+     * Sets both x and y coordinates.
+     *
+     * @param x the new x value
+     * @param y the new y value
+     */
+    public void set(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Gets the width (alias for x).
+     *
+     * @return the x value
+     */
+    public float width() {
+        return x;
+    }
+
+    /**
+     * Gets the height (alias for y).
+     *
+     * @return the y value
+     */
+    public float height() {
+        return y;
     }
 
     @Override
