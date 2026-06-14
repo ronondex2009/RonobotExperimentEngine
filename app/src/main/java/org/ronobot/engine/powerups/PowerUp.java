@@ -254,27 +254,21 @@ public class PowerUp extends Entity {
      * <p>
      * This method:
      * 1. Decrements remaining time
-     * 2. Deactivates when time runs out
+     * 2. Marks as collected and deactivates when time runs out
+     * 3. Does nothing when dead
      * </p>
      */
     @Override
     public void update() {
-        if (isDead() || !active || collected) {
+        if (isDead() || collected) {
             return;
         }
 
-        if (timeRemaining > 0) {
-            timeRemaining--;
-        } else {
-            // Power-up expired
-            active = false;
-            collected = true;
-        }
-        
-        // Check if expired after update
+        timeRemaining--;
         if (timeRemaining <= 0) {
-            active = false;
+            // Power-up expired - mark as collected and inactive
             collected = true;
+            active = false;
         }
     }
 
@@ -307,10 +301,30 @@ public class PowerUp extends Entity {
 
     /**
      * Sets the power-up lifespan.
+     * <p>
+     * Lifespan is clamped to a range of 60-999999 frames.
+     * Minimum 60 frames ensures power-ups don't expire too quickly.
+     * Maximum 999999 frames provides unlimited duration.
+     * </p>
      *
      * @param lifespan The new lifespan
      */
     public void setLifespan(int lifespan) {
+        this.lifespan = Math.max(60, Math.min(lifespan, 999999));
+        this.timeRemaining = this.lifespan;
+    }
+
+    /**
+     * Sets the power-up lifespan with a default minimum.
+     * <p>
+     * Use this to set a very long lifespan that won't expire.
+     * </p>
+     *
+     * @param lifespan The new lifespan (minimum 60 frames)
+     * @deprecated Use setLifespan(int) directly for flexibility
+     */
+    @Deprecated
+    public void setLifespanLong(int lifespan) {
         this.lifespan = Math.max(60, Math.min(lifespan, 999999));
         this.timeRemaining = this.lifespan;
     }
@@ -326,12 +340,28 @@ public class PowerUp extends Entity {
      * Revives the power-up.
      * <p>
      * Restores the power-up to active state with full lifespan.
+     * Only works if the power-up has not been collected.
      * </p>
      */
     public void resurrect() {
+        if (collected) {
+            return;
+        }
         this.active = true;
-        this.collected = false;
+        this.health = getMaxHealth();
         this.timeRemaining = lifespan;
+    }
+
+    /**
+     * Marks the power-up as dead.
+     * <p>
+     * This is an override of the Entity.die() method that does not set the
+     * collected flag, since collected tracks pickup status, not death status.
+     * </p>
+     */
+    public void die() {
+        this.active = false;
+        this.health = 0;
     }
 
     @Override

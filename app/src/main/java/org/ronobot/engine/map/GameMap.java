@@ -979,4 +979,37 @@ public class GameMap {
         // Future implementation: load map from file
         return false;
     }
+
+    /**
+     * Sets the tile grid from a 2D array.
+     *
+     * @param grid The tile grid to set
+     */
+    public void setGrid(char[][] grid) {
+        if (grid == null) {
+            return;
+        }
+        for (int row = 0; row < grid.length && row < height; row++) {
+            for (int col = 0; col < grid[row].length && col < width; col++) {
+                char tile = grid[row][col];
+                switch (tile) {
+                    case '#':
+                        tiles[col][row][0] = TILE_WALL;
+                        break;
+                    case '.':
+                    case ' ':
+                        tiles[col][row][0] = TILE_FLOOR;
+                        break;
+                    case '@':
+                    case '*':
+                    case 'P':
+                    case '/':
+                        tiles[col][row][0] = TILE_FLOOR;
+                        break;
+                    default:
+                        tiles[col][row][0] = TILE_FLOOR;
+                }
+            }
+        }
+    }
 }

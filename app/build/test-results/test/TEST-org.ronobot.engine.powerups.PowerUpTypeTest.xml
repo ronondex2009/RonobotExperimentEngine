@@ -1,60 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.powerups.PowerUpTypeTest" tests="14" skipped="0" failures="4" errors="0" timestamp="2026-05-30T07:02:11.971Z" hostname="cherokee" time="0.006">
+<testsuite name="org.ronobot.engine.powerups.PowerUpTypeTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-03T07:20:53.330Z" hostname="cherokee" time="0.002">
   <properties/>
-  <testcase name="testEnumValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;11&gt; but was: &lt;10&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;11&gt; but was: &lt;10&gt;
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:152)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:147)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:558)
-	at org.ronobot.engine.powerups.PowerUpTypeTest.testEnumValues(PowerUpTypeTest.java:224)
-</failure>
-  </testcase>
+  <testcase name="testEnumValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testIsValuePowerUp()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testGetCategories()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
+  <testcase name="testGetCategories()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001"/>
   <testcase name="testEnumDescriptions()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testToString()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001"/>
-  <testcase name="testGetDescriptions()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;Health Pack - &#x1f6e1;️❤️&gt; but was: &lt;Health Pack - &#x1f6e1;️❤️ Provides 50 units of benefit.&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;Health Pack - &#x1f6e1;️❤️&gt; but was: &lt;Health Pack - &#x1f6e1;️❤️ Provides 50 units of benefit.&gt;
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
-	at org.ronobot.engine.powerups.PowerUpTypeTest.testGetDescriptions(PowerUpTypeTest.java:198)
-</failure>
-  </testcase>
+  <testcase name="testToString()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
+  <testcase name="testGetDescriptions()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testIsWeaponUpgrade()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testArmorRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testHealthRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
+  <testcase name="testHealthRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001"/>
   <testcase name="testEnumVisuals()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testIsUpgradePowerUp()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
-	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:69)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:41)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
-	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
-	at org.ronobot.engine.powerups.PowerUpTypeTest.testIsUpgradePowerUp(PowerUpTypeTest.java:153)
-</failure>
-  </testcase>
-  <testcase name="testAmmoRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001"/>
+  <testcase name="testIsUpgradePowerUp()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
+  <testcase name="testAmmoRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testEffectValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testAllTypesExist()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;11&gt; but was: &lt;10&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;11&gt; but was: &lt;10&gt;
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:152)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:147)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:558)
-	at org.ronobot.engine.powerups.PowerUpTypeTest.testAllTypesExist(PowerUpTypeTest.java:23)
-</failure>
-  </testcase>
+  <testcase name="testAllTypesExist()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

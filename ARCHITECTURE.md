@@ -148,11 +148,49 @@ Maps are represented as grids where each character represents a tile:
 - `.`: Floor (walkable)
 - ` `: Empty floor
 - `@`: Player spawn position
+- `*`: Enemy spawn position
+- `P`: Power-up spawn position
+- `/`: Ammo spawn position
+- `T`: Tree decoration
+- `R`: Rock decoration
+- `F`: Flag decoration
 
 Maps can be:
 1. Loaded from files (future WAD support)
 2. Created from raw grid data
 3. Created programmatically
+
+#### MapFileParser
+
+- `parseFile(path)` - Parse map from file
+- `parseContent(content)` - Parse map from string
+- `setTile(row, col, tile)` - Set tile
+- `getTile(row, col)` - Get tile
+- `getGridString()` - Get grid as string
+- `getSpawnPositions()` - Get spawn positions
+- `getDecorations()` - Get decorations (NEW)
+- `isValid()` - Validate map
+
+#### Map Decoration System
+
+Decorations add visual elements to maps:
+- Trees (`T`): Environmental cover
+- Rocks (`R`): Obstacles and terrain
+- Flags (`F`): Map markers
+
+Add decorations:
+```java
+parser.addDecoration(5, 10, MapFileParser.DecorationType.TREE);
+parser.addDecoration(10, 15, MapFileParser.DecorationType.ROCK);
+```
+
+Get decorations:
+```java
+List<MapDecoration> decorations = parser.getAllDecorations();
+for (MapDecoration dec : decorations) {
+    System.out.println(dec.getType());
+}
+```
 
 ## Design Decisions
 

@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("application")
+    id("org.jetbrains.dokka-javadoc") version "2.2.0"
 }
 
 group = "org.ronobot.engine"

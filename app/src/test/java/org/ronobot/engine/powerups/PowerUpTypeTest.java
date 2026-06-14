@@ -20,7 +20,7 @@ class PowerUpTypeTest {
      */
     @Test
     void testAllTypesExist() {
-        assertEquals(11, PowerUpType.values().length);
+        assertEquals(12, PowerUpType.values().length);
         
         PowerUpType[] types = PowerUpType.values();
         assertTrue(types.length >= 3);
@@ -41,6 +41,8 @@ class PowerUpTypeTest {
         assertEquals("Speed Boost", PowerUpType.SPEED.getName());
         assertEquals("Invisibility", PowerUpType.INVISIBILITY.getName());
         assertEquals("Mega Medkit", PowerUpType.MEGAMEDKIT.getName());
+        assertEquals("Super Shot", PowerUpType.SUPERSHOT.getName());
+        assertEquals("Mystery", PowerUpType.MYSTERY.getName());
     }
 
     /**
@@ -58,6 +60,8 @@ class PowerUpTypeTest {
         assertEquals("⚡", PowerUpType.SPEED.getVisual());
         assertEquals("👻", PowerUpType.INVISIBILITY.getVisual());
         assertEquals("❇️", PowerUpType.MEGAMEDKIT.getVisual());
+        assertEquals("➕", PowerUpType.SUPERSHOT.getVisual());
+        assertEquals("❔", PowerUpType.MYSTERY.getVisual());
     }
 
     /**
@@ -76,6 +80,8 @@ class PowerUpTypeTest {
         assertFalse(PowerUpType.BFG.isHealthRelated());
         assertFalse(PowerUpType.SPEED.isHealthRelated());
         assertFalse(PowerUpType.INVISIBILITY.isHealthRelated());
+        assertFalse(PowerUpType.SUPERSHOT.isHealthRelated());
+        assertFalse(PowerUpType.MYSTERY.isHealthRelated());
     }
 
     /**
@@ -88,6 +94,8 @@ class PowerUpTypeTest {
         assertFalse(PowerUpType.HEALTH.isArmorRelated());
         assertFalse(PowerUpType.AMMO.isArmorRelated());
         assertFalse(PowerUpType.MEGAMEDKIT.isArmorRelated());
+        assertFalse(PowerUpType.SUPERSHOT.isArmorRelated());
+        assertFalse(PowerUpType.MYSTERY.isArmorRelated());
     }
 
     /**
@@ -117,6 +125,8 @@ class PowerUpTypeTest {
         assertEquals(0, PowerUpType.SPEED.getEffectValue());
         assertEquals(0, PowerUpType.INVISIBILITY.getEffectValue());
         assertEquals(100, PowerUpType.MEGAMEDKIT.getEffectValue());
+        assertEquals(10, PowerUpType.SUPERSHOT.getEffectValue());
+        assertEquals(0, PowerUpType.MYSTERY.getEffectValue());
     }
 
     /**
@@ -128,6 +138,8 @@ class PowerUpTypeTest {
         assertTrue(PowerUpType.ARMOR.isValuePowerUp());
         assertTrue(PowerUpType.AMMO.isValuePowerUp());
         assertTrue(PowerUpType.MEGAMEDKIT.isValuePowerUp());
+        assertTrue(PowerUpType.SUPERSHOT.isValuePowerUp());
+        assertTrue(PowerUpType.MYSTERY.isValuePowerUp());
         
         assertFalse(PowerUpType.ROCKET.isValuePowerUp());
         assertFalse(PowerUpType.SHOTGUN.isValuePowerUp());
@@ -150,9 +162,11 @@ class PowerUpTypeTest {
         assertFalse(PowerUpType.HEALTH.isUpgradePowerUp());
         assertFalse(PowerUpType.ARMOR.isUpgradePowerUp());
         assertFalse(PowerUpType.AMMO.isUpgradePowerUp());
+        assertFalse(PowerUpType.SUPERSHOT.isUpgradePowerUp());
+        assertFalse(PowerUpType.MEGAMEDKIT.isUpgradePowerUp());
         assertFalse(PowerUpType.SPEED.isUpgradePowerUp());
         assertFalse(PowerUpType.INVISIBILITY.isUpgradePowerUp());
-        assertFalse(PowerUpType.MEGAMEDKIT.isUpgradePowerUp());
+        assertFalse(PowerUpType.MYSTERY.isUpgradePowerUp());
     }
 
     /**
@@ -168,9 +182,11 @@ class PowerUpTypeTest {
         assertFalse(PowerUpType.HEALTH.isWeaponUpgrade());
         assertFalse(PowerUpType.ARMOR.isWeaponUpgrade());
         assertFalse(PowerUpType.AMMO.isWeaponUpgrade());
+        assertFalse(PowerUpType.SUPERSHOT.isWeaponUpgrade());
+        assertFalse(PowerUpType.MEGAMEDKIT.isWeaponUpgrade());
         assertFalse(PowerUpType.SPEED.isWeaponUpgrade());
         assertFalse(PowerUpType.INVISIBILITY.isWeaponUpgrade());
-        assertFalse(PowerUpType.MEGAMEDKIT.isWeaponUpgrade());
+        assertFalse(PowerUpType.MYSTERY.isWeaponUpgrade());
     }
 
     /**
@@ -188,6 +204,8 @@ class PowerUpTypeTest {
         assertEquals("Weapon", PowerUpType.BFG.getCategory());
         assertEquals("Speed", PowerUpType.SPEED.getCategory());
         assertEquals("Special", PowerUpType.INVISIBILITY.getCategory());
+        assertEquals("Upgrade", PowerUpType.SUPERSHOT.getCategory());
+        assertEquals("Special", PowerUpType.MYSTERY.getCategory());
     }
 
     /**
@@ -200,8 +218,10 @@ class PowerUpTypeTest {
         assertEquals("Ammo Box - 🔫", PowerUpType.AMMO.getDescription());
         assertEquals("Mega Medkit - ❇️", PowerUpType.MEGAMEDKIT.getDescription());
         assertEquals("Rocket Launcher - 🚀", PowerUpType.ROCKET.getDescription());
+        assertEquals("Super Shot - ➕", PowerUpType.SUPERSHOT.getDescription());
         assertEquals("Speed Boost - ⚡", PowerUpType.SPEED.getDescription());
         assertEquals("Invisibility - 👻", PowerUpType.INVISIBILITY.getDescription());
+        assertEquals("Mystery - ❔", PowerUpType.MYSTERY.getDescription());
     }
 
     /**
@@ -211,7 +231,10 @@ class PowerUpTypeTest {
     void testToString() {
         assertEquals("HEALTH", PowerUpType.HEALTH.toString());
         assertEquals("ARMOR", PowerUpType.ARMOR.toString());
+        assertEquals("AMMO", PowerUpType.AMMO.toString());
         assertEquals("SPEED", PowerUpType.SPEED.toString());
+        assertEquals("SUPERSHOT", PowerUpType.SUPERSHOT.toString());
+        assertEquals("MYSTERY", PowerUpType.MYSTERY.toString());
     }
 
     /**
@@ -221,7 +244,7 @@ class PowerUpTypeTest {
     void testEnumValues() {
         PowerUpType[] types = PowerUpType.values();
         
-        assertEquals(11, types.length);
+        assertEquals(12, types.length);
         assertEquals(PowerUpType.HEALTH, types[0]);
         assertEquals(PowerUpType.ARMOR, types[1]);
         assertEquals(PowerUpType.AMMO, types[2]);
@@ -232,5 +255,7 @@ class PowerUpTypeTest {
         assertEquals(PowerUpType.SPEED, types[7]);
         assertEquals(PowerUpType.INVISIBILITY, types[8]);
         assertEquals(PowerUpType.MEGAMEDKIT, types[9]);
+        assertEquals(PowerUpType.SUPERSHOT, types[10]);
+        assertEquals(PowerUpType.MYSTERY, types[11]);
     }
 }

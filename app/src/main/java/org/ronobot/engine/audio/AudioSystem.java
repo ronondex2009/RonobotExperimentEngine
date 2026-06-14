@@ -290,6 +290,11 @@ public class AudioSystem {
 
     /**
      * Stops all audio playback.
+     * <p>
+     * This method stops all active sounds and music but preserves
+     * the registered entries. The sounds remain in the map but are
+     * not playing.
+     * </p>
      */
     public void stopAll() {
         // Stop all sound effects
@@ -302,10 +307,8 @@ public class AudioSystem {
             track.playing = false;
         }
 
-        // Clear all sounds
-        soundEffects.clear();
-        musicTracks.clear();
-        soundQueueSize = 0;
+        // Set ready to false but keep registered sounds
+        this.ready = false;
     }
 
     /**

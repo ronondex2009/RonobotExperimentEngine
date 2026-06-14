@@ -196,6 +196,8 @@ class PowerUpTest {
         assertEquals(50, new PowerUp(16, 160f, 160f, PowerUpType.AMMO).getEffectValue());
         assertEquals(0, new PowerUp(17, 170f, 170f, PowerUpType.ROCKET).getEffectValue());
         assertEquals(0, new PowerUp(18, 180f, 180f, PowerUpType.SPEED).getEffectValue());
+        assertEquals(100, new PowerUp(19, 190f, 190f, PowerUpType.MEGAMEDKIT).getEffectValue());
+        assertEquals(10, new PowerUp(20, 200f, 200f, PowerUpType.SUPERSHOT).getEffectValue());
     }
 
     /**
@@ -252,15 +254,37 @@ class PowerUpTest {
 
     /**
      * Test update deactivates when lifespan expires.
+     * Power-ups have a minimum lifespan of 60 frames, so we use a short lifespan for testing.
      */
     @Test
     void testUpdateExpires() {
         PowerUp powerUp = new PowerUp(32, 320f, 320f, PowerUpType.HEALTH);
-        powerUp.setLifespan(3);
+        // Use lifespan 60 - after 60 frames it should expire
+        powerUp.setLifespan(60);
         
-        powerUp.update();
+        for (int i = 0; i < 60; i++) {
+            powerUp.update();
+        }
         assertFalse(powerUp.canPickup());
         assertFalse(powerUp.isActive());
+        assertTrue(powerUp.collected);
+    }
+
+    /**
+     * Test update deactivates after exact lifespan frames.
+     * Power-ups have a minimum lifespan of 60 frames, so we use 60 for testing.
+     */
+    @Test
+    void testUpdateExpiresAfterExactFrames() {
+        PowerUp powerUp = new PowerUp(33, 330f, 330f, PowerUpType.AMMO);
+        // Use lifespan 60 - after 60 frames it should expire
+        powerUp.setLifespan(60);
+        
+        for (int i = 0; i < 60; i++) {
+            powerUp.update();
+        }
+        assertFalse(powerUp.isActive());
+        assertFalse(powerUp.canPickup());
         assertTrue(powerUp.collected);
     }
 
@@ -296,13 +320,13 @@ class PowerUpTest {
     void testSetActive() {
         PowerUp powerUp = new PowerUp(35, 350f, 350f);
         
-        assertFalse(powerUp.isActive());
-        
-        powerUp.setActive(true);
         assertTrue(powerUp.isActive());
         
         powerUp.setActive(false);
         assertFalse(powerUp.isActive());
+        
+        powerUp.setActive(true);
+        assertTrue(powerUp.isActive());
     }
 
     /**
@@ -353,7 +377,7 @@ class PowerUpTest {
     void testSetLifespanClamped() {
         PowerUp powerUp = new PowerUp(39, 390f, 390f);
         
-        powerUp.setLifespan(60);
+        powerUp.setLifespan(3);
         assertEquals(60, powerUp.getLifespan());
         
         powerUp.setLifespan(999999);

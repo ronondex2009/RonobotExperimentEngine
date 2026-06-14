@@ -221,42 +221,37 @@ public class MapFileParser {
     }
 
     /**
-     * Parses lines from content, trimming and removing empty lines at start/end.
+     * Parses lines from content, preserving line widths.
+     * <p>
+     * This method preserves the original line width and structure without trimming.
+     * Empty lines (only whitespace) are skipped to handle leading/trailing blank lines.
+     * </p>
      *
      * @param content The content to parse
      * @return List of non-empty lines
      */
     private static List<String> parseLines(String content) {
         List<String> lines = new ArrayList<>();
-        int startLine = 0;
-
-        // Skip leading empty lines
-        for (int i = 0; i < content.length(); i++) {
-            if (content.charAt(i) != '\n' && content.charAt(i) != '\r') {
-                startLine = i;
-                break;
+        
+        // Split on newline
+        String[] allLines = content.split("\\n");
+        
+        for (String line : allLines) {
+            // Check if line has any non-whitespace characters
+            boolean hasNonWhitespace = false;
+            for (int i = 0; i < line.length(); i++) {
+                if (!Character.isWhitespace(line.charAt(i))) {
+                    hasNonWhitespace = true;
+                    break;
+                }
+            }
+            
+            // Skip truly empty lines (only whitespace)
+            if (hasNonWhitespace) {
+                lines.add(line);
             }
         }
-
-        // Extract content
-        int endLine = content.length();
-        for (int i = content.length() - 1; i >= startLine; i--) {
-            if (content.charAt(i) == '\n') {
-                endLine = i + 1;
-                break;
-            }
-        }
-
-        String contentStr = content.substring(startLine, endLine);
-        String[] linesArray = contentStr.split("\n");
-
-        for (String line : linesArray) {
-            String trimmed = line.trim();
-            if (!trimmed.isEmpty()) {
-                lines.add(trimmed);
-            }
-        }
-
+        
         return lines;
     }
 

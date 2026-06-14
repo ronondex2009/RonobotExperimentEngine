@@ -24,7 +24,7 @@ public enum PowerUpType {
      * Visual: Red cross icon (🛡️❤️)
      * </p>
      */
-    HEALTH("Health Pack", 50, "🛡️❤️"),
+    HEALTH("Health Pack", 50, "🛡️❤️", false),
 
     /**
      * Armor power-up.
@@ -33,7 +33,7 @@ public enum PowerUpType {
      * Visual: Shield icon (🛡️)
      * </p>
      */
-    ARMOR("Armor Plate", 25, "🛡️"),
+    ARMOR("Armor Plate", 25, "🛡️", false),
 
     /**
      * Ammunition power-up.
@@ -42,7 +42,7 @@ public enum PowerUpType {
      * Visual: Ammo icon (🔫)
      * </p>
      */
-    AMMO("Ammo Box", 50, "🔫"),
+    AMMO("Ammo Box", 50, "🔫", false),
 
     /**
      * Rocket launcher weapon power-up.
@@ -51,7 +51,7 @@ public enum PowerUpType {
      * Visual: Rocket icon (🚀)
      * </p>
      */
-    ROCKET("Rocket Launcher", 0, "🚀"),
+    ROCKET("Rocket Launcher", 0, "🚀", true),
 
     /**
      * Shotgun weapon power-up.
@@ -60,7 +60,7 @@ public enum PowerUpType {
      * Visual: Shotgun icon (💥)
      * </p>
      */
-    SHOTGUN("Shotgun", 0, "💥"),
+    SHOTGUN("Shotgun", 0, "💥", true),
 
     /**
      * Chain gun weapon power-up.
@@ -69,7 +69,7 @@ public enum PowerUpType {
      * Visual: Machine gun icon (🔫⚡)
      * </p>
      */
-    CHAIN("Chain Gun", 0, "🔫⚡"),
+    CHAIN("Chain Gun", 0, "🔫⚡", true),
 
     /**
      * BFG weapon power-up.
@@ -78,7 +78,7 @@ public enum PowerUpType {
      * Visual: BFG icon (☢️)
      * </p>
      */
-    BFG("BFG", 0, "☢️"),
+    BFG("BFG", 0, "☢️", true),
 
     /**
      * Speed power-up.
@@ -87,7 +87,7 @@ public enum PowerUpType {
      * Visual: Speed icon (⚡)
      * </p>
      */
-    SPEED("Speed Boost", 0, "⚡"),
+    SPEED("Speed Boost", 0, "⚡", false),
 
     /**
      * Invisibility power-up.
@@ -96,7 +96,7 @@ public enum PowerUpType {
      * Visual: Ghost icon (👻)
      * </p>
      */
-    INVISIBILITY("Invisibility", 0, "👻"),
+    INVISIBILITY("Invisibility", 0, "👻", false),
 
     /**
      * Medkit power-up.
@@ -105,7 +105,25 @@ public enum PowerUpType {
      * Visual: Cross icon (❇️)
      * </p>
      */
-    MEGAMEDKIT("Mega Medkit", 100, "❇️");
+    MEGAMEDKIT("Mega Medkit", 100, "❇️", false),
+
+    /**
+     * Super Shot power-up.
+     * <p>
+     * Provides an extra shot for the player's weapon.
+     * Visual: Plus icon (➕)
+     * </p>
+     */
+    SUPERSHOT("Super Shot", 10, "➕", false),
+
+    /**
+     * Mystery power-up.
+     * <p>
+     * Provides random benefits to the player.
+     * Visual: Question mark icon (❔)
+     * </p>
+     */
+    MYSTERY("Mystery", 0, "❔", false);
 
     // ==================== Fields ====================
 
@@ -125,19 +143,26 @@ public enum PowerUpType {
     private final String visual;
 
     /**
+     * Whether this is a weapon upgrade (rocket, shotgun, etc).
+     */
+    private final boolean weaponUpgrade;
+
+    /**
      * Creates a new PowerUpType.
      *
-     * @param name      The display name
-     * @param effectValue The effect value or 0 for upgrades
-     * @param visual    The visual representation
+     * @param name            The display name
+     * @param effectValue     The effect value or 0 for upgrades
+     * @param visual          The visual representation
+     * @param isWeaponUpgrade Whether this is a weapon upgrade
      */
-    PowerUpType(String name, int effectValue, String visual) {
+    PowerUpType(String name, int effectValue, String visual, boolean isWeaponUpgrade) {
         this.name = name;
         this.effectValue = effectValue;
         this.visual = visual;
+        this.weaponUpgrade = isWeaponUpgrade;
     }
 
-    // ==================== Getters ==================
+    // ==================== Getters ===================
 
     /**
      * Gets the display name.
@@ -167,37 +192,48 @@ public enum PowerUpType {
     }
 
     /**
-     * Gets whether this power-up provides a value (not an upgrade).
-     *
-     * @return true if this is a value-based power-up
-     */
-    public boolean isValuePowerUp() {
-        return effectValue > 0;
-    }
-
-    /**
-     * Gets whether this power-up provides an upgrade (not a value).
-     *
-     * @return true if this is an upgrade power-up
-     */
-    public boolean isUpgradePowerUp() {
-        return effectValue == 0;
-    }
-
-    /**
-     * Checks if this is a weapon upgrade power-up.
+     * Gets whether this is a weapon upgrade (rocket, shotgun, etc).
+     * <p>
+     * SUPERSHOT is not considered a weapon upgrade, it is categorized as "Upgrade".
      *
      * @return true if this is a weapon upgrade
      */
     public boolean isWeaponUpgrade() {
+        return weaponUpgrade;
+    }
+
+    /**
+     * Gets whether this power-up provides a value (not an upgrade).
+     *
+     * MYSTERY is considered a value power-up since it can provide any benefit.
+     *
+     * @return true if this is a value-based power-up
+     */
+    public boolean isValuePowerUp() {
+        return effectValue > 0 || name.equals("Super Shot") || name.equals("Mystery");
+    }
+
+    /**
+     * Gets whether this power-up provides a weapon upgrade (not a value).
+     * <p>
+     * Weapon upgrades are: ROCKET, SHOTGUN, CHAIN, BFG.
+     * SUPERSHOT is not considered a weapon upgrade.
+     * MYSTERY is NOT a weapon upgrade - it's a special power-up that can give anything.
+     * </p>
+     *
+     * @return true if this is a weapon upgrade power-up
+     */
+    public boolean isUpgradePowerUp() {
         return switch (this) {
             case ROCKET, SHOTGUN, CHAIN, BFG -> true;
+            case SUPERSHOT -> false;
+            case MYSTERY -> false;
             default -> false;
         };
     }
 
     /**
-     * Checks if this is a health-related power-up.
+     * Gets whether this power-up is health-related.
      *
      * @return true if this affects health
      */
@@ -209,21 +245,21 @@ public enum PowerUpType {
     }
 
     /**
-     * Checks if this is an armor-related power-up.
+     * Gets whether this power-up is armor-related.
      *
      * @return true if this affects armor
      */
     public boolean isArmorRelated() {
-        return this == ARMOR;
+        return this == ARMOR || (isValuePowerUp() && name.equals("Armor Plate"));
     }
 
     /**
-     * Checks if this is an ammo-related power-up.
+     * Gets whether this power-up is ammo-related.
      *
      * @return true if this affects ammo
      */
     public boolean isAmmoRelated() {
-        return this == AMMO;
+        return this == AMMO || (isValuePowerUp() && name.equals("Ammo Box"));
     }
 
     /**
@@ -232,9 +268,7 @@ public enum PowerUpType {
      * @return A description string
      */
     public String getDescription() {
-        return name + " - " + visual + (isValuePowerUp() ?
-                " Provides " + effectValue + " units of benefit." :
-                " Upgrades current weapon.");
+        return name + " - " + visual;
     }
 
     /**
@@ -250,6 +284,8 @@ public enum PowerUpType {
             case ROCKET, SHOTGUN, CHAIN, BFG -> "Weapon";
             case SPEED -> "Speed";
             case INVISIBILITY -> "Special";
+            case SUPERSHOT -> "Upgrade";
+            case MYSTERY -> "Special";
             default -> "Unknown";
         };
     }

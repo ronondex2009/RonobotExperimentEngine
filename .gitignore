@@ -1,5 +1,8 @@
-Project file check:
-- Main sources in org/ronobot/engine/
-- Test sources in org/ronobot/engine/
-- No extra source directories
-- All classes properly packaged
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore Kotlin plugin data
+.kotlin

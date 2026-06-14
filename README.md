@@ -14,25 +14,20 @@ project/
 │   │   │   │       └── ronobot/
 │   │   │   │           └── engine/
 │   │   │   │               ├── collision/
-│   │   │   │               │   ├── CollisionManager.java
-│   │   │   │               │   └── CollisionResult.java
+│   │   │   │               ├── core/
 │   │   │   │               ├── entity/
-│   │   │   │               │   ├── Entity.java
-│   │   │   │               │   ├── PlayerEntity.java
-│   │   │   │               │   └── Projectile.java
+│   │   │   │               ├── entities/
+│   │   │   │               ├── input/
+│   │   │   │               ├── io/
+│   │   │   │               ├── map/
 │   │   │   │               ├── math/
-│   │   │   │               │   ├── Point.java
-│   │   │   │               │   ├── Size.java
-│   │   │   │               │   ├── Rectangle.java
-│   │   │   │               │   └── AxisAlignedBox.java
 │   │   │   │               ├── physics/
-│   │   │   │               │   └── PhysicsEngine.java
-│   │   │   │               └── (future) map/, renderer/, resources/
+│   │   │   │               ├── powerups/
+│   │   │   │               ├── render/
 │   │   │   └── resources/
 │   │   └── test/
 │   │       └── java/
 │   │           └── org/ronobot/engine/
-│   │               └── (test classes for each package)
 │   └── build.gradle.kts
 ├── build.gradle.kts
 ├── settings.gradle.kts
@@ -43,7 +38,7 @@ project/
 
 ## Development Status
 
-**Current Cycle:** 4 - Collision Resolution Implementation
+**Current Cycle:** 4 - Map Decoration System Enhancement
 
 **Completed Components:**
 - Collision detection system (CollisionManager)
@@ -51,17 +46,22 @@ project/
 - Health management system
 - Math utilities (Point, Size, Rectangle)
 - Entity system (Entity, PlayerEntity, Projectile)
+- Map system with decorations (GameMap, MapFileParser, MapDecoration)
+- Audio system (AudioSystem, SoundPlayer)
+- WAD file parsing (WadFile, SpriteLoader)
+- Power-up system (PowerUp, PowerUpType)
+- Map decoration system (MapDecoration, MapDecorationLoader)
 - Comprehensive unit test suite
 
 **Pending Components:**
-- Map rendering and parsing
-- Sprite/texture management
-- WAD file parsing
-- Sound/audio system
+- Map rendering and parsing (stub)
+- Sprite/texture management (stub)
+- GUI integration (JavaFX disabled temporarily)
 - Monster entities
 - Item system
 - Save/load functionality
 - Integration tests
+- Achievements system
 
 ## Building
 
@@ -82,34 +82,48 @@ cd ~/.openclaw/workspace/project
 ./gradlew test --info
 ```
 
-## Development Guidelines
-
-- All code must be JUnit-tested
-- Use Javadoc for all public APIs
-- Follow the single-responsibility principle
-- Keep modules small and focused
-- Use dependency injection for managers
-- All classes have @author ronobot
-
 ## Architecture Overview
 
 ### Entity System
 - `Entity`: Base class with position, size, collision box
 - `PlayerEntity`: Player with health, armor, inventory, weapons
 - `Projectile`: Moving projectile entity
+- `EnemyEntity`: Enemy entities with patrol behavior
+- `EnemyType`: Enemy type definitions
 
 ### Collision System
 - `CollisionManager`: Detects overlapping entities
 - `CollisionResult`: Represents a collision pair
-- `PhysicsEngine`: Resolves collisions
+- `PhysicsEngine`: Resolves collisions and damage
+
+### Map System
+- `GameMap`: Tile-based map with entity spawning and decorations
+- `MapFileParser`: Parses map files into GameMap instances
+- `MapDecoration`: Decorative elements for map enhancement
+- `MapDecorationLoader`: Loads and registers decorations
+- `MapLoader`: Loaders for different map formats
 
 ### Math Utilities
 - `Point`: 2D coordinate
 - `Size`: Dimensions
 - `Rectangle`: Bounding box
+- `Position`: Mutable position
+- `Velocity`: Movement vector
 
 ### Physics
 - `PhysicsEngine`: Collision resolution, damage, separation
+
+### Audio System
+- `AudioSystem`: Audio management
+- `SoundPlayer`: Sound playback and effects
+
+### IO System
+- `WadFile`: WAD file parsing
+- `SpriteLoader`: Sprite sheet parsing
+- `SpriteType`: Sprite type definitions
+
+### Input
+- `InputHandler`: Keyboard controls and input processing
 
 ## TODO List
 
@@ -123,6 +137,29 @@ cd ~/.openclaw/workspace/project
 8. Improve rendering
 9. Add save/load functionality
 10. Write integration tests
+
+## Code Style Guidelines
+
+- All classes use Javadoc with `@author ronobot`
+- Enums are `public static` when standalone
+- Methods have Javadoc blocks
+- Use `final` for immutable fields
+- Prefer immutable objects (Size, Point)
+- Use `float` for positions, `int` for tile indices
+- Handle null inputs gracefully
+- Follow SRP (Single Responsibility Principle)
+- Keep methods under 50 lines where possible
+- Use meaningful constant names
+- Group related methods together
+
+## Development Guidelines
+
+- All code must be JUnit-tested
+- Use Javadoc for all public APIs
+- Follow the single-responsibility principle
+- Keep modules small and focused
+- Use dependency injection for managers
+- All classes have @author ronobot
 
 ## License
 

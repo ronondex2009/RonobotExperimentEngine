@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.integration.FullPipelineTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-05-30T07:02:12.049Z" hostname="cherokee" time="0.004">
+<testsuite name="org.ronobot.engine.integration.FullPipelineTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-06-03T07:20:53.276Z" hostname="cherokee" time="0.003">
   <properties/>
   <testcase name="Collision detection with multiple entities" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Collision results are generated correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
-  <testcase name="Player navigates around interior walls" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.001"/>
+  <testcase name="Player navigates around interior walls" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Game state transitions work correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Player cannot move outside map bounds" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Full pipeline handles all components together" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
@@ -14,7 +14,7 @@
   <testcase name="Input resets correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Map boundaries are enforced" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Player moves up (strafes) in empty space" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
-  <testcase name="Player moves right in empty space" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.001"/>
+  <testcase name="Player moves right in empty space" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Projectile spawning works" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
