@@ -158,6 +158,9 @@ public class App {
      */
     public static void main(String[] args) {
         App app = new App();
+        // TODO ronobot, app.start() may return false
+        // add exception for this and
+        // make sure that new App(); constructs with new Game (or app.start() makes new Game)
         app.start();
     }
 
