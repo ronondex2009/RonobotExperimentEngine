@@ -3,6 +3,7 @@ package org.ronobot.engine.render;
 import org.ronobot.engine.core.Entity;
 import org.ronobot.engine.core.Game;
 import org.ronobot.engine.entity.Projectile;
+import org.ronobot.engine.entity.PlayerEntity;
 import org.ronobot.engine.math.Position;
 import org.ronobot.engine.math.Size;
 import org.ronobot.engine.map.GameMap;
@@ -45,6 +46,16 @@ public class Renderer {
     private static final int BUFFER_HEIGHT = 480;
 
     /**
+     * HUD height for UI overlay.
+     */
+    private static final int HUD_HEIGHT = 64;
+
+    /**
+     * HUD width in pixels.
+     */
+    private static final int HUD_WIDTH = 320;
+
+    /**
      * Texture cache for loaded sprites.
      */
     protected final Map<String, String> textures;
@@ -64,6 +75,24 @@ public class Renderer {
      */
     public Renderer() {
         this.textures = new HashMap<>();
+    }
+
+    /**
+     * HUD container for UI elements.
+     * TODO: Implement HUDElement class for HUD element management.
+     */
+    private final Map<String, String> hudElements = new HashMap<>();
+
+    /**
+     * HUD element type enum.
+     */
+    public enum HUDElementType {
+        HEALTH_BAR,
+        AMMO_DISPLAY,
+        WEAPON_ICON,
+        SCORE_DISPLAY,
+        LEVEL_INDICATOR,
+        DEBUG_INFO
     }
 
     /**
@@ -107,6 +136,10 @@ public class Renderer {
 
         // Render projectiles
         renderProjectiles(game);
+
+        // Render HUD/UI overlay
+        // TODO: Implement renderHUD method for HUD rendering
+        renderHUDStub(game);
     }
 
     /**
@@ -372,5 +405,20 @@ public class Renderer {
      */
     protected Map<String, String> getTextures() {
         return textures;
+    }
+
+    /**
+     * Renders the HUD/UI overlay (stub implementation).
+     *
+     * @param game The game to render HUD for
+     */
+    private void renderHUDStub(Game game) {
+        if (game == null) {
+            return;
+        }
+
+        // TODO: Implement proper HUD rendering with health bar, ammo display, weapon icon
+        // This stub tracks that HUD rendering is needed
+        // hudElements will contain UI element names when implemented
     }
 }

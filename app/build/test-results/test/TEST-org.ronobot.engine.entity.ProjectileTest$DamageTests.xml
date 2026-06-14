@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Damage" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-09T05:58:12.573Z" hostname="cherokee" time="0.001">
+<testsuite name="Damage" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-09T16:16:37.991Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Projectile damage cannot be negative" classname="org.ronobot.engine.entity.ProjectileTest$DamageTests" time="0.0"/>
   <testcase name="Projectile damage with constructor" classname="org.ronobot.engine.entity.ProjectileTest$DamageTests" time="0.0"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.integration.FullPipelineTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-06-09T05:58:12.582Z" hostname="cherokee" time="0.001">
+<testsuite name="org.ronobot.engine.integration.FullPipelineTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-06-09T16:16:38.007Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Collision detection with multiple entities" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Collision results are generated correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
@@ -8,7 +8,7 @@
   <testcase name="Player cannot move outside map bounds" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Full pipeline handles all components together" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Map loading and validation works" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
-  <testcase name="Player cannot move through walls" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.001"/>
+  <testcase name="Player cannot move through walls" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Player moves down (strafes) in empty space" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Player moves left in empty space" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Input resets correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
