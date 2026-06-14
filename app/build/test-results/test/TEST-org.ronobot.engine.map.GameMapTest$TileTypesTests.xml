@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Tile Types" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-03T21:28:52.470Z" hostname="cherokee" time="0.001">
+<testsuite name="Tile Types" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-03T23:12:04.171Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="TILE_WALL constant" classname="org.ronobot.engine.map.GameMapTest$TileTypesTests" time="0.0"/>
   <testcase name="TILE_FLOOR constant" classname="org.ronobot.engine.map.GameMapTest$TileTypesTests" time="0.0"/>
-  <testcase name="TILE_DOOR constant" classname="org.ronobot.engine.map.GameMapTest$TileTypesTests" time="0.001"/>
+  <testcase name="TILE_DOOR constant" classname="org.ronobot.engine.map.GameMapTest$TileTypesTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

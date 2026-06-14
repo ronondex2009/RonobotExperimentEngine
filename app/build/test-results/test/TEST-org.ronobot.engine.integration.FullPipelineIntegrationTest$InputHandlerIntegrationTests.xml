@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Input Handler Integration" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-03T21:28:52.448Z" hostname="cherokee" time="0.0">
+<testsuite name="Input Handler Integration" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-03T23:12:04.146Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="input handler processes player movement" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$InputHandlerIntegrationTests" time="0.0"/>
   <testcase name="input handler enforces map boundaries" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$InputHandlerIntegrationTests" time="0.0"/>

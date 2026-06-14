@@ -1,7 +1,11 @@
 package org.ronobot.engine.map;
 
+import org.ronobot.engine.core.Entity;
+import org.ronobot.engine.entity.EnemyEntity;
+import org.ronobot.engine.entity.EnemyType;
 import org.ronobot.engine.entity.PlayerEntity;
 import org.ronobot.engine.math.Position;
+import org.ronobot.engine.map.MapFileParser.EntitySpawn;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -185,14 +189,13 @@ public class LevelLoader {
                         spawnPlayerAt(gameMap, pos.getX(), pos.getY());
                         break;
                     case ENEMY:
-                        // Spawn enemy placeholder (future implementation)
-                        // For now, just register the spawn position
+                        spawnEnemyAt(gameMap, pos.getX(), pos.getY());
                         break;
                     case POWERUP:
-                        // Power-up placeholder (future implementation)
+                        spawnPowerupAt(gameMap, pos.getX(), pos.getY());
                         break;
                     case AMMO:
-                        // Ammo placeholder (future implementation)
+                        spawnAmmoAt(gameMap, pos.getX(), pos.getY());
                         break;
                 }
             }
@@ -353,8 +356,62 @@ public class LevelLoader {
      * @param y The world y position
      */
     private void spawnPlayerAt(GameMap gameMap, float x, float y) {
+        // Convert world position to tile position
+        Position pos = gameMap.toTilePosition(x, y);
+        if (pos == null) {
+            return;
+        }
         PlayerEntity player = new PlayerEntity(1, x, y);
-        gameMap.spawnEntity(0, 0, player);
+        gameMap.spawnEntity((int) pos.getX(), (int) pos.getY(), player);
+    }
+
+    /**
+     * Spawns an enemy entity at the given position.
+     *
+     * @param gameMap The game map
+     * @param x The world x position
+     * @param y The world y position
+     */
+    private void spawnEnemyAt(GameMap gameMap, float x, float y) {
+        // Convert world position to tile position
+        Position pos = gameMap.toTilePosition(x, y);
+        if (pos == null) {
+            return;
+        }
+        // Create default zombie enemy
+        EnemyEntity enemy = new EnemyEntity(100, x, y, 100, 32);
+        // Default to zombie type
+        enemy.setType(EnemyType.ZOMBIE);
+        // Spawn entity using GameMap.spawnEntity(int x, int y, Entity entity)
+        gameMap.spawnEntity((int) pos.getX(), (int) pos.getY(), enemy);
+    }
+
+    /**
+     * Spawns a power-up entity at the given position.
+     *
+     * @param gameMap The game map
+     * @param x The world x position
+     * @param y The world y position
+     */
+    private void spawnPowerupAt(GameMap gameMap, float x, float y) {
+        // For now, just register the spawn position
+        // Power-up spawning will be implemented in a future cycle
+        // This is a placeholder
+        // TODO: Implement proper powerup entity spawning
+    }
+
+    /**
+     * Spawns an ammo entity at the given position.
+     *
+     * @param gameMap The game map
+     * @param x The world x position
+     * @param y The world y position
+     */
+    private void spawnAmmoAt(GameMap gameMap, float x, float y) {
+        // For now, just register the spawn position
+        // Ammo spawning will be implemented in a future cycle
+        // This is a placeholder
+        // TODO: Implement proper ammo entity spawning
     }
 
     /**

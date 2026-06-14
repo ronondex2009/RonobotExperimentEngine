@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Full Pipeline Test" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-03T21:28:52.445Z" hostname="cherokee" time="0.001">
+<testsuite name="Full Pipeline Test" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-03T23:12:04.144Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="game state transitions work" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$FullPipelineTests" time="0.0"/>
   <testcase name="complete game loop integration" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$FullPipelineTests" time="0.0"/>
