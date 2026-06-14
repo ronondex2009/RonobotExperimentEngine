@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.powerups.PowerUpTypeTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-03T23:12:04.208Z" hostname="cherokee" time="0.002">
+<testsuite name="org.ronobot.engine.powerups.PowerUpTypeTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:08:26.503Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="testEnumValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testIsValuePowerUp()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
@@ -8,9 +8,9 @@
   <testcase name="testToString()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testGetDescriptions()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testIsWeaponUpgrade()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testArmorRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
+  <testcase name="testArmorRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001"/>
   <testcase name="testHealthRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
-  <testcase name="testEnumVisuals()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.001"/>
+  <testcase name="testEnumVisuals()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testIsUpgradePowerUp()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testAmmoRelatedTypes()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>
   <testcase name="testEffectValues()" classname="org.ronobot.engine.powerups.PowerUpTypeTest" time="0.0"/>

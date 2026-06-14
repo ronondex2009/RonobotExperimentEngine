@@ -4,8 +4,12 @@ import org.ronobot.engine.collision.CollisionManager;
 import org.ronobot.engine.collision.CollisionResult;
 import org.ronobot.engine.entities.EntityManager;
 import org.ronobot.engine.entity.PlayerEntity;
+import org.ronobot.engine.input.InputHandler;
 import org.ronobot.engine.map.GameMap;
+import org.ronobot.engine.math.Position;
 import org.ronobot.engine.physics.PhysicsEngine;
+import org.ronobot.engine.render.Renderer;
+import org.ronobot.engine.render.Renderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +18,8 @@ import java.util.List;
  * Core game state management.
  * <p>
  * Manages entities, collision detection, rendering, and game loop state.
- * This class serves as the central game state container.
+ * This class serves as the central game state container and provides
+ * the game loop implementation for continuous rendering and processing.
  * </p>
  *
  * @author ronobot
@@ -63,6 +68,11 @@ public class Game {
     private PhysicsEngine physicsEngine;
 
     /**
+     * The renderer.
+     */
+    private Renderer renderer;
+
+    /**
      * Frame counter.
      */
     private int frameCount = 0;
@@ -74,6 +84,7 @@ public class Game {
         this.entities = new EntityManager();
         this.collisionManager = new CollisionManager();
         this.physicsEngine = new PhysicsEngine();
+        this.renderer = new Renderer();
     }
 
     /**
@@ -137,6 +148,8 @@ public class Game {
         this.running = true;
         this.ended = false;
         this.state = "running";
+        this.inputHandler = null;
+        // Note: Use runLoop() for actual game loop execution
     }
 
     /**
@@ -270,6 +283,98 @@ public class Game {
     public EntityManager getEntityManager() {
         return entities;
     }
+
+    /**
+     * Gets the renderer.
+     *
+     * @return The renderer
+     */
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    /**
+     * Sets the renderer.
+     *
+     * @param renderer The renderer to set
+     */
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
+    }
+
+    /**
+     * Runs the main game loop.
+     * <p>
+     * This method continuously updates game state and renders frames
+     * until the game is stopped or ended. Use this to create a continuous
+     * game loop with proper rendering support.
+     * </p>
+     * <p>
+     * The loop will:
+     * - Process input
+     * - Update entities and physics
+     * - Detect collisions
+     * - Render the current frame
+     * </p>
+     */
+    public void runLoop() {
+        while (running && !ended) {
+            try {
+                // Process input
+                if (inputHandler != null) {
+                    inputHandler.handle(this);
+                }
+
+                // Update game state
+                update();
+
+                // Detect collisions
+                List<CollisionResult> collisions = detectCollisions();
+                for (CollisionResult collision : collisions) {
+                    collision.resolve(this);
+                }
+
+                // Render the frame
+                if (renderer != null) {
+                    renderer.render(this);
+                }
+
+                // Yield control to allow other threads to run
+                Thread.sleep(16); // Approx 60 FPS
+                incrementFrame();
+
+            } catch (InterruptedException e) {
+                // Thread interrupted, exit loop
+                break;
+            } catch (IllegalArgumentException e) {
+                // Input was not handled, but continue the loop
+                continue;
+            }
+        }
+    }
+
+    /**
+     * Input handler for the game loop.
+     *
+     * @return The input handler, or null if not initialized
+     */
+    public InputHandler getInputHandler() {
+        return inputHandler;
+    }
+
+    /**
+     * Sets the input handler for the game loop.
+     *
+     * @param handler The input handler to set
+     */
+    public void setInputHandler(InputHandler handler) {
+        this.inputHandler = handler;
+    }
+
+    /**
+     * The input handler for the game loop.
+     */
+    private InputHandler inputHandler;
 
     /**
      * Gets the current state.

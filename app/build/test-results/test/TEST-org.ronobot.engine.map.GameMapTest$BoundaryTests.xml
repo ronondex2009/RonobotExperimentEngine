@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Boundary Checks" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-03T23:12:04.172Z" hostname="cherokee" time="0.002">
+<testsuite name="Boundary Checks" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:08:26.489Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="returns null for negative world position" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.0"/>
   <testcase name="isInBounds returns false for out of range" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.0"/>
   <testcase name="isInBounds returns false for negative coordinates" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.0"/>
   <testcase name="containsWall detects wall correctly" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.0"/>
-  <testcase name="containsWall returns false for out of bounds" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.001"/>
+  <testcase name="containsWall returns false for out of bounds" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

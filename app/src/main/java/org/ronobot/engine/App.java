@@ -105,7 +105,10 @@ public class App {
      */
     public boolean start() {
         if (game != null) {
-            game.start();
+            game.init();
+            game.setRenderer(this.renderer);
+            game.setInputHandler(this.input);
+            game.runLoop();
             return true;
         }
         return false;

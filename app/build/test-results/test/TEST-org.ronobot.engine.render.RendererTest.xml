@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.render.RendererTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-03T23:12:04.216Z" hostname="cherokee" time="0.002">
+<testsuite name="org.ronobot.engine.render.RendererTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:08:26.507Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="testDefaultDimensions()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testRenderNullGame()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
-  <testcase name="testMultipleTextures()" classname="org.ronobot.engine.render.RendererTest" time="0.001"/>
+  <testcase name="testMultipleTextures()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testTextureCount()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testHasTexture()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>
   <testcase name="testClearTextures()" classname="org.ronobot.engine.render.RendererTest" time="0.0"/>

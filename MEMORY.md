@@ -1,152 +1,107 @@
 # MEMORY.md
 # Engine Development Log
 
-## Current State - Cycle 30
+## Current State - Cycle 32
 
-### Build Status: BUILD SUCCESSFUL - 428/428 Tests Passing
+### Build Status: BUILD SUCCESSFUL - 471/471 Tests Passing
+
+### Next Goal: Address Bug from BUGS.md - Game Loop and Rendering
 
 ---
 
-## Cycle 30 In Progress (2026-06-03)
+## Cycle 32 In Progress (2026-06-06)
 
 ### Goals for This Cycle
-1. **Item System Implementation**
-   - Create Item.java entity class for inventory items
-   - Create ItemType.java enum for item categories
-   - Implement pickup/drop mechanics
-   - Support ammo, health, armor, keycards, secrets, monsters, medkits, weapons
-   - Add comprehensive unit tests
+1. **Fix Game Loop and Rendering Issues**
+   - App.start() calls game.runLoop() but Game.start() doesn't create game loop
+   - Game needs proper rendering capability
+   - Fix App.start() to properly handle game loop lifecycle
+   - Implement rendering in Game class or App.start()
 
-2. **Item Types**
-   - AMMO: Weapon ammunition
-   - HEALTH: Health restoration
-   - ARMOR: Armor protection
-   - KEYCARD: Door access keys
-   - SECRET: Achievement unlocks
-   - MONSTER: Enemy spawns
-   - MEDKIT: Emergency medical
-   - WEAPON: Weapon pickups
+2. **Code Quality**
+   - Make sure no compilation errors remain
+   - Review and commit completed work
+
+3. **Documentation**
+   - Update CHANGES.md with progress
+   - Delete BUGS.md if issues resolved
 
 ---
 
 ## Architecture
 
-### Item System
-```
-Item
-├── id, name, position, size
-├── type: ItemType
-├── quantity: int
-├── held: boolean
-├── isHeld(), setHeld()
-├── hold(), release()
-├── addQuantity(), removeQuantity()
-├── clear()
-├── getDisplayName(), getIcon()
-├── isUsable(), getDescription()
-├── update() - Lifecycle
-├── getCategory()
-└── Static factory methods:
-    ├── createAmmo()
-    ├── createHealth()
-    ├── createArmor()
-    ├── createKeycard()
-    ├── createSecret()
-    ├── createMonster()
-    ├── createMedkit()
-    └── createWeapon()
-
-ItemType
-├── AMMO, HEALTH, ARMOR
-├── KEYCARD, SECRET, MONSTER
-├── MEDKIT, WEAPON
-├── displayName, icon, category
-├── description
-├── getName(), getIcon(), getCategory()
-└── getDescription()
-```
-
 ### Core Engine
 ```
-Entity
-├── id, name, position, size
-├── health, maxHealth, velocity
-├── isActive(), isDead()
-├── takeDamage(), heal()
-├── die(), resurrect()
-└── move(), update()
+App
+├── game: Game
+├── physics: PhysicsEngine
+├── renderer: Renderer
+├── input: InputHandler
+└── start()
+    ├── game.init()
+    ├── game.setRenderer(this.renderer)
+    ├── game.setInputHandler(this.input)
+    └── game.runLoop()
 
-PlayerEntity
-├── extends Entity
-├── weapon, healthRegenRate
-├── ammunition
-├── reload(), fire()
-
-EnemyEntity
-├── extends Entity
-├── EnemyType type
-├── health, attackCooldown
-├── target, patrol
-└── Sound reactions
-
-Projectile
-├── extends Entity
-├── velocity, lifeTime
-└── Moving projectile
+Game
+├── running: boolean
+├── ended: boolean
+├── entities: EntityManager
+├── collisionManager: CollisionManager
+├── map: GameMap
+├── player: PlayerEntity
+├── state: String
+├── physicsEngine: PhysicsEngine
+├── renderer: Renderer
+├── frameCount: int
+├── inputHandler: InputHandler
+├── init()
+├── start() - sets running flag but uses runLoop()
+├── stop()
+├── end()
+├── update()
+├── runLoop() - Main game loop with rendering
+│   ├── inputHandler.handle(this)
+│   ├── update()
+│   ├── detectCollisions()
+│   ├── collision.resolve()
+│   ├── renderer.render(this)
+│   └── Thread.sleep(16) for ~60 FPS
+└── cleanup()
 ```
 
 ### Map System
 ```
-GameMap
-├── tiles[x][y][z] - Tile grid
-├── decorations: Map<Position, DecorationType>
-├── addWall(), addFloor(), addDoor()
-├── addDecoration() - Multiple overloads
-├── getDecorationType() - Multiple overloads
-├── removeDecoration()
-├── clearDecorations()
-├── getDecorationPositions()
-├── isWall(), isDoor(), isEmpty()
-├── toWorldPosition(), toTilePosition()
-├── isInBounds() - World and tile bounds
-├── createArenaMap(), createRoomMap() - Factories
-└── load(), isLoaded(), enable(), disable()
-
-MapDecoration
-├── row, col, type, name
-├── visual, priority
-├── MapDecorationType enum
-├── isValid()
-└── toString()
-
-MapDecorationLoader
-├── register(decoration) - Register
-├── registerAll(decorations) - Batch register
-├── loadFromDefinition() - Load from string
-├── getMapDecorations(map) - Get decorations
-├── getDecoration(name) - Get by name
-├── getAllDecorations() - Get all
-├── clearAll() - Clear all
-└── hasDecoration(name), getDecorationCount()
-
-MapFileParser
-├── parseFile(path) - Parse from file
-├── parseContent(content) - Parse from string
-├── getGrid() - Get tile grid
-├── getSpawnPositions() - Get spawns
-└── isValid() - Validate
-
 LevelLoader
-├── loadLevel(path) - Load from file
-├── loadFromContent(content, path) - Load from string
-├── getLevelMetadata() - Get metadata map
-├── getDifficulty() - Get difficulty
-├── setDifficulty(difficulty) - Set difficulty
-├── getMapName() - Get map name
-├── isLevelValid() - Validate level
-├── clear() - Clear state
-└── getSpawnPosition(type) - Get spawn
-    └── registerSpawn(type, spawn) - Register spawn
+├── levelMetadata: Map
+├── mapName: String
+├── difficultyString: String
+├── spawnPositions: List
+├── isLevelValid: boolean
+├── loadLevel(path)
+├── loadFromContent(content, path)
+├── parseMetadata(content)
+├── parseSpawns(content)
+├── parseGrid(content)
+├── getSpawnPosition(type)
+├── getLevelMetadata()
+├── getDifficulty()
+├── getMapName()
+├── isLevelValid()
+├── clear()
+└── setDifficulty(int)
+
+GameMap
+├── tiles[x][y][z]
+├── spawnedEntities: Map
+├── spawnedProjectiles: Map
+├── decorations: Map
+├── entitySpawns: List - Protected for LevelLoader access
+├── isWall, isDoor, isEmpty
+├── spawnEntity, removeEntity
+├── addDecoration, removeDecoration
+├── getDecorationType
+└── load(), isLoaded()
 ```
 
 ---
@@ -227,8 +182,8 @@ project/
 │   │   │   │               ├── core/
 │   │   │   │               ├── entity/
 │   │   │   │               ├── entities/
-│   │   │   │               ├── io/
 │   │   │   │               ├── input/
+│   │   │   │               ├── io/
 │   │   │   │               ├── map/
 │   │   │   │               ├── math/
 │   │   │   │               ├── physics/
@@ -260,16 +215,18 @@ project/
 - Map Decoration System: Decoration support for GameMap
 - Input Handler: Keyboard control processing
 - Math Utilities: Complete math utility suite
-- Item System: Complete item types and entity support
+- Item System: Complete item types and entity support (AMMO, HEALTH, ARMOR, KEYCARD, SECRET, MONSTER, MEDKIT, WEAPON)
+
+### Completed Features
+- Level Loader: Text-based map file parser with spawn support (COMPLETED)
+- Game Loop: Implemented in Game.runLoop() with rendering (COMPLETED)
 
 ### Planned Features
-1. **Level Loader**: Create map file parser with format specification
-2. **UI Components**: Add keyboard controls and HUD rendering
-3. **Network Support**: Multiplayer capabilities
-4. **Save/Load System**: Game state persistence
-5. **Achievement System**: Unlockable goals and rewards
-6. **Monster Entities**: Full enemy AI and behavior
-7. **Item System**: Inventory and item management (in progress)
+1. **UI Components**: Add keyboard controls and HUD rendering
+2. **Network Support**: Multiplayer capabilities
+3. **Save/Load System**: Game state persistence
+4. **Achievement System**: Unlockable goals and rewards
+5. **Monster Entities**: Full enemy AI and behavior
 
 ### Technical Debt
 - Replace stub renderer implementation with actual graphics library
@@ -283,8 +240,8 @@ project/
 ## Cycle Summary
 
 ### Test Results
-- **Total Tests: 428**
-- **Passing: 428**
+- **Total Tests: 471**
+- **Passing: 471**
 - **Failing: 0**
 - **Build: SUCCESSFUL**
 
@@ -295,8 +252,16 @@ project/
 - Comprehensive test coverage
 
 ### Recent Changes
-- Item.java created
-- ItemType.java created
-- All tests passing
-- Build successful
-- Ready for git commit
+- LevelLoader entity spawning logic fixed for enemy spawns
+- GameMap.entitySpawns made protected for LevelLoader access
+- BUGS.md issue about game loop addressed
+
+### Changes to Commit
+- LevelLoader.java - Fixed enemy spawn registration in game map
+- GameMap.java - Made entitySpawns protected field
+
+### Next Steps
+- Address BUGS.md game loop/rendering concerns if they're still relevant
+- Consider if the current implementation (App.start() -> game.runLoop()) is sufficient
+- Commit completed work
+- Delete BUGS.md if issues are resolved

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Expansion Operations" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-03T23:12:04.197Z" hostname="cherokee" time="0.001">
+<testsuite name="Expansion Operations" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:08:26.495Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="Expand by negative amount (contract)" classname="org.ronobot.engine.math.RectangleTest$ExpansionTests" time="0.0"/>
-  <testcase name="Zero expansion returns same rectangle" classname="org.ronobot.engine.math.RectangleTest$ExpansionTests" time="0.001"/>
+  <testcase name="Zero expansion returns same rectangle" classname="org.ronobot.engine.math.RectangleTest$ExpansionTests" time="0.0"/>
   <testcase name="Expand by positive amount" classname="org.ronobot.engine.math.RectangleTest$ExpansionTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

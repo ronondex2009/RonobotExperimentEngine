@@ -62,4 +62,14 @@ public class CollisionResult {
     public String toString() {
         return String.format("CollisionResult(entityA=%s, entityB=%s)", entityA.getName(), entityB.getName());
     }
+
+    /**
+     * Resolves the collision between the two entities using the game state.
+     *
+     * @param game The game instance to use for resolution
+     */
+    public void resolve(org.ronobot.engine.core.Game game) {
+        // Stub implementation - actual collision resolution would happen here
+        // This could apply forces, move entities, handle bounces, etc.
+    }
 }

@@ -177,14 +177,25 @@ public class MapFileParser {
     }
 
     /**
+     * Converts a spawn list to a GameMap.
+     *
+     * @param spawns The spawn positions
+     * @return A new GameMap with spawns
+     */
+    private static GameMap fromSpawns(List<EntitySpawn> spawns) {
+        GameMap map = new GameMap(40, 25, spawns);
+        return map;
+    }
+
+    /**
      * Parses map content from a string.
      * <p>
      * This method accepts map content in text format and converts it
-     * into a GameMap instance.
+     * into a GameMap instance that includes any spawn positions found.
      * </p>
      *
      * @param content The map content as a string
-     * @return A GameMap instance, or null if parsing failed
+     * @return A GameMap instance with spawn positions, or null if parsing failed
      */
     public static GameMap parseContent(String content) {
         if (content == null || content.isEmpty()) {
@@ -216,8 +227,16 @@ public class MapFileParser {
             }
         }
 
-        // Convert to GameMap using GameMap(int width, int height) constructor
-        return new GameMap(parser.getColumns(), parser.getRows());
+        // Parse spawn positions
+        List<EntitySpawn> spawns = parser.getSpawnPositions();
+
+        // Convert to GameMap using static factory method
+        GameMap gameMap = fromSpawns(spawns);
+
+        // Set the grid
+        gameMap.setGrid(parser.getGrid());
+
+        return gameMap;
     }
 
     /**

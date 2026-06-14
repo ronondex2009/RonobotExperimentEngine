@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +31,7 @@ class LevelLoaderTest {
         @Test
         @DisplayName("should create new loader with empty metadata")
         void testConstructor() {
-            Map<String, String> metadata = loader.getLevelMetadata();
+            Map<String, Object> metadata = loader.getLevelMetadata();
             assertTrue(metadata.isEmpty());
         }
     }
@@ -49,7 +48,7 @@ class LevelLoaderTest {
                     "#...#\n" +
                     "####";
 
-            GameMap map = loader.loadFromContent(content, "test.map");
+            GameMap map = loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
             assertNotNull(map);
             assertTrue(map.isLoaded());
         }
@@ -57,14 +56,14 @@ class LevelLoaderTest {
         @Test
         @DisplayName("should return null for null content")
         void testLoadNullContent() {
-            GameMap map = loader.loadFromContent(null, "test.map");
+            GameMap map = loader.loadFromContent(null, java.nio.file.Paths.get("test.map"));
             assertNull(map);
         }
 
         @Test
         @DisplayName("should return null for empty content")
         void testLoadEmptyContent() {
-            GameMap map = loader.loadFromContent("", "test.map");
+            GameMap map = loader.loadFromContent("", java.nio.file.Paths.get("test.map"));
             assertNull(map);
         }
 
@@ -75,7 +74,7 @@ class LevelLoaderTest {
                     " . .#\n" +
                     ".#..#";
 
-            GameMap map = loader.loadFromContent(content, "test.map");
+            GameMap map = loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
             assertNotNull(map);
             // Row 0, Col 0 is "#" (wall)
             assertTrue(map.isWall(0, 0));
@@ -92,7 +91,7 @@ class LevelLoaderTest {
                     ".@..#\n" +
                     ".#...#";
 
-            GameMap map = loader.loadFromContent(content, "test.map");
+            GameMap map = loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
             assertNotNull(map);
             // Player spawned at tile position (1, 1)
             assertNotNull(map.getSpawnedEntity(1, 1));
@@ -105,10 +104,10 @@ class LevelLoaderTest {
                     ".#*..#\n" +
                     ".#...#";
 
-            GameMap map = loader.loadFromContent(content, "test.map");
+            GameMap map = loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
             assertNotNull(map);
             // Enemy at tile position (2, 1)
-            org.ronobot.engine.map.LevelLoader.EntitySpawn spawn = loader.getSpawnPosition("enemy");
+            MapFileParser.EntitySpawn spawn = map.getEntitySpawn("enemy");
             assertNotNull(spawn);
             assertEquals(2, spawn.getCol());
             assertEquals(1, spawn.getRow());
@@ -127,9 +126,9 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "deathmatch.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("deathmatch.map"));
 
-            Map<String, String> metadata = loader.getLevelMetadata();
+            Map<String, Object> metadata = loader.getLevelMetadata();
             assertEquals("deathmatch", metadata.get("name"));
         }
 
@@ -141,7 +140,7 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
             assertEquals("hard", loader.getDifficulty());
         }
@@ -153,7 +152,7 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
             assertEquals("normal", loader.getDifficulty());
         }
@@ -166,9 +165,9 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
-            Map<String, String> metadata = loader.getLevelMetadata();
+            Map<String, Object> metadata = loader.getLevelMetadata();
             assertEquals("ronobot", metadata.get("author"));
         }
 
@@ -182,9 +181,9 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "level1.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("level1.map"));
 
-            Map<String, String> metadata = loader.getLevelMetadata();
+            Map<String, Object> metadata = loader.getLevelMetadata();
             assertEquals("level1", metadata.get("name"));
             assertEquals("easy", metadata.get("difficulty"));
             assertEquals("tester", metadata.get("author"));
@@ -202,9 +201,9 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
-            org.ronobot.engine.map.LevelLoader.EntitySpawn spawn = loader.getSpawnPosition("player");
+            MapFileParser.EntitySpawn spawn = loader.getSpawnPosition("player");
             assertNotNull(spawn);
             assertEquals("player", spawn.getTypeName());
         }
@@ -216,9 +215,9 @@ class LevelLoaderTest {
                     "#*...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
-            org.ronobot.engine.map.LevelLoader.EntitySpawn spawn = loader.getSpawnPosition("enemy");
+            MapFileParser.EntitySpawn spawn = loader.getSpawnPosition("enemy");
             assertNotNull(spawn);
             assertEquals("enemy", spawn.getTypeName());
         }
@@ -230,9 +229,9 @@ class LevelLoaderTest {
                     "###P###\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
-            org.ronobot.engine.map.LevelLoader.EntitySpawn spawn = loader.getSpawnPosition("powerup");
+            MapFileParser.EntitySpawn spawn = loader.getSpawnPosition("powerup");
             assertNotNull(spawn);
         }
 
@@ -243,9 +242,9 @@ class LevelLoaderTest {
                     "###/###\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
-            org.ronobot.engine.map.LevelLoader.EntitySpawn spawn = loader.getSpawnPosition("ammo");
+            MapFileParser.EntitySpawn spawn = loader.getSpawnPosition("ammo");
             assertNotNull(spawn);
         }
 
@@ -256,7 +255,7 @@ class LevelLoaderTest {
                     "@*P/###\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
             assertTrue(loader.getSpawnPosition("player") != null);
             assertTrue(loader.getSpawnPosition("enemy") != null);
@@ -277,9 +276,9 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
-            GameMap map = loader.loadFromContent(content, "test.map");
+            GameMap map = loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
             // Decoration was extracted but may have failed to parse
             // This is acceptable for now
         }
@@ -292,7 +291,7 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            GameMap map = loader.loadFromContent(content, "test.map");
+            GameMap map = loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
             assertNotNull(map);
         }
     }
@@ -305,7 +304,7 @@ class LevelLoaderTest {
         @DisplayName("should use filename as map name")
         void testFilenameAsName() {
             String content = "####\n@...#\n####";
-            loader.loadFromContent(content, "deathmatch.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("deathmatch.map"));
             // Map name from filename is "deathmatch" (without extension)
             assertEquals("deathmatch", loader.getMapName());
         }
@@ -314,7 +313,7 @@ class LevelLoaderTest {
         @DisplayName("should extract name from comments")
         void testNameFromComments() {
             String content = "#name=custom_name\n####\n@...#\n####";
-            GameMap map = loader.loadFromContent(content, "maps/level_01.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("maps/level_01.map"));
             assertEquals("custom_name", loader.getMapName());
         }
     }
@@ -333,7 +332,7 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
             assertTrue(loader.isLevelValid());
         }
@@ -348,7 +347,7 @@ class LevelLoaderTest {
         @DisplayName("should clear after clear() call")
         void testClear() {
             String content = "####\n@...#\n####";
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
             assertTrue(loader.isLevelValid());
 
@@ -361,22 +360,11 @@ class LevelLoaderTest {
     @Nested
     class IOOperationsTests {
 
-        @BeforeEach
-        void setUpIO() throws IOException {
-            // Create a temporary map file
-            String content = "####\n" +
-                    "@...#\n" +
-                    "####";
-            
-            // Note: In real tests, we would create the file at a known location
-            // For now, we test the parse path
-        }
-
         @Test
         @DisplayName("should throw IOException for non-existent file")
         void testLoadNonExistentFile() {
             IOException exception = assertThrows(IOException.class, () -> {
-                loader.loadLevel("/nonexistent/path/to/map.map");
+                loader.loadLevel(java.nio.file.Paths.get("/nonexistent/path/to/map.map"));
             });
             assertTrue(exception.getMessage().contains("does not exist"));
         }
@@ -386,7 +374,7 @@ class LevelLoaderTest {
         void testLoadNullPath() {
             // loadLevel requires a non-null path that points to an existing file
             // For testing, we test that loadFromContent works with null content
-            GameMap map = loader.loadFromContent(null, "test.map");
+            GameMap map = loader.loadFromContent(null, java.nio.file.Paths.get("test.map"));
             assertNull(map);
         }
     }
@@ -403,7 +391,7 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
 
             String toString = loader.toString();
             assertTrue(toString.contains("levelMetadata"));
@@ -417,7 +405,7 @@ class LevelLoaderTest {
         @Test
         @DisplayName("should set difficulty")
         void testSetDifficulty() {
-            loader.setDifficulty("easy");
+            loader.setDifficulty(3);
             assertEquals("easy", loader.getDifficulty());
         }
 
@@ -429,10 +417,10 @@ class LevelLoaderTest {
                     "@...#\n" +
                     "####";
 
-            loader.loadFromContent(content, "test.map");
+            loader.loadFromContent(content, java.nio.file.Paths.get("test.map"));
             assertEquals("easy", loader.getDifficulty());
 
-            loader.setDifficulty("hard");
+            loader.setDifficulty(5);
             assertEquals("hard", loader.getDifficulty());
         }
     }

@@ -30,12 +30,12 @@ public class GameMap {
     /**
      * Tile width in pixels.
      */
-    private static final int TILE_WIDTH = 32;
+    protected static final int TILE_WIDTH = 32;
 
     /**
      * Tile height in pixels.
      */
-    private static final int TILE_HEIGHT = 32;
+    protected static final int TILE_HEIGHT = 32;
 
     /**
      * Wall tile ID.
@@ -108,6 +108,11 @@ public class GameMap {
     private final Map<Position, DecorationType> decorations;
 
     /**
+     * Entity spawn positions stored during level loading.
+     */
+    protected List<MapFileParser.EntitySpawn> entitySpawns = new ArrayList<>();
+
+    /**
      * Decoration types.
      */
     public enum DecorationType {
@@ -167,6 +172,33 @@ public class GameMap {
         this.tileTextures = new HashMap<>();
         this.tileMetadata = new HashMap<>();
         this.decorations = new HashMap<>();
+
+        // Initialize all tiles as floor
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                this.tiles[x][y][0] = TILE_FLOOR;
+            }
+        }
+    }
+
+    /**
+     * Creates a new GameMap with specified dimensions, entity spawn positions,
+     * and initializes as an empty map.
+     *
+     * @param width  The map width in tiles
+     * @param height The map height in tiles
+     * @param spawns The entity spawn positions
+     */
+    public GameMap(int width, int height, List<MapFileParser.EntitySpawn> spawns) {
+        this.width = width;
+        this.height = height;
+        this.tiles = new int[width][height][1];
+        this.spawnedEntities = new HashMap<>();
+        this.spawnedProjectiles = new HashMap<>();
+        this.tileTextures = new HashMap<>();
+        this.tileMetadata = new HashMap<>();
+        this.decorations = new HashMap<>();
+        this.entitySpawns = spawns != null ? new ArrayList<>(spawns) : new ArrayList<>();
 
         // Initialize all tiles as floor
         for (int x = 0; x < width; x++) {
@@ -358,6 +390,42 @@ public class GameMap {
     public void addDoor(int x, int y) {
         if (isInBounds(x, y)) {
             setTile(x, y, TILE_DOOR);
+        }
+    }
+
+    /**
+     * Sets a wall at the specified position.
+     *
+     * @param x The x coordinate (tile index)
+     * @param y The y coordinate (tile index)
+     */
+    public void setWall(int x, int y) {
+        if (isInBounds(x, y)) {
+            setTile(x, y, TILE_WALL);
+        }
+    }
+
+    /**
+     * Sets a floor at the specified position.
+     *
+     * @param x The x coordinate (tile index)
+     * @param y The y coordinate (tile index)
+     */
+    public void setFloor(int x, int y) {
+        if (isInBounds(x, y)) {
+            setTile(x, y, TILE_FLOOR);
+        }
+    }
+
+    /**
+     * Sets an empty tile at the specified position.
+     *
+     * @param x The x coordinate (tile index)
+     * @param y The y coordinate (tile index)
+     */
+    public void setEmpty(int x, int y) {
+        if (isInBounds(x, y)) {
+            setTile(x, y, TILE_EMPTY);
         }
     }
 
@@ -560,6 +628,7 @@ public class GameMap {
      */
     public void clearSpawnedEntities() {
         spawnedEntities.clear();
+        entitySpawns.clear();
     }
 
     /**
@@ -567,6 +636,15 @@ public class GameMap {
      */
     public void clearSpawnedProjectiles() {
         spawnedProjectiles.clear();
+    }
+
+    /**
+     * Gets all entity spawn positions.
+     *
+     * @return A list of entity spawn positions
+     */
+    public List<MapFileParser.EntitySpawn> getEntitySpawns() {
+        return new ArrayList<>(entitySpawns);
     }
 
     /**
@@ -610,14 +688,27 @@ public class GameMap {
     }
 
     /**
-     * Checks if a tile is empty.
+     * Checks if a tile is empty (floor or empty space).
      *
      * @param x The x coordinate
      * @param y The y coordinate
-     * @return true if the tile is empty
+     * @return true if the tile is empty or floor
      */
     public boolean isEmpty(int x, int y) {
-        return getTile(x, y) == TILE_EMPTY;
+        return getTile(x, y) != TILE_WALL && getTile(x, y) != TILE_DOOR;
+    }
+
+    /**
+     * Gets an entity spawn position by type.
+     *
+     * @param type The entity type name
+     * @return The spawn position, or null if not found
+     */
+    public MapFileParser.EntitySpawn getEntitySpawn(String type) {
+        return entitySpawns.stream()
+                .filter(s -> s.getTypeName().equals(type))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
