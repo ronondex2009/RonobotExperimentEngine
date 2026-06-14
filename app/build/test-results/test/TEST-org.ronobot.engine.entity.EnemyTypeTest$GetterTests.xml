@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Getters" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-11T15:28:14.135Z" hostname="cherokee" time="0.0">
+<testsuite name="Getters" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-11T19:13:56.352Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="All getter methods exist and work correctly" classname="org.ronobot.engine.entity.EnemyTypeTest$GetterTests" time="0.0"/>
+  <testcase name="All getter methods exist and work correctly" classname="org.ronobot.engine.entity.EnemyTypeTest$GetterTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
