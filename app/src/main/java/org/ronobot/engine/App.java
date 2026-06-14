@@ -9,13 +9,6 @@ import org.ronobot.engine.render.Renderer;
 
 /**
  * Main application entry point for the engine.
- * <p>
- * Manages game state, rendering, physics, and input handling.
- * This class serves as the central coordinator for all engine components.
- * </p>
- *
- * @author ronobot
- * @since 1.0
  */
 public class App {
 
@@ -41,10 +34,6 @@ public class App {
 
     /**
      * Creates a new App instance with an initialized Game.
-     * <p>
-     * The Game is automatically created and initialized to ensure
-     * the application is ready for use immediately after construction.
-     * </p>
      */
     public App() {
         this.physics = new PhysicsEngine();
@@ -55,8 +44,6 @@ public class App {
 
     /**
      * Gets the active game.
-     *
-     * @return The current game, or null if not started
      */
     public Game getGame() {
         return game;
@@ -64,8 +51,6 @@ public class App {
 
     /**
      * Sets the active game.
-     *
-     * @param game The game to set
      */
     public void setGame(Game game) {
         this.game = game;
@@ -73,8 +58,6 @@ public class App {
 
     /**
      * Gets the physics engine.
-     *
-     * @return The physics engine
      */
     public PhysicsEngine getPhysicsEngine() {
         return physics;
@@ -82,8 +65,6 @@ public class App {
 
     /**
      * Gets the renderer.
-     *
-     * @return The renderer
      */
     public Renderer getRenderer() {
         return renderer;
@@ -91,8 +72,6 @@ public class App {
 
     /**
      * Gets the input handler.
-     *
-     * @return The input handler
      */
     public InputHandler getInputHandler() {
         return input;
@@ -100,8 +79,6 @@ public class App {
 
     /**
      * Starts the game loop.
-     *
-     * @return true if started successfully
      */
     public boolean start() {
         if (game != null) {
@@ -144,8 +121,6 @@ public class App {
 
     /**
      * Handles input for the current frame.
-     *
-     * @return true if handled
      */
     public boolean handleInput() {
         if (game != null) {
@@ -160,8 +135,6 @@ public class App {
 
     /**
      * Main entry point for the application.
-     *
-     * @param args Command line arguments
      */
     public static void main(String[] args) {
         App app = new App();

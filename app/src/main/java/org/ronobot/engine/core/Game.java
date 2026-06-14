@@ -13,19 +13,8 @@ import org.ronobot.engine.render.Renderer;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Core game state management.
- * <p>
- * Manages entities, collision detection, rendering, and game loop state.
- * This class serves as the central game state container and provides
- * the game loop implementation for continuous rendering and processing.
- * </p>
- *
- * @author ronobot
- * @since 1.0
  */
 public class Game {
 
@@ -80,6 +69,11 @@ public class Game {
     private int frameCount = 0;
 
     /**
+     * The input handler.
+     */
+    private InputHandler inputHandler;
+
+    /**
      * Creates a new Game instance.
      */
     public Game() {
@@ -100,8 +94,6 @@ public class Game {
 
     /**
      * Sets the game map.
-     *
-     * @param map The game map
      */
     public void setMap(GameMap map) {
         this.map = map;
@@ -109,8 +101,6 @@ public class Game {
 
     /**
      * Gets the game map.
-     *
-     * @return The game map
      */
     public GameMap getMap() {
         return map;
@@ -118,8 +108,6 @@ public class Game {
 
     /**
      * Gets the collision manager.
-     *
-     * @return The collision manager
      */
     public CollisionManager getCollisionManager() {
         return collisionManager;
@@ -127,8 +115,6 @@ public class Game {
 
     /**
      * Sets the player entity.
-     *
-     * @param player The player entity
      */
     public void setPlayer(PlayerEntity player) {
         this.player = player;
@@ -136,8 +122,6 @@ public class Game {
 
     /**
      * Gets the player entity.
-     *
-     * @return The player entity
      */
     public PlayerEntity getPlayer() {
         return player;
@@ -150,8 +134,6 @@ public class Game {
         this.running = true;
         this.ended = false;
         this.state = "running";
-        this.inputHandler = null;
-        // Note: Use runLoop() for actual game loop execution
     }
 
     /**
@@ -177,7 +159,7 @@ public class Game {
     public void update() {
         if (running && !ended) {
             entities.update();
-            physicsEngine.process(this);
+            physicsEngine.update(16.0); // 60 FPS = 16ms per frame
             incrementFrame();
         }
     }
@@ -191,8 +173,6 @@ public class Game {
 
     /**
      * Gets the physics engine.
-     *
-     * @return The physics engine
      */
     public PhysicsEngine getPhysicsEngine() {
         return physicsEngine;
@@ -200,8 +180,6 @@ public class Game {
 
     /**
      * Gets the frame count.
-     *
-     * @return The current frame count
      */
     public int getFrameCount() {
         return frameCount;
@@ -218,8 +196,6 @@ public class Game {
 
     /**
      * Sets the physics engine.
-     *
-     * @param physicsEngine The physics engine
      */
     public void setPhysicsEngine(PhysicsEngine physicsEngine) {
         this.physicsEngine = physicsEngine;
@@ -227,8 +203,6 @@ public class Game {
 
     /**
      * Detects collisions between entities.
-     *
-     * @return List of collision results
      */
     public List<CollisionResult> detectCollisions() {
         if (collisionManager != null && collisionManager.getEntityCount() > 0) {
@@ -239,10 +213,8 @@ public class Game {
 
     /**
      * Registers an entity for collision detection.
-     *
-     * @param entity The entity to register
      */
-    public void registerEntity(org.ronobot.engine.core.Entity entity) {
+    public void registerEntity(Entity entity) {
         if (collisionManager != null) {
             collisionManager.registerEntity(entity);
         }
@@ -250,10 +222,8 @@ public class Game {
 
     /**
      * Unregisters an entity from collision detection.
-     *
-     * @param entity The entity to unregister
      */
-    public void unregisterEntity(org.ronobot.engine.core.Entity entity) {
+    public void unregisterEntity(Entity entity) {
         if (collisionManager != null) {
             collisionManager.unregisterEntity(entity);
         }
@@ -261,8 +231,6 @@ public class Game {
 
     /**
      * Gets whether the game is running.
-     *
-     * @return true if running
      */
     public boolean isRunning() {
         return running;
@@ -270,8 +238,6 @@ public class Game {
 
     /**
      * Gets whether the game has ended.
-     *
-     * @return true if ended
      */
     public boolean isEnded() {
         return ended;
@@ -279,8 +245,6 @@ public class Game {
 
     /**
      * Gets the entity manager.
-     *
-     * @return The entity manager
      */
     public EntityManager getEntityManager() {
         return entities;
@@ -288,8 +252,6 @@ public class Game {
 
     /**
      * Gets the renderer.
-     *
-     * @return The renderer
      */
     public Renderer getRenderer() {
         return renderer;
@@ -297,8 +259,6 @@ public class Game {
 
     /**
      * Sets the renderer.
-     *
-     * @param renderer The renderer to set
      */
     public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
@@ -306,18 +266,6 @@ public class Game {
 
     /**
      * Runs the main game loop.
-     * <p>
-     * This method continuously updates game state and renders frames
-     * until the game is stopped or ended. Use this to create a continuous
-     * game loop with proper rendering support.
-     * </p>
-     * <p>
-     * The loop will:
-     * - Process input
-     * - Update entities and physics
-     * - Detect collisions
-     * - Render the current frame
-     * </p>
      */
     public void runLoop() {
         while (running && !ended) {
@@ -356,32 +304,21 @@ public class Game {
     }
 
     /**
-     * Input handler for the game loop.
-     *
-     * @return The input handler, or null if not initialized
+     * Gets the input handler.
      */
     public InputHandler getInputHandler() {
         return inputHandler;
     }
 
     /**
-     * Sets the input handler for the game loop.
-     *
-     * @param handler The input handler to set
+     * Sets the input handler.
      */
     public void setInputHandler(InputHandler handler) {
         this.inputHandler = handler;
     }
 
     /**
-     * The input handler for the game loop.
-     */
-    private InputHandler inputHandler;
-
-    /**
      * Gets the current state.
-     *
-     * @return The current state
      */
     public String getState() {
         return state;
@@ -389,8 +326,6 @@ public class Game {
 
     /**
      * Sets the current state.
-     *
-     * @param state The new state
      */
     public void setState(String state) {
         this.state = state != null ? state : "unknown";

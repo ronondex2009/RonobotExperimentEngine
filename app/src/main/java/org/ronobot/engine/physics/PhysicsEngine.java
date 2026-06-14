@@ -2,155 +2,135 @@ package org.ronobot.engine.physics;
 
 import org.ronobot.engine.collision.CollisionManager;
 import org.ronobot.engine.collision.CollisionResult;
-import org.ronobot.engine.core.Entity;
-import org.ronobot.engine.core.Game;
-import org.ronobot.engine.math.Position;
-import org.ronobot.engine.math.Rectangle;
-import org.ronobot.engine.math.Size;
+import org.ronobot.engine.entity.Entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Physics engine for collision resolution and damage calculation.
- * <p>
- * Handles position correction, damage application, and entity separation.
- * </p>
+ * Physics engine for entity interactions, collision response, and movement.
  *
  * @author ronobot
- * @since 1.0
  */
 public class PhysicsEngine {
 
     /**
-     * No resolution action - skip.
+     * The collision manager for detection.
      */
-    public static final int NONE = 0;
+    private final CollisionManager collisionManager;
 
     /**
-     * Position correction resolution.
+     * Creates a new PhysicsEngine with the given collision manager.
+     *
+     * @param collisionManager the collision manager
      */
-    public static final int POSITION_CORRECTION = 1;
+    public PhysicsEngine(CollisionManager collisionManager) {
+        this.collisionManager = collisionManager;
+    }
 
     /**
-     * Damage resolution.
-     */
-    public static final int DAMAGE = 2;
-
-    /**
-     * Item pickup resolution.
-     */
-    public static final int ITEM_PICKUP = 3;
-
-    /**
-     * Trigger activation resolution.
-     */
-    public static final int TRIGGER_ACTIVATION = 4;
-
-    /**
-     * Creates a new PhysicsEngine.
+     * Creates a PhysicsEngine without a collision manager (for direct entity management).
      */
     public PhysicsEngine() {
+        this.collisionManager = null;
     }
 
     /**
-     * Updates all entities and processes collisions.
+     * Updates physics for all entities.
      *
-     * @param collisionManager The collision manager
+     * @param deltaTime time in milliseconds
      */
-    public void update(CollisionManager collisionManager) {
-        List<CollisionResult> collisions = collisionManager.findCollisions();
-        for (CollisionResult collision : collisions) {
-            resolve(collision, collisionManager);
-        }
-    }
-
-    /**
-     * Processes the game state and updates physics.
-     *
-     * @param game The game instance
-     */
-    public void process(Game game) {
-        CollisionManager collisionManager = game.getCollisionManager();
-        if (game == null || collisionManager == null) {
+    public void update(double deltaTime) {
+        if (collisionManager == null) {
             return;
         }
-        update(collisionManager);
-        // Frame increment handled in Game.update()
-    }
 
-    /**
-     * Resolves a collision between two entities.
-     *
-     * @param collision The collision result
-     * @param collisionManager The collision manager
-     */
-    private void resolve(CollisionResult collision, CollisionManager collisionManager) {
-        Entity entityA = collision.getEntityA();
-        Entity entityB = collision.getEntityB();
+        List<Entity> allEntities = collisionManager.getRegisteredEntities();
 
-        // Calculate overlap
-        Position positionA = entityA.getPosition();
-        Position positionB = entityB.getPosition();
-        Size sizeA = entityA.getSize();
-        Size sizeB = entityB.getSize();
-
-        float xOverlap = 0;
-        float yOverlap = 0;
-
-        // Calculate overlap in x
-        float minX = Math.min(positionA.getX(), positionB.getX());
-        float maxX = Math.max(positionA.getX() + sizeA.getWidth(), positionB.getX() + sizeB.getWidth());
-        float xSpan = maxX - minX;
-        float totalX = sizeA.getWidth() + sizeB.getWidth();
-        xOverlap = (xSpan - totalX) / 2;
-
-        // Calculate overlap in y
-        float minY = Math.min(positionA.getY(), positionB.getY());
-        float maxY = Math.max(positionA.getY() + sizeA.getHeight(), positionB.getY() + sizeB.getHeight());
-        float ySpan = maxY - minY;
-        float totalY = sizeA.getHeight() + sizeB.getHeight();
-        yOverlap = (ySpan - totalY) / 2;
-
-        // Apply position correction
-        if (xOverlap != 0) {
-            entityA.move(-xOverlap, 0);
-            entityB.move(xOverlap, 0);
-        }
-
-        if (yOverlap != 0) {
-            entityA.move(0, -yOverlap);
-            entityB.move(0, yOverlap);
-        }
-
-        // Apply damage if applicable
-        if (entityA.isActive() && entityB.isActive()) {
-            int damageA = calculateDamage(entityA, entityB);
-            int damageB = calculateDamage(entityB, entityA);
-
-            if (damageA > 0) {
-                entityA.takeDamage(damageA);
+        for (Entity entity : allEntities) {
+            if (entity == null) {
+                continue;
             }
-            if (damageB > 0) {
-                entityB.takeDamage(damageB);
+
+            // Check collisions
+            List<CollisionResult> collisions = findCollisionsForEntity(entity);
+            for (CollisionResult collision : collisions) {
+                resolveCollision(entity, collision);
             }
         }
     }
 
     /**
-     * Calculates damage from one entity to another.
+     * Finds all collisions involving an entity.
      *
-     * @param from The attacking entity
-     * @param to The attacked entity
-     * @return The damage amount
+     * @param entity the entity to check
+     * @return list of collision results, or empty if none
      */
-    private int calculateDamage(Entity from, Entity to) {
-        if (from.isDead() || to.isDead()) {
-            return 0;
+    private List<CollisionResult> findCollisionsForEntity(Entity entity) {
+        if (collisionManager == null) {
+            return java.util.Collections.emptyList();
         }
 
-        // Simple damage calculation based on entity type
-        // In a full implementation, this would consider weapons, stats, etc.
-        return 10;
+        List<Entity> allEntities = collisionManager.getRegisteredEntities();
+        List<CollisionResult> collisions = java.util.Collections.emptyList();
+
+        if (allEntities == null) {
+            return collisions;
+        }
+
+        for (Entity other : allEntities) {
+            if (other == entity) {
+                continue;
+            }
+
+            // Simple collision detection based on entity bounding boxes
+            // This is a placeholder - full implementation would check overlap
+            collisions.add(new CollisionResult(entity, other));
+        }
+
+        return collisions;
+    }
+
+    /**
+     * Resolves a collision between entities.
+     *
+     * @param entity the entity that collided
+     * @param collision the collision result
+     */
+    private void resolveCollision(Entity entity, CollisionResult collision) {
+        Entity other = collision.getEntityB();
+        if (other == null) {
+            return;
+        }
+
+        // Collision resolution - for now just a stub
+    }
+
+    /**
+     * Applies impulse to entity (e.g., from explosion or powerup).
+     *
+     * @param entity the entity
+     * @param impulseX impulse in X direction
+     * @param impulseY impulse in Y direction
+     */
+    public void applyImpulse(Entity entity, double impulseX, double impulseY) {
+        // For now, this is a stub
+    }
+
+    /**
+     * Stops entity movement (for deaths, pickups, etc.).
+     *
+     * @param entity the entity
+     */
+    public void stopMovement(Entity entity) {
+        // For now, just a stub
+    }
+
+    /**
+     * Gets the collision manager.
+     *
+     * @return the collision manager, or null if not set
+     */
+    public CollisionManager getCollisionManager() {
+        return collisionManager;
     }
 }

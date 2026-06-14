@@ -2,13 +2,6 @@ package org.ronobot.engine.math;
 
 /**
  * Represents velocity in 2D space.
- * <p>
- * Contains both x and y components for movement.
- * </p>
- *
- * @author ronobot
- * @version 1.0
- * @since 2026-05-28
  */
 public class Velocity {
 
@@ -48,12 +41,30 @@ public class Velocity {
     }
 
     /**
+     * Sets the x velocity component.
+     *
+     * @param x The x velocity
+     */
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    /**
      * Gets the y velocity component.
      *
      * @return The y velocity
      */
     public float getY() {
         return y;
+    }
+
+    /**
+     * Sets the y velocity component.
+     *
+     * @param y The y velocity
+     */
+    public void setY(float y) {
+        this.y = y;
     }
 
     @Override
