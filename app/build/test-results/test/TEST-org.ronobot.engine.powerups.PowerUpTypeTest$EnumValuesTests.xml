@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Enum Values" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:12:37.053Z" hostname="cherokee" time="0.005">
+  <properties/>
+  <testcase name="Mega medkit power-up exists with correct values" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.001"/>
+  <testcase name="Invisibility power-up exists with correct values" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="Armor power-up exists with correct values" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="BFG weapon power-up exists" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="Rocket launcher weapon power-up exists" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="Chain gun weapon power-up exists" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="Shotgun weapon power-up exists" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="Speed power-up exists with correct values" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="Health power-up exists with correct values" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <testcase name="Ammo power-up exists with correct values" classname="org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -151,6 +151,16 @@ public class App {
         return false;
     }
 
+    /**
+     * Main entry point for the application.
+     *
+     * @param args Command line arguments
+     */
+    public static void main(String[] args) {
+        App app = new App();
+        app.start();
+    }
+
     @Override
     public String toString() {
         return "App{" +

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Manager lifecycle" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T17:44:51.440Z" hostname="cherokee" time="0.001">
+<testsuite name="Manager lifecycle" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:12:36.973Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Manager can clear all entities" classname="org.ronobot.engine.collision.CollisionManagerTest$Lifecycle" time="0.0"/>
-  <testcase name="Empty manager returns no collisions" classname="org.ronobot.engine.collision.CollisionManagerTest$Lifecycle" time="0.001"/>
+  <testcase name="Empty manager returns no collisions" classname="org.ronobot.engine.collision.CollisionManagerTest$Lifecycle" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

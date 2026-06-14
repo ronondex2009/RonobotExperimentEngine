@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Game Getter and Setter" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T17:44:51.433Z" hostname="cherokee" time="0.001">
+<testsuite name="Game Getter and Setter" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:12:36.967Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Should set game and get it back" classname="org.ronobot.engine.AppTest$GameGetterSetterTests" time="0.001"/>
   <testcase name="Should get null game initially" classname="org.ronobot.engine.AppTest$GameGetterSetterTests" time="0.0"/>
