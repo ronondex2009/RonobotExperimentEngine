@@ -68,8 +68,3 @@
 - CHANGES.md: This change log
 - MEMORY.md: Long-term project context
 - BUGS.md: Active compilation/test bugs (only created when needed)
-
-### Files Managed
-- CHANGES.md: This change log
-- MEMORY.md: Long-term project context
-- BUGS.md: Active compilation/test bugs (only created when needed)
