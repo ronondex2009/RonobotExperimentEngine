@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Targeting Tests" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-14T21:21:28.607Z" hostname="cherokee" time="0.003">
+<testsuite name="Targeting Tests" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-14T21:22:56.920Z" hostname="cherokee" time="0.003">
   <properties/>
   <testcase name="Attack returns false when target is dead" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
   <testcase name="Cooldown decrements correctly" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
   <testcase name="Set target and get back same entity" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
-  <testcase name="Attack returns false when target is null" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
+  <testcase name="Attack returns false when target is null" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.001"/>
   <testcase name="Cooldown clamped to minimum" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
   <testcase name="Attack returns false when no target" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
-  <testcase name="Get target returns null initially" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
+  <testcase name="Get target returns null initially" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.001"/>
   <testcase name="Can attack when cooldown is ready" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
