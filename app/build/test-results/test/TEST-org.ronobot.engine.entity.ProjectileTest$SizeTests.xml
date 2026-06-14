@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Size" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:18:21.777Z" hostname="cherokee" time="0.0">
+<testsuite name="Size" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:52:13.476Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="Projectile has initial size" classname="org.ronobot.engine.entity.ProjectileTest$SizeTests" time="0.0"/>
+  <testcase name="Projectile has initial size" classname="org.ronobot.engine.entity.ProjectileTest$SizeTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

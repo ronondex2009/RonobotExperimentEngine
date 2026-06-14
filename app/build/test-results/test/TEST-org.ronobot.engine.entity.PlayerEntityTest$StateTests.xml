@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="State" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:18:21.770Z" hostname="cherokee" time="0.001">
+<testsuite name="State" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:52:13.469Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="Player cannot die twice" classname="org.ronobot.engine.entity.PlayerEntityTest$StateTests" time="0.001"/>
+  <testcase name="Player cannot die twice" classname="org.ronobot.engine.entity.PlayerEntityTest$StateTests" time="0.0"/>
   <testcase name="Player transitions from dead to alive" classname="org.ronobot.engine.entity.PlayerEntityTest$StateTests" time="0.0"/>
   <testcase name="Player transitions from alive to dead" classname="org.ronobot.engine.entity.PlayerEntityTest$StateTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

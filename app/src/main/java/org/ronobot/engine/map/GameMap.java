@@ -103,9 +103,9 @@ public class GameMap {
     private final Map<Integer, String> tileMetadata;
 
     /**
-     * Decoration data by position (x, y) -> decoration name.
+     * Decoration data by position (x, y) -> decoration type.
      */
-    private final Map<Position, String> decorations;
+    private final Map<Position, DecorationType> decorations;
 
     /**
      * Decoration types.
@@ -174,6 +174,26 @@ public class GameMap {
                 this.tiles[x][y][0] = TILE_FLOOR;
             }
         }
+    }
+
+    /**
+     * Sets the decoration texture for a tile type.
+     *
+     * @param tileType The tile type
+     * @param texture  The texture path
+     */
+    public void setDecorationTexture(int tileType, String texture) {
+        tileTextures.put(tileType, texture);
+    }
+
+    /**
+     * Gets the decoration texture for a tile type.
+     *
+     * @param tileType The tile type
+     * @return The texture path, or null if not found
+     */
+    public String getDecorationTexture(int tileType) {
+        return tileTextures.get(tileType);
     }
 
     /**
@@ -635,11 +655,12 @@ public class GameMap {
      * <p>
      * Decorations are stored by their position and can be of various types.
      * Decorations do not block movement but are rendered by the renderer.
+     * Decorations are stored internally as DecorationType enum values.
      * </p>
      *
      * @param x         The world x coordinate
      * @param y         The world y coordinate
-     * @param decoration The decoration type name
+     * @param decoration The decoration type
      * @return true if added successfully
      */
     public boolean addDecoration(float x, float y, String decoration) {
@@ -647,10 +668,9 @@ public class GameMap {
         if (pos == null || decoration == null) {
             return false;
         }
-        // Round to nearest tile for decoration storage
-        int tileX = (int) Math.floor(x / TILE_WIDTH);
-        int tileY = (int) Math.floor(y / TILE_HEIGHT);
-        decorations.put(new Position(tileX, tileY), decoration);
+        // Convert string name to DecorationType enum
+        DecorationType type = parseDecorationType(decoration);
+        decorations.put(pos, type);
         return true;
     }
 
@@ -659,7 +679,7 @@ public class GameMap {
      *
      * @param x    The tile x coordinate
      * @param y    The tile y coordinate
-     * @param decoration The decoration type name
+     * @param decoration The decoration type
      * @return true if added successfully
      */
     public boolean addDecoration(int x, int y, String decoration) {
@@ -669,21 +689,80 @@ public class GameMap {
         if (decoration == null) {
             return false;
         }
-        decorations.put(new Position(x, y), decoration);
+        // Convert string name to DecorationType enum
+        DecorationType type = parseDecorationType(decoration);
+        decorations.put(new Position(x, y), type);
         return true;
     }
 
     /**
-     * Gets the decoration at a position.
+     * Adds a decorative element with DecorationType enum.
+     *
+     * @param x    The tile x coordinate
+     * @param y    The tile y coordinate
+     * @param type The decoration type
+     * @return true if added successfully
+     */
+    public boolean addDecoration(int x, int y, DecorationType type) {
+        if (x < 0 || x >= width || y < 0 || y >= height) {
+            return false;
+        }
+        if (type == null) {
+            return false;
+        }
+        decorations.put(new Position(x, y), type);
+        return true;
+    }
+
+    /**
+     * Adds a decorative element at world position with DecorationType enum.
+     *
+     * @param x         The world x coordinate
+     * @param y         The world y coordinate
+     * @param type      The decoration type
+     * @return true if added successfully
+     */
+    public boolean addDecoration(float x, float y, DecorationType type) {
+        Position pos = toTilePosition(x, y);
+        if (pos == null || type == null) {
+            return false;
+        }
+        decorations.put(pos, type);
+        return true;
+    }
+
+    /**
+     * Parses a decoration type name string to DecorationType enum.
+     *
+     * @param name The decoration type name (STATUE, PICTURE, etc.)
+     * @return The DecorationType enum, or NONE if unknown
+     */
+    private DecorationType parseDecorationType(String name) {
+        String upperName = name.toUpperCase();
+        return switch (upperName) {
+            case "STATUE" -> DecorationType.STATUE;
+            case "PICTURE" -> DecorationType.PICTURE;
+            case "TABLE" -> DecorationType.TABLE;
+            case "CHEST" -> DecorationType.CHEST;
+            case "CRATE" -> DecorationType.CRATE;
+            case "FLAG" -> DecorationType.FLAG;
+            case "FOUNTAIN" -> DecorationType.FOUNTAIN;
+            default -> DecorationType.NONE;
+        };
+    }
+
+    /**
+     * Checks if a position contains a decoration.
      *
      * @param x The world x coordinate
      * @param y The world y coordinate
-     * @return The decoration name, or null if none
+     * @return The decoration type, or null if none
      */
-    public String getDecoration(float x, float y) {
+    public DecorationType getDecorationType(float x, float y) {
         Position pos = toTilePosition(x, y);
         if (pos != null) {
-            return decorations.get(pos);
+            DecorationType type = decorations.get(pos);
+            return type;
         }
         return null;
     }
@@ -693,9 +772,9 @@ public class GameMap {
      *
      * @param x The tile x coordinate
      * @param y The tile y coordinate
-     * @return The decoration name, or null if none
+     * @return The decoration type, or null if none
      */
-    public String getDecoration(int x, int y) {
+    public DecorationType getDecorationType(int x, int y) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return null;
         }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.collision.CollisionNotificationTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:18:21.753Z" hostname="cherokee" time="0.003">
+<testsuite name="org.ronobot.engine.collision.CollisionNotificationTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:52:13.447Z" hostname="cherokee" time="0.003">
   <properties/>
   <testcase name="Entity collision notification is created correctly" classname="org.ronobot.engine.collision.CollisionNotificationTest" time="0.0"/>
   <testcase name="All event types can be created" classname="org.ronobot.engine.collision.CollisionNotificationTest" time="0.0"/>

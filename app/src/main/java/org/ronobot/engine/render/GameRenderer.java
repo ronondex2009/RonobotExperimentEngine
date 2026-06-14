@@ -7,6 +7,7 @@ import org.ronobot.engine.entity.EnemyEntity;
 import org.ronobot.engine.map.GameMap;
 import org.ronobot.engine.math.Position;
 import org.ronobot.engine.entities.EntityManager;
+import org.ronobot.engine.map.GameMap.DecorationType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -133,7 +134,7 @@ public class GameRenderer extends Renderer {
         // Render each decoration position
         List<Position> decorationPositions = gameMap.getDecorationPositions();
         for (Position pos : decorationPositions) {
-            String decoration = gameMap.getDecoration((int) pos.getX(), (int) pos.getY());
+            DecorationType decoration = gameMap.getDecorationType((int) pos.getX(), (int) pos.getY());
             if (decoration != null) {
                 renderDecoration(pos, decoration);
             }
@@ -144,27 +145,19 @@ public class GameRenderer extends Renderer {
      * Renders a single decoration.
      *
      * @param position The decoration position
-     * @param type     The decoration type name
+     * @param type     The decoration type
      */
-    private void renderDecoration(Position position, String type) {
+    private void renderDecoration(Position position, DecorationType type) {
         if (position == null) {
             return;
         }
 
-        // Generate decoration texture key
-        String decorationKey = "decoration_" + type.toLowerCase();
+        // Generate decoration texture key from the enum name (simple name only)
+        String typeName = type.name();
+        String decorationKey = "decoration_" + typeName;
         if (!gameRendererTextures.containsKey(decorationKey)) {
-            // Map decoration type to texture
-            String decorationPath = switch (type.toLowerCase()) {
-                case "statue" -> "decoration_statue.png";
-                case "picture" -> "decoration_picture.png";
-                case "table" -> "decoration_table.png";
-                case "chest" -> "decoration_chest.png";
-                case "crate" -> "decoration_crate.png";
-                case "flag" -> "decoration_flag.png";
-                case "fountain" -> "decoration_fountain.png";
-                default -> "decoration_default.png";
-            };
+            // Map decoration type to texture using type name
+            String decorationPath = "decoration_" + typeName;
             gameRendererTextures.put(decorationKey, decorationPath);
         }
 

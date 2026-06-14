@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Movement Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:18:21.733Z" hostname="cherokee" time="0.001">
+<testsuite name="Movement Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:52:13.425Z" hostname="cherokee" time="0.002">
   <properties/>
   <testcase name="Move updates position" classname="org.ronobot.engine.entity.EnemyEntityTest$MovementTests" time="0.0"/>
   <testcase name="Move does nothing when target not in range" classname="org.ronobot.engine.entity.EnemyEntityTest$MovementTests" time="0.0"/>
-  <testcase name="Move towards target within range" classname="org.ronobot.engine.entity.EnemyEntityTest$MovementTests" time="0.0"/>
+  <testcase name="Move towards target within range" classname="org.ronobot.engine.entity.EnemyEntityTest$MovementTests" time="0.001"/>
   <testcase name="Move does nothing when target dead" classname="org.ronobot.engine.entity.EnemyEntityTest$MovementTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

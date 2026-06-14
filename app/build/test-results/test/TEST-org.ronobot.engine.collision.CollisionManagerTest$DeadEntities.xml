@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Dead entity handling" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:18:21.750Z" hostname="cherokee" time="0.0">
+<testsuite name="Dead entity handling" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-28T14:52:13.444Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="Dead entities are not checked for collision" classname="org.ronobot.engine.collision.CollisionManagerTest$DeadEntities" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

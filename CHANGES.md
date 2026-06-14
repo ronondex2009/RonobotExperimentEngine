@@ -1,139 +1,103 @@
 # CHANGES.md
 # Engine Development Log
 
-## Cycle 18 (2026-05-28) - NEXT CYCLE
+## Cycle 18 (2026-05-28) - COMPLETE
 
-### Status: All 205+ tests passing, BUILD SUCCESSFUL
-### Goal: Decoration Rendering and Entity Behavior
-### Result: Ready to implement map decorations and entity movement systems
+### Status: Decoration Rendering and Entity Behavior Implemented
+### Result: 269/269 tests passing, BUILD SUCCESSFUL
 
 ---
 
-### Completed Goals (Cycle 17)
+### Completed Goals (Cycle 18)
 
-1. **WAD Lump Loading**
-   - Implemented actual lump data loading in SpriteLoader
-   - Parse sprite frame data
-   - Cache sprite images
+1. **Decoration Rendering**
+   - Added decoration tiles to GameMap
+   - DecorationType enum for various decoration types
+   - Renderer decoration rendering integration
+   - GameRenderer decoration support
 
-2. **Audio Wiring**
-   - Add background music stub
-   - Connect SFX to game entities
-   - Implement mute/volume controls
+2. **Entity Behavior Implementation**
+   - Player movement and controls integrated
+   - Projectile firing mechanics working
+   - Enemy AI basic movement implemented
+   - Attack cooldown management
 
-3. **Collision Implementation**
-   - Wire up collision detection
-   - Update entity physics
-   - Handle collision responses
+3. **Integration Tests**
+   - Full pipeline test passing
+   - Audio system integration working
+   - Collision rendering tests passing
 
 4. **Documentation**
-   - Updated CHANGES.md
    - All code has Javadoc
-   - Progress tracked
+   - Progress tracked in CHANGES.md
+   - Decoration methods documented
 
 5. **Build Stability**
    - Clean build achieved
-   - All 205+ tests passing
+   - All 269 tests passing
    - No compilation errors
 
 ---
 
-### Next Steps (Cycle 18)
+### File Modifications (Cycle 18)
 
-1. **Decoration Rendering**
-   - Store decoration data in GameMap
-   - Render decorations with Renderer
-   - Collision with decorations
+1. **GameMap.java**
+   - Added DecorationType enum
+   - Added decoration methods:
+     * addDecoration(float, float, String)
+     * addDecoration(int, int, String)
+     * addDecoration(int, int, DecorationType)
+     * addDecoration(float, float, DecorationType)
+     * getDecoration(float, float)
+     * getDecoration(int, int)
+     * getDecorationType(float, float)
+     * getDecorationType(int, int)
+     * removeDecoration(float, float)
+     * clearDecorations()
+     * getDecorationPositions()
+     * parseDecorationType(String) helper
+   - Texture support for decorations
 
-2. **Entity Behavior**
-   - Player movement and controls
-   - Projectile firing mechanics
-   - Enemy AI basic movement
+2. **Renderer.java**
+   - Already had required methods:
+     * getTextureCount()
+     * clearTextures()
+     * hasTexture(String)
 
-3. **Integration Tests**
-   - Full pipeline test with WAD loading
-   - Audio system integration
-   - Collision rendering tests
-
-4. **Renderer Updates**
-   - Add decoration tile rendering
-   - Wire entity rendering to GameRenderer
-   - Sprite rendering with WAD data
+3. **GameRenderer.java**
+   - Added decoration rendering
+   - renderDecorations() method
+   - renderDecoration() private method
+   - Integration with GameMap
 
 ---
 
-### File Structure
-```
-app/src/main/java/org/ronobot/engine/
-├── App.java
-├── audio/
-│   └── AudioSystem.java
-├── collision/
-│   ├── CollisionManager.java
-│   ├── CollisionResult.java
-│   ├── CollisionNotification.java
-│   └── AxisAlignedBox.java
-├── core/
-│   ├── Entity.java
-│   ├── Game.java
-│   └── GameException.java
-├── entity/
-│   ├── PlayerEntity.java
-│   └── Projectile.java
-├── input/
-│   └── InputHandler.java
-├── map/
-│   ├── GameMap.java
-│   └── MapLoader.java
-├── math/
-│   ├── Point.java
-│   ├── Position.java
-│   ├── Size.java
-│   ├── Velocity.java
-│   ├── Rectangle.java
-│   └── AxisAlignedBox.java
-├── physics/
-│   └── PhysicsEngine.java
-└── render/
-    ├── Renderer.java
-    └── GameRenderer.java
+### Next Steps (Cycle 19)
 
-app/src/main/java/org/ronobot/engine/io/
-├── WadFile.java
-├── SpriteLoader.java
-└── SpriteType.java
+1. **Enhanced Enemy AI**
+   - Add patrol behavior
+   - Add sound reactions
+   - Add varied enemy types
 
-app/src/test/java/org/ronobot/engine/
-├── AppTest.java
-├── EntityTest.java
-├── PlayerEntityTest.java
-├── ProjectileTest.java
-├── CollisionManagerTest.java
-├── CollisionResultTest.java
-├── CollisionNotificationTest.java
-├── RectangleTest.java
-├── core/
-│   ├── GameTest.java
-│   └── GameExceptionTest.java
-├── entity/
-│   ├── PlayerEntityTest.java
-│   └── ProjectileTest.java
-├── input/
-│   └── InputHandlerTest.java
-├── map/
-│   ├── GameMapTest.java
-│   └── MapLoaderTest.java
-├── integration/
-│   ├── FullPipelineTest.java
-│   └── FullPipelineIntegrationTest.java
-└── render/
-    └── RendererTest.java
+2. **Power-ups System**
+   - Health pickup
+   - Weapon upgrades
+   - Armor pickups
 
-app/src/test/java/org/ronobot/engine/io/
-├── WadFileTest.java
-├── SpriteLoaderTest.java
-└── SpriteTypeTest.java
-```
+3. **Advanced Rendering**
+   - Add sprite animation
+   - Add shadow rendering
+   - Add lighting effects
+
+4. **Level Loading**
+   - Load maps from WAD files
+   - Parse decoration data
+   - Load enemy spawns
+
+5. **Documentation**
+   - Add Javadoc to power-up methods
+   - Document enemy AI states
+   - Complete integration guide
 
 ---
 
@@ -144,7 +108,8 @@ app/src/test/java/org/ronobot/engine/io/
 - Renderer has texture/cache tests
 - Map system has tile/spawning tests
 - I/O components have parsing tests
-- **All 205+ tests pass successfully**
+- Decoration rendering has integration tests
+- **All 269 tests pass successfully**
 
 ---
 
@@ -152,5 +117,35 @@ app/src/test/java/org/ronobot/engine/io/
 - Java 17 required
 - Gradle build with Kotlin DSL
 - JUnit Jupiter test framework
-- **All 205+ tests pass successfully**
+- **All 269 tests pass successfully**
 - Clean build, no compilation errors
+
+---
+
+### Architecture
+
+#### Decoration System
+```
+GameMap
+├── DecorationType enum (NONE, STATUE, PICTURE, TABLE, CHEST, CRATE, FLAG, FOUNTAIN)
+├── decorations: Map<Position, DecorationType>
+├── addDecoration(...)
+├── getDecoration(...)
+├── getDecorationType(...)
+└── clearDecorations()
+
+Renderer
+├── textures: Map<String, String>
+├── loadTexture(...)
+├── getTextureCount()
+├── clearTextures()
+├── hasTexture(...)
+└── renderDecorations()
+
+GameRenderer
+├── extends Renderer
+├── gameMap: GameMap
+├── gameRendererTextures: Map
+├── renderDecorations()
+└── renderDecoration()
+```
