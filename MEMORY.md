@@ -1,7 +1,7 @@
 # MEMORY.md
 # Engine Development Log
 
-## Current State - Cycle 20 IN PROGRESS
+## Current State - Cycle 20 COMPLETE
 
 ### Build Status: BUILD SUCCESSFUL - Compilation OK
 ### Test Status: 322/322 tests passing
@@ -16,7 +16,17 @@
    - Added main(String[] args) entry point
    - Made App runnable
 
-2. **Build Stability**
+2. **Renderer.java** - Enhanced decoration rendering
+   - Added decoration support to renderMap()
+   - Added renderMapDecorations() method
+   - Added renderDecoration() method
+
+3. **GameMap.java** - Added convenience methods
+   - Added getMapId() method
+   - Added getWorldTilePosition() method
+   - Added getWorldSize() method
+
+4. **Build Stability**
    - Clean build achieved
    - All 322 tests passing
    - No compilation errors
@@ -48,6 +58,67 @@
 ### Passing: 322
 ### Failing: 0
 ### Build: SUCCESSFUL
+
+---
+
+## Files Modified in Cycle 20
+
+### Renderer.java
+- Enhanced renderMap() with decoration support
+- Added renderMapDecorations() method
+- Added renderDecoration() method
+- Texture caching for decorations
+
+### GameMap.java
+- Added getMapId() - returns map ID string
+- Added getWorldTilePosition() - converts tile to world position
+- Added getWorldSize() - returns world dimensions
+
+---
+
+## Architecture
+
+#### Enemy Type System
+```
+EnemyType
+├── ZOMBIE: 2f speed, 25 damage, 60 cooldown, 100 health, patrol=100
+├── DEMON: 3.5f speed, 40 damage, 45 cooldown, 70 health, patrol=0
+├── KNIGHT: 1.5f speed, 30 damage, 80 cooldown, 180 health, patrol=80
+├── IMP: 2.5f speed, 20 damage, 40 cooldown, 60 health, patrol=0
+├── BARON: 2.2f speed, 100 damage, 90 cooldown, 500 health, patrol=150
+└── Getters:
+    ├── getBaseMoveSpeed()
+    ├── getBaseDamage()
+    ├── getCooldownFrames()
+    ├── getDefaultCooldown() (alias)
+    ├── getBaseHealth()
+    ├── getHealthMultiplier()
+    ├── getMoveSpeedMultiplier()
+    ├── getPatrolRange()
+    ├── getSoundSensitivity()
+    ├── getSizeMultiplier()
+    ├── getDescription()
+    └── getVisualName()
+```
+
+#### Entity System
+```
+Entity
+├── id, name, position, size, velocity
+├── health, maxHealth, armor, damageTaken
+├── isActive()
+├── takeDamage(), heal()
+├── die(), resurrect()
+└── move(), update()
+
+EnemyEntity
+├── extends Entity
+├── EnemyType type
+├── health, attackCooldown
+├── target, patrol position
+├── sound reactions
+└── patrol behavior
+```
 
 ---
 
