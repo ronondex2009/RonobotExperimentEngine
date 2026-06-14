@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.ronobot.engine.audio.AudioSystemTest" tests="27" skipped="0" failures="3" errors="0" timestamp="2026-05-30T07:02:11.922Z" hostname="cherokee" time="0.034">
+  <properties/>
+  <testcase name="testSetVolumeClamped()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.008"/>
+  <testcase name="testInitDefault()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.002"/>
+  <testcase name="testStopMusic()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testCreation()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testMuteControl()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testActiveMusicCount()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testInitCustomVolume()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testToString()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.003"/>
+  <testcase name="testActiveSoundCount()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testVolumeClamped()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testGetSoundEffect()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.004">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:69)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:41)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
+	at org.ronobot.engine.audio.AudioSystemTest.testGetSoundEffect(AudioSystemTest.java:165)
+</failure>
+  </testcase>
+  <testcase name="testRegisteredMusicCount()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testPlayMusicNullName()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testPlayMusicNullPath()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testRegisteredSoundCount()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testGetSoundEffectUnknown()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testGetMusicTrackUnknown()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testPlayWhenMuted()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testGetMusicNames()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testGetMusicTrack()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:69)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:41)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
+	at org.ronobot.engine.audio.AudioSystemTest.testGetMusicTrack(AudioSystemTest.java:194)
+</failure>
+  </testcase>
+  <testcase name="testStopSoundEffect()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testPlaySoundEffectNullName()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testPlaySoundEffectNullPath()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testGetSoundNames()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <testcase name="testSetVolume()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testStopAll()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;2&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;2&gt; but was: &lt;0&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:152)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:147)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:558)
+	at org.ronobot.engine.audio.AudioSystemTest.testStopAll(AudioSystemTest.java:146)
+</failure>
+  </testcase>
+  <testcase name="testPlayWithoutInit()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

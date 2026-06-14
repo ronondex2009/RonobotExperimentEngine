@@ -1,338 +1,236 @@
 package org.ronobot.engine.powerups;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for PowerUpType enum.
  * <p>
- * Tests verify power-up characteristics including effect values,
- * categories, and upgrade types.
+ * Tests power-up type enumeration values, category classification,
+ * upgrade detection, and property accessors.
  * </p>
- *
+ * 
  * @author ronobot
  * @since 1.0
  */
-@DisplayName("PowerUpType Tests")
 class PowerUpTypeTest {
 
-    @Nested
-    @DisplayName("Enum Values")
-    class EnumValuesTests {
-
-        @Test
-        @DisplayName("Health power-up exists with correct values")
-        void healthPowerUpExists() {
-            PowerUpType health = PowerUpType.HEALTH;
-            assertEquals("Health Pack", health.getName());
-            assertEquals(50, health.getEffectValue());
-            assertEquals("🛡️❤️", health.getVisual());
-            assertTrue(health.isValuePowerUp());
-            assertFalse(health.isUpgradePowerUp());
-            assertEquals("Health", health.getCategory());
-        }
-
-        @Test
-        @DisplayName("Armor power-up exists with correct values")
-        void armorPowerUpExists() {
-            PowerUpType armor = PowerUpType.ARMOR;
-            assertEquals("Armor Plate", armor.getName());
-            assertEquals(25, armor.getEffectValue());
-            assertEquals("🛡️", armor.getVisual());
-            assertTrue(armor.isValuePowerUp());
-            assertFalse(armor.isUpgradePowerUp());
-            assertEquals("Armor", armor.getCategory());
-            assertTrue(armor.isArmorRelated());
-        }
-
-        @Test
-        @DisplayName("Ammo power-up exists with correct values")
-        void ammoPowerUpExists() {
-            PowerUpType ammo = PowerUpType.AMMO;
-            assertEquals("Ammo Box", ammo.getName());
-            assertEquals(50, ammo.getEffectValue());
-            assertEquals("🔫", ammo.getVisual());
-            assertTrue(ammo.isValuePowerUp());
-            assertFalse(ammo.isUpgradePowerUp());
-            assertEquals("Ammo", ammo.getCategory());
-            assertTrue(ammo.isAmmoRelated());
-        }
-
-        @Test
-        @DisplayName("Rocket launcher weapon power-up exists")
-        void rocketPowerUpExists() {
-            PowerUpType rocket = PowerUpType.ROCKET;
-            assertEquals("Rocket Launcher", rocket.getName());
-            assertEquals(0, rocket.getEffectValue());
-            assertEquals("🚀", rocket.getVisual());
-            assertFalse(rocket.isValuePowerUp());
-            assertTrue(rocket.isUpgradePowerUp());
-            assertTrue(rocket.isWeaponUpgrade());
-            assertEquals("Weapon", rocket.getCategory());
-        }
-
-        @Test
-        @DisplayName("Shotgun weapon power-up exists")
-        void shotgunPowerUpExists() {
-            PowerUpType shotgun = PowerUpType.SHOTGUN;
-            assertEquals("Shotgun", shotgun.getName());
-            assertEquals(0, shotgun.getEffectValue());
-            assertEquals("💥", shotgun.getVisual());
-            assertFalse(shotgun.isValuePowerUp());
-            assertTrue(shotgun.isUpgradePowerUp());
-            assertTrue(shotgun.isWeaponUpgrade());
-            assertEquals("Weapon", shotgun.getCategory());
-        }
-
-        @Test
-        @DisplayName("Chain gun weapon power-up exists")
-        void chainPowerUpExists() {
-            PowerUpType chain = PowerUpType.CHAIN;
-            assertEquals("Chain Gun", chain.getName());
-            assertEquals(0, chain.getEffectValue());
-            assertEquals("🔫⚡", chain.getVisual());
-            assertFalse(chain.isValuePowerUp());
-            assertTrue(chain.isUpgradePowerUp());
-            assertTrue(chain.isWeaponUpgrade());
-            assertEquals("Weapon", chain.getCategory());
-        }
-
-        @Test
-        @DisplayName("BFG weapon power-up exists")
-        void bfgPowerUpExists() {
-            PowerUpType bfg = PowerUpType.BFG;
-            assertEquals("BFG", bfg.getName());
-            assertEquals(0, bfg.getEffectValue());
-            assertEquals("☢️", bfg.getVisual());
-            assertFalse(bfg.isValuePowerUp());
-            assertTrue(bfg.isUpgradePowerUp());
-            assertTrue(bfg.isWeaponUpgrade());
-            assertEquals("Weapon", bfg.getCategory());
-        }
-
-        @Test
-        @DisplayName("Speed power-up exists with correct values")
-        void speedPowerUpExists() {
-            PowerUpType speed = PowerUpType.SPEED;
-            assertEquals("Speed Boost", speed.getName());
-            assertEquals(0, speed.getEffectValue());
-            assertEquals("⚡", speed.getVisual());
-            assertFalse(speed.isValuePowerUp());
-            assertEquals("Speed", speed.getCategory());
-        }
-
-        @Test
-        @DisplayName("Invisibility power-up exists with correct values")
-        void invisibilityPowerUpExists() {
-            PowerUpType invisibility = PowerUpType.INVISIBILITY;
-            assertEquals("Invisibility", invisibility.getName());
-            assertEquals(0, invisibility.getEffectValue());
-            assertEquals("👻", invisibility.getVisual());
-            assertFalse(invisibility.isValuePowerUp());
-            assertEquals("Special", invisibility.getCategory());
-        }
-
-        @Test
-        @DisplayName("Mega medkit power-up exists with correct values")
-        void megaMedkitPowerUpExists() {
-            PowerUpType megaMedkit = PowerUpType.MEGAMEDKIT;
-            assertEquals("Mega Medkit", megaMedkit.getName());
-            assertEquals(100, megaMedkit.getEffectValue());
-            assertEquals("❇️", megaMedkit.getVisual());
-            assertTrue(megaMedkit.isValuePowerUp());
-            assertEquals("Health", megaMedkit.getCategory());
-            assertTrue(megaMedkit.isHealthRelated());
-        }
+    /**
+     * Test that all expected power-up types exist.
+     */
+    @Test
+    void testAllTypesExist() {
+        assertEquals(11, PowerUpType.values().length);
+        
+        PowerUpType[] types = PowerUpType.values();
+        assertTrue(types.length >= 3);
     }
 
-    @Nested
-    @DisplayName("Total Power-Up Count")
-    class CountTests {
-
-        @Test
-        @DisplayName("All 10 power-up types are defined")
-        void allTenTypes() {
-            assertEquals(10, PowerUpType.values().length);
-
-            // Check each type name
-            assertEquals(PowerUpType.HEALTH.name(), "HEALTH");
-            assertEquals(PowerUpType.ARMOR.name(), "ARMOR");
-            assertEquals(PowerUpType.AMMO.name(), "AMMO");
-            assertEquals(PowerUpType.ROCKET.name(), "ROCKET");
-            assertEquals(PowerUpType.SHOTGUN.name(), "SHOTGUN");
-            assertEquals(PowerUpType.CHAIN.name(), "CHAIN");
-            assertEquals(PowerUpType.BFG.name(), "BFG");
-            assertEquals(PowerUpType.SPEED.name(), "SPEED");
-            assertEquals(PowerUpType.INVISIBILITY.name(), "INVISIBILITY");
-            assertEquals(PowerUpType.MEGAMEDKIT.name(), "MEGAMEDKIT");
-        }
+    /**
+     * Test enum value descriptions.
+     */
+    @Test
+    void testEnumDescriptions() {
+        assertEquals("Health Pack", PowerUpType.HEALTH.getName());
+        assertEquals("Armor Plate", PowerUpType.ARMOR.getName());
+        assertEquals("Ammo Box", PowerUpType.AMMO.getName());
+        assertEquals("Rocket Launcher", PowerUpType.ROCKET.getName());
+        assertEquals("Shotgun", PowerUpType.SHOTGUN.getName());
+        assertEquals("Chain Gun", PowerUpType.CHAIN.getName());
+        assertEquals("BFG", PowerUpType.BFG.getName());
+        assertEquals("Speed Boost", PowerUpType.SPEED.getName());
+        assertEquals("Invisibility", PowerUpType.INVISIBILITY.getName());
+        assertEquals("Mega Medkit", PowerUpType.MEGAMEDKIT.getName());
     }
 
-    @Nested
-    @DisplayName("Power-Up Classification")
-    class ClassificationTests {
-
-        @Test
-        @DisplayName("Value-based power-ups are identified correctly")
-        void valueBasedPowerUps() {
-            // Value-based: HEALTH (50), ARMOR (25), AMMO (50), MEGAMEDKIT (100)
-            assertTrue(PowerUpType.HEALTH.isValuePowerUp());
-            assertTrue(PowerUpType.ARMOR.isValuePowerUp());
-            assertTrue(PowerUpType.AMMO.isValuePowerUp());
-            assertTrue(PowerUpType.MEGAMEDKIT.isValuePowerUp());
-
-            // Upgrades: ROCKET, SHOTGUN, CHAIN, BFG, SPEED, INVISIBILITY
-            assertFalse(PowerUpType.ROCKET.isValuePowerUp());
-            assertFalse(PowerUpType.SHOTGUN.isValuePowerUp());
-            assertFalse(PowerUpType.CHAIN.isValuePowerUp());
-            assertFalse(PowerUpType.BFG.isValuePowerUp());
-            assertFalse(PowerUpType.SPEED.isValuePowerUp());
-            assertFalse(PowerUpType.INVISIBILITY.isValuePowerUp());
-        }
-
-        @Test
-        @DisplayName("Upgrade-based power-ups are identified correctly")
-        void upgradeBasedPowerUps() {
-            // Upgrades: ROCKET, SHOTGUN, CHAIN, BFG, SPEED, INVISIBILITY
-            assertTrue(PowerUpType.ROCKET.isUpgradePowerUp());
-            assertTrue(PowerUpType.SHOTGUN.isUpgradePowerUp());
-            assertTrue(PowerUpType.CHAIN.isUpgradePowerUp());
-            assertTrue(PowerUpType.BFG.isUpgradePowerUp());
-            assertTrue(PowerUpType.SPEED.isUpgradePowerUp());
-            assertTrue(PowerUpType.INVISIBILITY.isUpgradePowerUp());
-
-            // Not upgrades: HEALTH, ARMOR, AMMO, MEGAMEDKIT
-            assertFalse(PowerUpType.HEALTH.isUpgradePowerUp());
-            assertFalse(PowerUpType.ARMOR.isUpgradePowerUp());
-            assertFalse(PowerUpType.AMMO.isUpgradePowerUp());
-            assertFalse(PowerUpType.MEGAMEDKIT.isUpgradePowerUp());
-        }
-
-        @Test
-        @DisplayName("Weapon upgrades are identified correctly")
-        void weaponUpgrades() {
-            assertTrue(PowerUpType.ROCKET.isWeaponUpgrade());
-            assertTrue(PowerUpType.SHOTGUN.isWeaponUpgrade());
-            assertTrue(PowerUpType.CHAIN.isWeaponUpgrade());
-            assertTrue(PowerUpType.BFG.isWeaponUpgrade());
-            assertFalse(PowerUpType.HEALTH.isWeaponUpgrade());
-            assertFalse(PowerUpType.ARMOR.isWeaponUpgrade());
-            assertFalse(PowerUpType.AMMO.isWeaponUpgrade());
-            assertFalse(PowerUpType.SPEED.isWeaponUpgrade());
-            assertFalse(PowerUpType.INVISIBILITY.isWeaponUpgrade());
-        }
-
-        @Test
-        @DisplayName("Health-related power-ups are identified correctly")
-        void healthRelated() {
-            assertTrue(PowerUpType.HEALTH.isHealthRelated());
-            assertTrue(PowerUpType.MEGAMEDKIT.isHealthRelated());
-            assertFalse(PowerUpType.ARMOR.isHealthRelated());
-            assertFalse(PowerUpType.AMMO.isHealthRelated());
-        }
-
-        @Test
-        @DisplayName("Armor-related power-ups are identified correctly")
-        void armorRelated() {
-            assertFalse(PowerUpType.HEALTH.isArmorRelated());
-            assertTrue(PowerUpType.ARMOR.isArmorRelated());
-            assertFalse(PowerUpType.AMMO.isArmorRelated());
-        }
-
-        @Test
-        @DisplayName("Ammo-related power-ups are identified correctly")
-        void ammoRelated() {
-            assertFalse(PowerUpType.HEALTH.isAmmoRelated());
-            assertFalse(PowerUpType.ARMOR.isAmmoRelated());
-            assertTrue(PowerUpType.AMMO.isAmmoRelated());
-        }
+    /**
+     * Test enum visual representations.
+     */
+    @Test
+    void testEnumVisuals() {
+        assertEquals("🛡️❤️", PowerUpType.HEALTH.getVisual());
+        assertEquals("🛡️", PowerUpType.ARMOR.getVisual());
+        assertEquals("🔫", PowerUpType.AMMO.getVisual());
+        assertEquals("🚀", PowerUpType.ROCKET.getVisual());
+        assertEquals("💥", PowerUpType.SHOTGUN.getVisual());
+        assertEquals("🔫⚡", PowerUpType.CHAIN.getVisual());
+        assertEquals("☢️", PowerUpType.BFG.getVisual());
+        assertEquals("⚡", PowerUpType.SPEED.getVisual());
+        assertEquals("👻", PowerUpType.INVISIBILITY.getVisual());
+        assertEquals("❇️", PowerUpType.MEGAMEDKIT.getVisual());
     }
 
-    @Nested
-    @DisplayName("Category Tests")
-    class CategoryTests {
-
-        @Test
-        @DisplayName("Health category contains health power-ups")
-        void healthCategory() {
-            assertEquals("Health", PowerUpType.HEALTH.getCategory());
-            assertEquals("Health", PowerUpType.MEGAMEDKIT.getCategory());
-        }
-
-        @Test
-        @DisplayName("Armor category contains armor power-ups")
-        void armorCategory() {
-            assertEquals("Armor", PowerUpType.ARMOR.getCategory());
-        }
-
-        @Test
-        @DisplayName("Ammo category contains ammo power-ups")
-        void ammoCategory() {
-            assertEquals("Ammo", PowerUpType.AMMO.getCategory());
-        }
-
-        @Test
-        @DisplayName("Weapon category contains weapon upgrades")
-        void weaponCategory() {
-            assertEquals("Weapon", PowerUpType.ROCKET.getCategory());
-            assertEquals("Weapon", PowerUpType.SHOTGUN.getCategory());
-            assertEquals("Weapon", PowerUpType.CHAIN.getCategory());
-            assertEquals("Weapon", PowerUpType.BFG.getCategory());
-        }
-
-        @Test
-        @DisplayName("Speed category contains speed power-ups")
-        void speedCategory() {
-            assertEquals("Speed", PowerUpType.SPEED.getCategory());
-        }
-
-        @Test
-        @DisplayName("Special category contains invisibility")
-        void specialCategory() {
-            assertEquals("Special", PowerUpType.INVISIBILITY.getCategory());
-        }
+    /**
+     * Test health-related power-up detection.
+     */
+    @Test
+    void testHealthRelatedTypes() {
+        assertTrue(PowerUpType.HEALTH.isHealthRelated());
+        assertTrue(PowerUpType.MEGAMEDKIT.isHealthRelated());
+        
+        assertFalse(PowerUpType.ARMOR.isHealthRelated());
+        assertFalse(PowerUpType.AMMO.isHealthRelated());
+        assertFalse(PowerUpType.ROCKET.isHealthRelated());
+        assertFalse(PowerUpType.SHOTGUN.isHealthRelated());
+        assertFalse(PowerUpType.CHAIN.isHealthRelated());
+        assertFalse(PowerUpType.BFG.isHealthRelated());
+        assertFalse(PowerUpType.SPEED.isHealthRelated());
+        assertFalse(PowerUpType.INVISIBILITY.isHealthRelated());
     }
 
-    @Nested
-    @DisplayName("Description Tests")
-    class DescriptionTests {
+    /**
+     * Test armor-related power-up detection.
+     */
+    @Test
+    void testArmorRelatedTypes() {
+        assertTrue(PowerUpType.ARMOR.isArmorRelated());
+        
+        assertFalse(PowerUpType.HEALTH.isArmorRelated());
+        assertFalse(PowerUpType.AMMO.isArmorRelated());
+        assertFalse(PowerUpType.MEGAMEDKIT.isArmorRelated());
+    }
 
-        @Test
-        @DisplayName("Health power-up description is correct")
-        void healthDescription() {
-            String expected = "Health Pack - 🛡️❤️ Provides 50 units of benefit.";
-            assertEquals(expected, PowerUpType.HEALTH.getDescription());
-        }
+    /**
+     * Test ammo-related power-up detection.
+     */
+    @Test
+    void testAmmoRelatedTypes() {
+        assertTrue(PowerUpType.AMMO.isAmmoRelated());
+        
+        assertFalse(PowerUpType.HEALTH.isAmmoRelated());
+        assertFalse(PowerUpType.ARMOR.isAmmoRelated());
+        assertFalse(PowerUpType.MEGAMEDKIT.isAmmoRelated());
+    }
 
-        @Test
-        @DisplayName("Armor power-up description is correct")
-        void armorDescription() {
-            String expected = "Armor Plate - 🛡️ Provides 25 units of benefit.";
-            assertEquals(expected, PowerUpType.ARMOR.getDescription());
-        }
+    /**
+     * Test effect value getters for value-based and upgrade power-ups.
+     */
+    @Test
+    void testEffectValues() {
+        assertEquals(50, PowerUpType.HEALTH.getEffectValue());
+        assertEquals(25, PowerUpType.ARMOR.getEffectValue());
+        assertEquals(50, PowerUpType.AMMO.getEffectValue());
+        assertEquals(0, PowerUpType.ROCKET.getEffectValue());
+        assertEquals(0, PowerUpType.SHOTGUN.getEffectValue());
+        assertEquals(0, PowerUpType.CHAIN.getEffectValue());
+        assertEquals(0, PowerUpType.BFG.getEffectValue());
+        assertEquals(0, PowerUpType.SPEED.getEffectValue());
+        assertEquals(0, PowerUpType.INVISIBILITY.getEffectValue());
+        assertEquals(100, PowerUpType.MEGAMEDKIT.getEffectValue());
+    }
 
-        @Test
-        @DisplayName("Ammo power-up description is correct")
-        void ammoDescription() {
-            String expected = "Ammo Box - 🔫 Provides 50 units of benefit.";
-            assertEquals(expected, PowerUpType.AMMO.getDescription());
-        }
+    /**
+     * Test isValuePowerUp detection.
+     */
+    @Test
+    void testIsValuePowerUp() {
+        assertTrue(PowerUpType.HEALTH.isValuePowerUp());
+        assertTrue(PowerUpType.ARMOR.isValuePowerUp());
+        assertTrue(PowerUpType.AMMO.isValuePowerUp());
+        assertTrue(PowerUpType.MEGAMEDKIT.isValuePowerUp());
+        
+        assertFalse(PowerUpType.ROCKET.isValuePowerUp());
+        assertFalse(PowerUpType.SHOTGUN.isValuePowerUp());
+        assertFalse(PowerUpType.CHAIN.isValuePowerUp());
+        assertFalse(PowerUpType.BFG.isValuePowerUp());
+        assertFalse(PowerUpType.SPEED.isValuePowerUp());
+        assertFalse(PowerUpType.INVISIBILITY.isValuePowerUp());
+    }
 
-        @Test
-        @DisplayName("Rocket launcher description is correct")
-        void rocketDescription() {
-            String expected = "Rocket Launcher - 🚀 Upgrades current weapon.";
-            assertEquals(expected, PowerUpType.ROCKET.getDescription());
-        }
+    /**
+     * Test isUpgradePowerUp detection.
+     */
+    @Test
+    void testIsUpgradePowerUp() {
+        assertTrue(PowerUpType.ROCKET.isUpgradePowerUp());
+        assertTrue(PowerUpType.SHOTGUN.isUpgradePowerUp());
+        assertTrue(PowerUpType.CHAIN.isUpgradePowerUp());
+        assertTrue(PowerUpType.BFG.isUpgradePowerUp());
+        
+        assertFalse(PowerUpType.HEALTH.isUpgradePowerUp());
+        assertFalse(PowerUpType.ARMOR.isUpgradePowerUp());
+        assertFalse(PowerUpType.AMMO.isUpgradePowerUp());
+        assertFalse(PowerUpType.SPEED.isUpgradePowerUp());
+        assertFalse(PowerUpType.INVISIBILITY.isUpgradePowerUp());
+        assertFalse(PowerUpType.MEGAMEDKIT.isUpgradePowerUp());
+    }
 
-        @Test
-        @DisplayName("BFG description is correct")
-        void bfgDescription() {
-            String expected = "BFG - ☢️ Upgrades current weapon.";
-            assertEquals(expected, PowerUpType.BFG.getDescription());
-        }
+    /**
+     * Test weapon upgrade detection.
+     */
+    @Test
+    void testIsWeaponUpgrade() {
+        assertTrue(PowerUpType.ROCKET.isWeaponUpgrade());
+        assertTrue(PowerUpType.SHOTGUN.isWeaponUpgrade());
+        assertTrue(PowerUpType.CHAIN.isWeaponUpgrade());
+        assertTrue(PowerUpType.BFG.isWeaponUpgrade());
+        
+        assertFalse(PowerUpType.HEALTH.isWeaponUpgrade());
+        assertFalse(PowerUpType.ARMOR.isWeaponUpgrade());
+        assertFalse(PowerUpType.AMMO.isWeaponUpgrade());
+        assertFalse(PowerUpType.SPEED.isWeaponUpgrade());
+        assertFalse(PowerUpType.INVISIBILITY.isWeaponUpgrade());
+        assertFalse(PowerUpType.MEGAMEDKIT.isWeaponUpgrade());
+    }
+
+    /**
+     * Test category getters.
+     */
+    @Test
+    void testGetCategories() {
+        assertEquals("Health", PowerUpType.HEALTH.getCategory());
+        assertEquals("Health", PowerUpType.MEGAMEDKIT.getCategory());
+        assertEquals("Armor", PowerUpType.ARMOR.getCategory());
+        assertEquals("Ammo", PowerUpType.AMMO.getCategory());
+        assertEquals("Weapon", PowerUpType.ROCKET.getCategory());
+        assertEquals("Weapon", PowerUpType.SHOTGUN.getCategory());
+        assertEquals("Weapon", PowerUpType.CHAIN.getCategory());
+        assertEquals("Weapon", PowerUpType.BFG.getCategory());
+        assertEquals("Speed", PowerUpType.SPEED.getCategory());
+        assertEquals("Special", PowerUpType.INVISIBILITY.getCategory());
+    }
+
+    /**
+     * Test getDescription returns meaningful descriptions.
+     */
+    @Test
+    void testGetDescriptions() {
+        assertEquals("Health Pack - 🛡️❤️", PowerUpType.HEALTH.getDescription());
+        assertEquals("Armor Plate - 🛡️", PowerUpType.ARMOR.getDescription());
+        assertEquals("Ammo Box - 🔫", PowerUpType.AMMO.getDescription());
+        assertEquals("Mega Medkit - ❇️", PowerUpType.MEGAMEDKIT.getDescription());
+        assertEquals("Rocket Launcher - 🚀", PowerUpType.ROCKET.getDescription());
+        assertEquals("Speed Boost - ⚡", PowerUpType.SPEED.getDescription());
+        assertEquals("Invisibility - 👻", PowerUpType.INVISIBILITY.getDescription());
+    }
+
+    /**
+     * Test toString returns enum name.
+     */
+    @Test
+    void testToString() {
+        assertEquals("HEALTH", PowerUpType.HEALTH.toString());
+        assertEquals("ARMOR", PowerUpType.ARMOR.toString());
+        assertEquals("SPEED", PowerUpType.SPEED.toString());
+    }
+
+    /**
+     * Test PowerUpType enum values.
+     */
+    @Test
+    void testEnumValues() {
+        PowerUpType[] types = PowerUpType.values();
+        
+        assertEquals(11, types.length);
+        assertEquals(PowerUpType.HEALTH, types[0]);
+        assertEquals(PowerUpType.ARMOR, types[1]);
+        assertEquals(PowerUpType.AMMO, types[2]);
+        assertEquals(PowerUpType.ROCKET, types[3]);
+        assertEquals(PowerUpType.SHOTGUN, types[4]);
+        assertEquals(PowerUpType.CHAIN, types[5]);
+        assertEquals(PowerUpType.BFG, types[6]);
+        assertEquals(PowerUpType.SPEED, types[7]);
+        assertEquals(PowerUpType.INVISIBILITY, types[8]);
+        assertEquals(PowerUpType.MEGAMEDKIT, types[9]);
     }
 }

@@ -17,12 +17,12 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a class="successGroup" href="#">Gradle Test Run :app:test</a>
+<a class="failureGroup" href="#">Gradle Test Run :app:test</a>
 </li>
 </ul>
 <div class="tab">
 <h2>Gradle Test Run :app:test</h2>
-<h1>PowerUpType Tests</h1>
+<h1>PowerUpTypeTest</h1>
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
@@ -41,13 +41,13 @@
 <tr>
 <td>
 <div class="infoBox">
-<div class="counter">28</div>
+<div class="counter">14</div>
 <p>tests</p>
 </div>
 </td>
 <td>
 <div class="infoBox">
-<div class="counter">0</div>
+<div class="counter">4</div>
 <p>failures</p>
 </div>
 </td>
@@ -59,7 +59,7 @@
 </td>
 <td>
 <div class="infoBox duration">
-<div class="counter">0.010s</div>
+<div class="counter">0.006s</div>
 <p>duration</p>
 </div>
 </td>
@@ -68,19 +68,30 @@
 </div>
 </td>
 <td>
-<div class="infoBox success successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures successRate">
+<div class="percent">71%</div>
 <p>successful</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="" href="#">Failed</a>
+</li>
+<li>
+<a class="" href="#">All</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Failed</h2>
 <table class="test-results">
 <thead>
 <tr>
 <th>Child</th>
-<th>Name</th>
+<th hidden="">Name</th>
 <th>Tests</th>
 <th>Failures</th>
 <th>Skipped</th>
@@ -89,32 +100,88 @@
 </tr>
 </thead>
 <tr>
-<td class="success">
-<a href="MoAj0QYpPu4/index.html">Category Tests</a>
+<td class="failures">
+<a href="mJLf13dSr2I.html">testAllTypesExist()</a>
 </td>
-<td class="path">org.ronobot.engine.powerups.PowerUpTypeTest$CategoryTests</td>
-<td>6</td>
+<td class="path" hidden="">testAllTypesExist()</td>
+<td>1</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>0.002s</td>
-<td class="success">100%</td>
+<td>0.001s</td>
+<td class="failures">0%</td>
 </tr>
 <tr>
-<td class="success">
-<a href="2lY_tPMycpY/index.html">Power-Up Classification</a>
+<td class="failures">
+<a href="2yEijk9j1JA.html">testEnumValues()</a>
 </td>
-<td class="path">org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests</td>
-<td>6</td>
+<td class="path" hidden="">testEnumValues()</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="FvQjtX1NUO4.html">testGetDescriptions()</a>
+</td>
+<td class="path" hidden="">testGetDescriptions()</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="6iP7C1Te5Wk.html">testIsUpgradePowerUp()</a>
+</td>
+<td class="path" hidden="">testIsUpgradePowerUp()</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>All</h2>
+<table class="test-results">
+<thead>
+<tr>
+<th>Child</th>
+<th hidden="">Name</th>
+<th>Tests</th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Duration</th>
+<th>Success rate</th>
+</tr>
+</thead>
+<tr>
+<td class="failures">
+<a href="mJLf13dSr2I.html">testAllTypesExist()</a>
+</td>
+<td class="path" hidden="">testAllTypesExist()</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0.001s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="success">testAmmoRelatedTypes()</td>
+<td class="path" hidden="">testAmmoRelatedTypes()</td>
+<td>1</td>
 <td>0</td>
 <td>0</td>
 <td>0.001s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
-<a href="0wb-85vlfEU/index.html">Total Power-Up Count</a>
-</td>
-<td class="path">org.ronobot.engine.powerups.PowerUpTypeTest$CountTests</td>
+<td class="success">testArmorRelatedTypes()</td>
+<td class="path" hidden="">testArmorRelatedTypes()</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
@@ -122,28 +189,113 @@
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
-<a href="h6ulksR05xE/index.html">Description Tests</a>
-</td>
-<td class="path">org.ronobot.engine.powerups.PowerUpTypeTest$DescriptionTests</td>
-<td>5</td>
+<td class="success">testEffectValues()</td>
+<td class="path" hidden="">testEffectValues()</td>
+<td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.005s</td>
+<td>0s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
-<a href="rCyVsuKRurY/index.html">Enum Values</a>
+<td class="success">testEnumDescriptions()</td>
+<td class="path" hidden="">testEnumDescriptions()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="2yEijk9j1JA.html">testEnumValues()</a>
 </td>
-<td class="path">org.ronobot.engine.powerups.PowerUpTypeTest$EnumValuesTests</td>
-<td>10</td>
+<td class="path" hidden="">testEnumValues()</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="success">testEnumVisuals()</td>
+<td class="path" hidden="">testEnumVisuals()</td>
+<td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.002s</td>
+<td>0s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">testGetCategories()</td>
+<td class="path" hidden="">testGetCategories()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="FvQjtX1NUO4.html">testGetDescriptions()</a>
+</td>
+<td class="path" hidden="">testGetDescriptions()</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="success">testHealthRelatedTypes()</td>
+<td class="path" hidden="">testHealthRelatedTypes()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="6iP7C1Te5Wk.html">testIsUpgradePowerUp()</a>
+</td>
+<td class="path" hidden="">testIsUpgradePowerUp()</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="success">testIsValuePowerUp()</td>
+<td class="path" hidden="">testIsValuePowerUp()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">testIsWeaponUpgrade()</td>
+<td class="path" hidden="">testIsWeaponUpgrade()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">testToString()</td>
+<td class="path" hidden="">testToString()</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.001s</td>
 <td class="success">100%</td>
 </tr>
 </table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -156,7 +308,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.5.1</a> at May 30, 2026, 12:32:45 AM</p>
+<a href="https://www.gradle.org">Gradle 9.5.1</a> at May 30, 2026, 3:02:12 AM</p>
 </div>
 </div>
 </body>

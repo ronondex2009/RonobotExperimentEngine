@@ -14,7 +14,7 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a class="successGroup" href="#">Gradle Test Run :app:test</a>
+<a class="failureGroup" href="#">Gradle Test Run :app:test</a>
 </li>
 </ul>
 <div class="tab">
@@ -38,13 +38,13 @@
 <tr>
 <td>
 <div class="infoBox">
-<div class="counter">325</div>
+<div class="counter">366</div>
 <p>tests</p>
 </div>
 </td>
 <td>
 <div class="infoBox">
-<div class="counter">0</div>
+<div class="counter">11</div>
 <p>failures</p>
 </div>
 </td>
@@ -56,7 +56,7 @@
 </td>
 <td>
 <div class="infoBox duration">
-<div class="counter">0.591s</div>
+<div class="counter">0.531s</div>
 <p>duration</p>
 </div>
 </td>
@@ -65,14 +65,74 @@
 </div>
 </td>
 <td>
-<div class="infoBox success successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures successRate">
+<div class="percent">96%</div>
 <p>successful</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="" href="#">Failed</a>
+</li>
+<li>
+<a class="" href="#">All</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Failed</h2>
+<table class="test-results">
+<thead>
+<tr>
+<th>Child</th>
+<th>Name</th>
+<th>Tests</th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Duration</th>
+<th>Success rate</th>
+</tr>
+</thead>
+<tr>
+<td class="failures">
+<a href="zctzp7YcBNI/index.html">AudioSystemTest</a>
+</td>
+<td class="path">org.ronobot.engine.audio.AudioSystemTest</td>
+<td>27</td>
+<td>3</td>
+<td>0</td>
+<td>0.034s</td>
+<td class="failures">88%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="pvBy4MaAFu4/index.html">PowerUpTest</a>
+</td>
+<td class="path">org.ronobot.engine.powerups.PowerUpTest</td>
+<td>28</td>
+<td>4</td>
+<td>0</td>
+<td>0.014s</td>
+<td class="failures">85%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="pFtP4JMWif8/index.html">PowerUpTypeTest</a>
+</td>
+<td class="path">org.ronobot.engine.powerups.PowerUpTypeTest</td>
+<td>14</td>
+<td>4</td>
+<td>0</td>
+<td>0.006s</td>
+<td class="failures">71%</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>All</h2>
 <table class="test-results">
 <thead>
 <tr>
@@ -93,8 +153,19 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.035s</td>
+<td>0.004s</td>
 <td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="zctzp7YcBNI/index.html">AudioSystemTest</a>
+</td>
+<td class="path">org.ronobot.engine.audio.AudioSystemTest</td>
+<td>27</td>
+<td>3</td>
+<td>0</td>
+<td>0.034s</td>
+<td class="failures">88%</td>
 </tr>
 <tr>
 <td class="success">
@@ -104,7 +175,7 @@
 <td>14</td>
 <td>0</td>
 <td>0</td>
-<td>0.014s</td>
+<td>0.010s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -115,7 +186,7 @@
 <td>7</td>
 <td>0</td>
 <td>0</td>
-<td>0.008s</td>
+<td>0.006s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -126,7 +197,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.004s</td>
+<td>0.002s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -137,7 +208,7 @@
 <td>19</td>
 <td>0</td>
 <td>0</td>
-<td>0.007s</td>
+<td>0.006s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -148,7 +219,7 @@
 <td>30</td>
 <td>0</td>
 <td>0</td>
-<td>0.014s</td>
+<td>0.011s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -159,7 +230,7 @@
 <td>25</td>
 <td>0</td>
 <td>0</td>
-<td>0.008s</td>
+<td>0.007s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -170,7 +241,7 @@
 <td>13</td>
 <td>0</td>
 <td>0</td>
-<td>0.007s</td>
+<td>0.006s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -192,7 +263,7 @@
 <td>16</td>
 <td>0</td>
 <td>0</td>
-<td>0.005s</td>
+<td>0.006s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -203,7 +274,7 @@
 <td>17</td>
 <td>0</td>
 <td>0</td>
-<td>0.005s</td>
+<td>0.004s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -236,7 +307,7 @@
 <td>19</td>
 <td>0</td>
 <td>0</td>
-<td>0.013s</td>
+<td>0.010s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -247,7 +318,7 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.002s</td>
+<td>0.001s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -258,7 +329,7 @@
 <td>10</td>
 <td>0</td>
 <td>0</td>
-<td>0.009s</td>
+<td>0.007s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -284,15 +355,26 @@
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
-<a href="pFtP4JMWif8/index.html">PowerUpType Tests</a>
+<td class="failures">
+<a href="pvBy4MaAFu4/index.html">PowerUpTest</a>
+</td>
+<td class="path">org.ronobot.engine.powerups.PowerUpTest</td>
+<td>28</td>
+<td>4</td>
+<td>0</td>
+<td>0.014s</td>
+<td class="failures">85%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="pFtP4JMWif8/index.html">PowerUpTypeTest</a>
 </td>
 <td class="path">org.ronobot.engine.powerups.PowerUpTypeTest</td>
-<td>28</td>
+<td>14</td>
+<td>4</td>
 <td>0</td>
-<td>0</td>
-<td>0.010s</td>
-<td class="success">100%</td>
+<td>0.006s</td>
+<td class="failures">71%</td>
 </tr>
 <tr>
 <td class="success">
@@ -302,10 +384,12 @@
 <td>14</td>
 <td>0</td>
 <td>0</td>
-<td>0.002s</td>
+<td>0.001s</td>
 <td class="success">100%</td>
 </tr>
 </table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -318,7 +402,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.5.1</a> at May 30, 2026, 12:32:45 AM</p>
+<a href="https://www.gradle.org">Gradle 9.5.1</a> at May 30, 2026, 3:02:12 AM</p>
 </div>
 </div>
 </body>

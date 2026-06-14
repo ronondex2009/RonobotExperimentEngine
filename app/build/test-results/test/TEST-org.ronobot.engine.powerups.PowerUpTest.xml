@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.ronobot.engine.powerups.PowerUpTest" tests="28" skipped="0" failures="4" errors="0" timestamp="2026-05-30T07:02:11.957Z" hostname="cherokee" time="0.013">
+  <properties/>
+  <testcase name="testUpdateDecrementsLifespan()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testGetLifespan()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testCreationWithCustomDimensions()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testSetTypeWithNull()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testTypeGetterAndSetter()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testReduceLifespan()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testSetTimeRemainingClamped()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testCreationWithDefaultType()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testResurrect()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testToString()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.003"/>
+  <testcase name="testUpdateExpires()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:69)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:41)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
+	at org.ronobot.engine.powerups.PowerUpTest.testUpdateExpires(PowerUpTest.java:262)
+</failure>
+  </testcase>
+  <testcase name="testCanPickupWhenExpired()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testGetEffectValue()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testIsActive()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testPickupWhenCannotPickup()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testCanPickupWhenInactive()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testCanPickup()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testGetDescription()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.002">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;Health Pack - &#x1f6e1;️❤️&gt; but was: &lt;Health Pack - &#x1f6e1;️❤️ Provides 50 units of benefit.&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;Health Pack - &#x1f6e1;️❤️&gt; but was: &lt;Health Pack - &#x1f6e1;️❤️ Provides 50 units of benefit.&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.ronobot.engine.powerups.PowerUpTest.testGetDescription(PowerUpTest.java:230)
+</failure>
+  </testcase>
+  <testcase name="testSetActive()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:69)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:41)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
+	at org.ronobot.engine.powerups.PowerUpTest.testSetActive(PowerUpTest.java:299)
+</failure>
+  </testcase>
+  <testcase name="testGetTimeRemaining()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testCreationWithCustomSize()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testGetCategory()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.001"/>
+  <testcase name="testGetVisual()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testDeactivate()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testCanPickupWhenCollected()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testPickup()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <testcase name="testUpdateWhenDead()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:69)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:41)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
+	at org.ronobot.engine.powerups.PowerUpTest.testUpdateWhenDead(PowerUpTest.java:278)
+</failure>
+  </testcase>
+  <testcase name="testSetLifespanClamped()" classname="org.ronobot.engine.powerups.PowerUpTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

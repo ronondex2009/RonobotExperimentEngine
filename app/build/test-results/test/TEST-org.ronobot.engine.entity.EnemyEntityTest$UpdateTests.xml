@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Update Tests" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-30T04:32:45.473Z" hostname="cherokee" time="0.0">
+<testsuite name="Update Tests" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-30T07:02:12.013Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="Update with zero cooldown does nothing" classname="org.ronobot.engine.entity.EnemyEntityTest$UpdateTests" time="0.0"/>
   <testcase name="Update decrements cooldown" classname="org.ronobot.engine.entity.EnemyEntityTest$UpdateTests" time="0.0"/>

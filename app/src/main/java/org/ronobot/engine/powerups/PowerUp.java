@@ -67,7 +67,7 @@ public class PowerUp extends Entity {
     /**
      * Whether the power-up has been collected.
      */
-    private boolean collected = false;
+    protected boolean collected = false;
 
     /**
      * Creates a new PowerUp with health pickup.
@@ -267,6 +267,12 @@ public class PowerUp extends Entity {
             timeRemaining--;
         } else {
             // Power-up expired
+            active = false;
+            collected = true;
+        }
+        
+        // Check if expired after update
+        if (timeRemaining <= 0) {
             active = false;
             collected = true;
         }

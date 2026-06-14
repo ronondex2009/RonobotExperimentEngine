@@ -22,17 +22,17 @@ public class AudioSystem {
     /**
      * Default audio volume.
      */
-    private static final float DEFAULT_VOLUME = 1.0f;
+    public static final float DEFAULT_VOLUME = 1.0f;
 
     /**
      * Maximum audio volume.
      */
-    private static final float MAX_VOLUME = 1.0f;
+    public static final float MAX_VOLUME = 1.0f;
 
     /**
      * Minimum audio volume.
      */
-    private static final float MIN_VOLUME = 0.0f;
+    public static final float MIN_VOLUME = 0.0f;
 
     /**
      * Current audio volume.
@@ -310,22 +310,36 @@ public class AudioSystem {
 
     /**
      * Gets a sound effect by name.
+     * <p>
+     * Returns the sound effect with playing=false if it exists.
+     * </p>
      *
      * @param name The sound effect name
      * @return The sound effect, or null if not found
      */
     public SoundEffect getSoundEffect(String name) {
-        return soundEffects.get(name);
+        SoundEffect effect = soundEffects.get(name);
+        if (effect != null) {
+            effect.playing = false;
+        }
+        return effect;
     }
 
     /**
      * Gets a music track by name.
+     * <p>
+     * Returns the music track with playing=false if it exists.
+     * </p>
      *
      * @param name The music track name
      * @return The music track, or null if not found
      */
     public MusicTrack getMusicTrack(String name) {
-        return musicTracks.get(name);
+        MusicTrack track = musicTracks.get(name);
+        if (track != null) {
+            track.playing = false;
+        }
+        return track;
     }
 
     /**

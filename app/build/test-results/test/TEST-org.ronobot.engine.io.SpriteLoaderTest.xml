@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.io.SpriteLoaderTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-05-30T04:32:45.515Z" hostname="cherokee" time="0.013">
+<testsuite name="org.ronobot.engine.io.SpriteLoaderTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-05-30T07:02:12.053Z" hostname="cherokee" time="0.01">
   <properties/>
-  <testcase name="testSpriteCacheToString()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.005"/>
-  <testcase name="testSpriteLoaderToString()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.002"/>
-  <testcase name="testDetermineExitSprite()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
-  <testcase name="testGetSpriteCount()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.001"/>
+  <testcase name="testSpriteCacheToString()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.003"/>
+  <testcase name="testSpriteLoaderToString()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.004"/>
+  <testcase name="testDetermineExitSprite()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.001"/>
+  <testcase name="testGetSpriteCount()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testClearCache()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testIsSpriteLumpTrue()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testIsSpriteLumpFalse()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
@@ -13,12 +13,12 @@
   <testcase name="testSpriteTypeEnumLookup()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testSetEnableSpriteLoading()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testDeterminePlayerSprite()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
-  <testcase name="testGetOrCreateSpriteNew()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.001"/>
+  <testcase name="testGetOrCreateSpriteNew()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testGetSpriteCacheExisting()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testGetSpriteCacheNull()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
-  <testcase name="testSpriteCacheProperties()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.001"/>
-  <testcase name="testGetLoadedSprites()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
-  <testcase name="testDetermineMissileSprite()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.001"/>
+  <testcase name="testSpriteCacheProperties()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
+  <testcase name="testGetLoadedSprites()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.001"/>
+  <testcase name="testDetermineMissileSprite()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <testcase name="testDefaultConstructor()" classname="org.ronobot.engine.io.SpriteLoaderTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

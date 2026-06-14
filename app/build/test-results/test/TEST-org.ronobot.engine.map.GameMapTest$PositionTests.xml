@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Position Conversions" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-30T04:32:45.539Z" hostname="cherokee" time="0.001">
+<testsuite name="Position Conversions" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-30T07:02:12.071Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="converts tile to world position" classname="org.ronobot.engine.map.GameMapTest$PositionTests" time="0.001"/>
+  <testcase name="converts tile to world position" classname="org.ronobot.engine.map.GameMapTest$PositionTests" time="0.0"/>
   <testcase name="returns null for out of bounds world position" classname="org.ronobot.engine.map.GameMapTest$PositionTests" time="0.0"/>
-  <testcase name="converts world position to tile" classname="org.ronobot.engine.map.GameMapTest$PositionTests" time="0.0"/>
+  <testcase name="converts world position to tile" classname="org.ronobot.engine.map.GameMapTest$PositionTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
