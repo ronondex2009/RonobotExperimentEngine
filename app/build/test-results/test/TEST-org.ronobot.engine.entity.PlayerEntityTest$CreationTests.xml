@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Creation" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:00.998Z" hostname="cherokee" time="0.001">
+<testsuite name="Creation" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.887Z" hostname="cherokee" time="0.002">
   <properties/>
   <testcase name="PlayerEntity is created successfully" classname="org.ronobot.engine.entity.PlayerEntityTest$CreationTests" time="0.0"/>
-  <testcase name="PlayerEntity has default health" classname="org.ronobot.engine.entity.PlayerEntityTest$CreationTests" time="0.0"/>
+  <testcase name="PlayerEntity has default health" classname="org.ronobot.engine.entity.PlayerEntityTest$CreationTests" time="0.001"/>
   <testcase name="PlayerEntity has default max health" classname="org.ronobot.engine.entity.PlayerEntityTest$CreationTests" time="0.0"/>
   <testcase name="PlayerEntity has default armor" classname="org.ronobot.engine.entity.PlayerEntityTest$CreationTests" time="0.0"/>
   <testcase name="PlayerEntity can be created with custom size" classname="org.ronobot.engine.entity.PlayerEntityTest$CreationTests" time="0.0"/>

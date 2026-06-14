@@ -1,6 +1,36 @@
 # CHANGES.md
 # Engine Development Log
 
+## Cycle 33 (2026-06-07) - COMPLETE
+
+### Status: BUILD SUCCESSFUL - All Tests Passing
+
+### Test Results
+- **Total Tests: 521**
+- **Passing: 521**
+- **Failing: 0**
+- **Build: SUCCESSFUL**
+
+### Completed Goals (Cycle 33)
+
+1. **Map Editor Compilation Errors Fixed**
+   - Fixed `Files.write()` calls in `MapEditorTest.java` to use `getBytes(StandardCharsets.UTF_8)`
+   - Fixed `fill()` method to properly bound x-axis within map width
+   - Fixed `createBlankMap()` to properly initialize tileMap array
+   - Fixed `createTestMap()` to use `createBlankMap()` helper
+   - Fixed `getTile()` bounds checking for y-coordinate
+
+2. **Build Achievements**
+   - Clean build achieved
+   - All 521 tests passing
+   - BUGS.md: RESOLVED
+
+3. **Documentation**
+   - CHANGES.md updated with progress
+   - README.md updated with current status
+
+---
+
 ## Cycle 32 (2026-06-06) - COMPLETE
 
 ### Status: BUILD SUCCESSFUL - All Tests Passing
@@ -76,62 +106,100 @@
 
 ---
 
-## Cycle 30 (2026-06-03) - COMPLETE
+## Architecture
 
-### Status: BUILD SUCCESSFUL - All Tests Passing
+### Core Engine
+```
+App
+├── game: Game
+├── physics: PhysicsEngine
+├── renderer: Renderer
+├── input: InputHandler
+└── start()
+    ├── game.init()
+    ├── game.setRenderer(this.renderer)
+    ├── game.setInputHandler(this.input)
+    └── game.runLoop()
 
-### Test Results
-- **Total Tests: 471**
-- **Passing: 471**
-- **Failing: 0**
-- **Build: SUCCESSFUL**
+Game
+├── running: boolean
+├── ended: boolean
+├── entities: EntityManager
+├── collisionManager: CollisionManager
+├── map: GameMap
+├── player: PlayerEntity
+├── state: String
+├── physicsEngine: PhysicsEngine
+├── renderer: Renderer
+├── frameCount: int
+├── inputHandler: InputHandler
+├── init()
+├── start() - sets running flag, uses runLoop()
+├── stop()
+├── end()
+├── update()
+└── runLoop() - Main game loop with rendering
+    ├── inputHandler.handle(this)
+    ├── update()
+    ├── detectCollisions()
+    ├── collision.resolve()
+    ├── renderer.render(this)
+    └── Thread.sleep(16) for ~60 FPS
+```
 
-### Completed Goals (Cycle 30)
+### Map System
+```
+LevelLoader
+├── levelMetadata: Map
+├── mapName: String
+├── difficultyString: String
+├── spawnPositions: List
+├── isLevelValid: boolean
+├── loadLevel(path)
+├── loadFromContent(content, path)
+├── parseMetadata(content)
+├── parseSpawns(content)
+├── getSpawnPosition(type)
+├── getLevelMetadata()
+├── getDifficulty()
+├── getMapName()
+├── isLevelValid()
+└── clear()
 
-1. **Item System Implementation**
-   - Created Item.java entity class for inventory items
-   - Created ItemType.java enum for item categories
-   - Implement pickup/drop mechanics
-   - Support ammo, health, armor, keycards, secrets, monsters, medkits, weapons
-   - Add comprehensive unit tests (471 tests total)
+MapEditor
+├── tileMap: String[]
+├── decorations: List
+├── spawns: List
+├── mapNames: List
+├── difficultyStrings: List
+├── mapHeight: int
+├── createBlankMap(width, height)
+├── createTestMap()
+├── loadFromFile(path)
+├── saveToFile(path)
+├── saveToWriter(writer)
+├── getTile(x, y)
+├── setTile(x, y, tile)
+├── removeTile(x, y)
+├── addDecoration(x, y, type)
+├── getDecorations()
+├── getSpawns()
+├── fill(x1, y1, x2, y2, tile)
+├── clear()
+└── toString()
 
-2. **Item Types**
-   - AMMO: Weapon ammunition (🔫)
-   - HEALTH: Health restoration (❤️)
-   - ARMOR: Armor protection (🛡️)
-   - KEYCARD: Door access keys (🗝️)
-   - SECRET: Achievement unlocks (✨)
-   - MONSTER: Enemy spawns (👹)
-   - MEDKIT: Emergency medical (🏥)
-   - WEAPON: Weapon pickups (🔫)
-
-3. **Build Achievements**
-   - Clean build achieved
-   - All 471 tests passing
-   - Ready for next feature development
-
----
-
-## Cycle 29 (2026-06-03) - COMPLETE
-
-### Status: BUILD SUCCESSFUL - All Tests Passing
-
-1. **Map Decoration System**
-   - Created MapDecoration.java for decorative elements
-   - Created MapDecorationLoader.java for decoration management
-   - Extended GameMap.java with decoration support
-   - All classes well-documented with Javadoc
-   - Unit tests written for MapDecoration
-
-2. **Documentation**
-   - Updated README.md with current project status
-   - Updated CHANGES.md with cycle progress
-   - Extended architecture documentation
-
-3. **Build Stability**
-   - Clean build achieved
-   - All 428 tests passing
-   - BUGS.md maintained to document JavaFX issue
+GameMap
+├── tiles[x][y][z]
+├── spawnedEntities: Map
+├── spawnedProjectiles: Map
+├── decorations: Map
+├── entitySpawns: List - Protected for LevelLoader access
+├── isWall, isDoor, isEmpty
+├── spawnEntity, removeEntity
+├── addDecoration, removeDecoration
+├── getDecorationType
+└── load(), isLoaded()
+```
 
 ---
 
@@ -246,11 +314,13 @@ project/
 - Math Utilities: Complete math utility suite
 - Item System: Complete item types and entity support (AMMO, HEALTH, ARMOR, KEYCARD, SECRET, MONSTER, MEDKIT, WEAPON)
 - Level Loader: Text-based map file parser with spawn support (COMPLETED)
+- Map Editor: Text-based map editor with fill, clear, and decoration support (COMPLETED)
 - Game Loop: Implemented in Game.runLoop() with rendering (COMPLETED)
 
 ### Completed Features
 - Level Loader: Text-based map file parser with spawn support (COMPLETED)
 - Game Loop: Implemented in Game.runLoop() with rendering (COMPLETED)
+- Map Editor: Created MapEditor.java with comprehensive editing capabilities (COMPLETED)
 - BUGS.md: All issues resolved, BUGS.md deleted (COMPLETED)
 
 ### Planned Features
@@ -259,6 +329,7 @@ project/
 3. **Save/Load System**: Game state persistence
 4. **Achievement System**: Unlockable goals and rewards
 5. **Monster Entities**: Full enemy AI and behavior
+6. **HUD/Debug Renderer**: Add SpriteRenderer for debug overlay rendering
 
 ### Technical Debt
 - Replace stub renderer implementation with actual graphics library
@@ -272,8 +343,8 @@ project/
 ## Cycle Summary
 
 ### Test Results
-- **Total Tests: 471**
-- **Passing: 471**
+- **Total Tests: 521**
+- **Passing: 521**
 - **Failing: 0**
 - **Build: SUCCESSFUL**
 
@@ -284,11 +355,15 @@ project/
 - Comprehensive test coverage
 
 ### Recent Changes
-- Item.java created with full inventory system
-- ItemType.java enum with 8 item types
-- ItemTest.java with 43 comprehensive tests
-- LevelLoader.java bug fixes for enemy spawn registration
-- GameMap.entitySpawns made protected
+- MapEditor.java created with full editing system
+- MapEditorTest.java with 50 comprehensive tests
 - BUGS.md deleted after resolution
-- All tests passing
+- CHANGES.md updated with cycle progress
+- All 521 tests passing
 - Repository committed and stable
+
+### Next Steps
+- Continue developing Doom-like engine features
+- Focus on UI components when ready
+- Implement save/load system
+- Consider multiplayer support

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Constructor Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:00.949Z" hostname="cherokee" time="0.002">
+<testsuite name="Constructor Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.847Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="EnemyEntity created with custom size" classname="org.ronobot.engine.entity.EnemyEntityTest$ConstructorTests" time="0.001"/>
+  <testcase name="EnemyEntity created with custom size" classname="org.ronobot.engine.entity.EnemyEntityTest$ConstructorTests" time="0.0"/>
   <testcase name="EnemyEntity created with default position" classname="org.ronobot.engine.entity.EnemyEntityTest$ConstructorTests" time="0.0"/>
-  <testcase name="EnemyEntity has correct initial health" classname="org.ronobot.engine.entity.EnemyEntityTest$ConstructorTests" time="0.001"/>
+  <testcase name="EnemyEntity has correct initial health" classname="org.ronobot.engine.entity.EnemyEntityTest$ConstructorTests" time="0.0"/>
   <testcase name="EnemyEntity health clamped to maximum" classname="org.ronobot.engine.entity.EnemyEntityTest$ConstructorTests" time="0.0"/>
   <testcase name="EnemyEntity health clamped to minimum" classname="org.ronobot.engine.entity.EnemyEntityTest$ConstructorTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

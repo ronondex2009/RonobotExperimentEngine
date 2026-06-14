@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Spawn Management" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:01.035Z" hostname="cherokee" time="0.001">
+<testsuite name="Spawn Management" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.937Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="removes spawned projectile" classname="org.ronobot.engine.map.GameMapTest$SpawnTests" time="0.0"/>
   <testcase name="returns false for out of bounds spawn" classname="org.ronobot.engine.map.GameMapTest$SpawnTests" time="0.0"/>
-  <testcase name="removes spawned entity" classname="org.ronobot.engine.map.GameMapTest$SpawnTests" time="0.0"/>
+  <testcase name="removes spawned entity" classname="org.ronobot.engine.map.GameMapTest$SpawnTests" time="0.001"/>
   <testcase name="spawns projectile at position" classname="org.ronobot.engine.map.GameMapTest$SpawnTests" time="0.0"/>
   <testcase name="clears all spawned entities" classname="org.ronobot.engine.map.GameMapTest$SpawnTests" time="0.0"/>
   <testcase name="spawns entity at position" classname="org.ronobot.engine.map.GameMapTest$SpawnTests" time="0.0"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Patrol Behavior" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:00.960Z" hostname="cherokee" time="0.001">
+<testsuite name="Patrol Behavior" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.853Z" hostname="cherokee" time="0.0">
   <properties/>
-  <testcase name="Demon has no patrol (aggressive)" classname="org.ronobot.engine.entity.EnemyTypeTest$PatrolTests" time="0.001"/>
+  <testcase name="Demon has no patrol (aggressive)" classname="org.ronobot.engine.entity.EnemyTypeTest$PatrolTests" time="0.0"/>
   <testcase name="Imp has no patrol (aggressive)" classname="org.ronobot.engine.entity.EnemyTypeTest$PatrolTests" time="0.0"/>
   <testcase name="Zombie has patrol enabled" classname="org.ronobot.engine.entity.EnemyTypeTest$PatrolTests" time="0.0"/>
   <testcase name="Baron has long patrol range" classname="org.ronobot.engine.entity.EnemyTypeTest$PatrolTests" time="0.0"/>

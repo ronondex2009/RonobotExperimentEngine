@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.integration.FullPipelineTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:01.013Z" hostname="cherokee" time="0.002">
+<testsuite name="org.ronobot.engine.integration.FullPipelineTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.914Z" hostname="cherokee" time="0.003">
   <properties/>
-  <testcase name="Collision detection with multiple entities" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.001"/>
-  <testcase name="Collision results are generated correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
+  <testcase name="Collision detection with multiple entities" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
+  <testcase name="Collision results are generated correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.001"/>
   <testcase name="Player navigates around interior walls" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Game state transitions work correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Player cannot move outside map bounds" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Full pipeline handles all components together" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Map loading and validation works" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
-  <testcase name="Player cannot move through walls" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.001"/>
+  <testcase name="Player cannot move through walls" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Player moves down (strafes) in empty space" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Player moves left in empty space" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>
   <testcase name="Input resets correctly" classname="org.ronobot.engine.integration.FullPipelineTest" time="0.0"/>

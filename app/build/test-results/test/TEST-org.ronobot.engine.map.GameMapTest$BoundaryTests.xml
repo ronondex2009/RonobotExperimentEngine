@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Boundary Checks" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T20:27:01.030Z" hostname="cherokee" time="0.001">
+<testsuite name="Boundary Checks" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.935Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="returns null for negative world position" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.001"/>
   <testcase name="isInBounds returns false for out of range" classname="org.ronobot.engine.map.GameMapTest$BoundaryTests" time="0.0"/>
