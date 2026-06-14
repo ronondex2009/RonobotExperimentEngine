@@ -1,6 +1,6 @@
 # MEMORY.md - Long-term Project Memory
 
-## June 10, 2026
+## June 11, 2026
 
 ### Current Development Status
 - Cycle 1: COMPLETE ✓
@@ -10,7 +10,7 @@
 - Full Gradle project with Kotlin build scripts
 - Entity system (PlayerEntity, EnemyEntity, Projectile, EnemyType, ItemType)
 - Collision system (CollisionManager, CollisionResult, PhysicsEngine)
-- Map system (GameMap, MapFileParser, MapDecoration, MapDecorationLoader)
+- Map system (GameMap, MapFileParser, MapDecoration, MapDecorationLoader, MapEditor)
 - Math utilities (Point, Size, Rectangle, Position, Velocity)
 - Audio system (AudioSystem, SoundPlayer)
 - IO system (WadFile, SpriteLoader, SpriteType)
@@ -31,6 +31,7 @@
 - **Completed**: 
   - GameState file loading refactoring (NIO approach)
   - AIStateMachine added with state transitions
+  - MapEditor.java restored from previous commit
 - **In Progress**: 
   - Sprite/texture management for actual graphics
   - WAD file parsing for complete asset loading
