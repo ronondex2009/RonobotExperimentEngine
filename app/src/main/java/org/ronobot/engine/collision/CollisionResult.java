@@ -189,7 +189,6 @@ public class CollisionResult {
 
         this.positionX = (left + right) / 2;
         this.positionY = (top + bottom) / 2;
-        this.positionY = 0; // Override: use y from context
     }
 
     /**
@@ -212,7 +211,7 @@ public class CollisionResult {
 
         // Normal points from A to B
         float dx = centerB - centerA;
-        float dy = 0; // Override: use y from context
+        float dy = boxB.getY() - boxA.getY();
 
         float length = (float) Math.sqrt(dx * dx + dy * dy);
         if (length > 0) {
