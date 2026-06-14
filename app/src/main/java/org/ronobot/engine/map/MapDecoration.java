@@ -1,6 +1,23 @@
+/**
+ * MapDecoration represents decorative elements that can be placed on a map.
+ * <p>
+ * Decorations are non-interactable visual elements that enhance the map's
+ * appearance without affecting gameplay mechanics. Examples include:
+ * - Wall decorations (tall walls, barriers)
+ * - Floor decorations (rugs, textures)
+ * - Environmental elements (trees, rocks, pillars)
+ * - Lighting elements (torches, glow effects)
+ * </p>
+ *
+ * @author ronobot
+ * @since 1.0
+ */
 package org.ronobot.engine.map;
 
-import java.util.List;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
+
+import java.util.Objects;
 
 /**
  * MapDecoration represents decorative elements that can be placed on a map.
@@ -17,8 +34,6 @@ import java.util.List;
  * @since 1.0
  */
 public class MapDecoration {
-
-    // ==================== Constants ==================
 
     /**
      * Decorator type for wall decorations.
@@ -39,8 +54,6 @@ public class MapDecoration {
      * Decorator type for lighting elements.
      */
     public static final String TYPE_LIGHTING = "lighting";
-
-    // ==================== Fields ====================
 
     /**
      * The type of decoration.
@@ -71,8 +84,6 @@ public class MapDecoration {
      * The priority of the decoration (for rendering order).
      */
     private final int priority;
-
-    // ==================== Constructors ==================
 
     /**
      * Creates a new MapDecoration with default parameters.
@@ -111,8 +122,6 @@ public class MapDecoration {
         this.visualChar = visual;
         this.priority = priority;
     }
-
-    // ==================== Getters ====================
 
     /**
      * Gets the decoration type.
@@ -168,7 +177,21 @@ public class MapDecoration {
         return priority;
     }
 
-    // ==================== Utility Methods ==================
+    /**
+     * Creates a MapDecoration from a JSON object.
+     *
+     * @param json the JSON object containing decoration data
+     * @return a new MapDecoration instance
+     */
+    public static MapDecoration fromJson(JsonObject json) {
+        String type = json.get("type").getAsString();
+        int row = json.get("row").getAsInt();
+        int col = json.get("col").getAsInt();
+        String name = json.get("name").getAsString();
+        String visual = json.has("visual") ? json.get("visual").getAsString() : " ";
+        int priority = json.has("priority") ? json.get("priority").getAsInt() : 0;
+        return new MapDecoration(row, col, type, name, visual.charAt(0), priority);
+    }
 
     /**
      * Validates this decoration.
@@ -195,5 +218,53 @@ public class MapDecoration {
                 ", visual='" + visualChar +
                 ", priority=" + priority +
                 '}';
+    }
+
+    /**
+     * Converts this MapDecoration to a JSON object.
+     *
+     * @return a JSON object representing this map decoration
+     */
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("type", type);
+        json.addProperty("row", row);
+        json.addProperty("col", col);
+        json.addProperty("name", name);
+        json.addProperty("visual", String.valueOf(visualChar));
+        json.addProperty("priority", priority);
+        return json;
+    }
+
+    /**
+     * Checks if this object equals another.
+     *
+     * @param obj the object to compare to
+     * @return true if equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        MapDecoration that = (MapDecoration) obj;
+        return row == that.row &&
+                col == that.col &&
+                type.equals(that.type) &&
+                name.equals(that.name) &&
+                priority == that.priority;
+    }
+
+    /**
+     * Gets the hash code.
+     *
+     * @return the hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, name, row, col, priority);
     }
 }

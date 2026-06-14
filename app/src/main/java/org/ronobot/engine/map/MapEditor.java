@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -56,7 +57,7 @@ public class MapEditor {
     public static final String TILE_PLAYER = "P";
 
     /** Tile for enemy spawn. */
-    public static final String TILE_ENEMY = "E";
+    public static final String TILE_ENEMY = "e";
 
     /** Tile for ammo spawn. */
     public static final String TILE_AMMO = "A";
@@ -64,44 +65,71 @@ public class MapEditor {
     /** Tile for health spawn. */
     public static final String TILE_HEALTH = "H";
 
+    /** Tile for monster spawn. */
+    public static final String TILE_MONSTER = "M";
+
     /** Default tile set for new maps. */
-    private static final int DEFAULT_TILE_COUNT = 11;
+    private static final int DEFAULT_TILE_COUNT = 12;
 
     /** Tile values for the default tile map. */
     public static final String[] DEFAULT_TILES = {
             TILE_EMPTY, TILE_WALL, TILE_DOOR, TILE_ELEVATOR, TILE_STAIR,
-            TILE_SECRET_DOOR, TILE_DECORATION, TILE_PLAYER, TILE_ENEMY, TILE_AMMO, TILE_HEALTH
+            TILE_SECRET_DOOR, TILE_DECORATION, TILE_PLAYER, TILE_ENEMY, TILE_AMMO, TILE_HEALTH, TILE_MONSTER
     };
 
-    private String[] tileMap;
+    private String[][] tileMap;
     private final List<MapDecoration> decorations;
     private final List<EntitySpawn> spawns;
     private final List<String> mapNames;
     private final List<String> difficultyStrings;
     private int mapHeight;
+    private int mapWidth;
 
     /**
      * Constructs a new MapEditor with default settings.
      */
     public MapEditor() {
-        this.tileMap = new String[DEFAULT_TILE_COUNT];
-        for (int i = 0; i < DEFAULT_TILE_COUNT; i++) {
-            this.tileMap[i] = TILE_EMPTY;
+        this.tileMap = new String[DEFAULT_TILE_COUNT][20];
+        this.mapHeight = DEFAULT_TILE_COUNT;
+        this.mapWidth = 20;
+        for (int y = 0; y < mapHeight; y++) {
+            for (int x = 0; x < mapWidth; x++) {
+                this.tileMap[y][x] = TILE_EMPTY;
+            }
         }
         this.decorations = new ArrayList<>();
         this.spawns = new ArrayList<>();
         this.mapNames = new ArrayList<>();
         this.difficultyStrings = new ArrayList<>();
-        this.mapHeight = 20;
     }
 
     /**
-     * Sets the map height.
+     * Sets the map width.
+     *
+     * @param width The map width
+     */
+    public void setMapWidth(int width) {
+        this.mapWidth = width;
+        if (this.tileMap != null) {
+            for (int y = 0; y < this.mapHeight; y++) {
+                this.tileMap[y] = Arrays.copyOf(this.tileMap[y], width);
+            }
+        }
+    }
+
+    /**
+     * Sets the map height and reinitializes the tile map.
      *
      * @param height The map height
      */
     public void setMapHeight(int height) {
         this.mapHeight = height;
+        this.tileMap = new String[height][mapWidth];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < mapWidth; x++) {
+                this.tileMap[y][x] = TILE_EMPTY;
+            }
+        }
     }
 
     /**
@@ -198,26 +226,23 @@ public class MapEditor {
      * @param row  The row index
      */
     private void parseMapRow(String line, int row) {
-        int col = 0;
-        for (char c : line.toCharArray()) {
-            if (col >= this.tileMap.length) {
-                // Map row is too wide for current tile map
-                return;
-            }
-
+        for (int col = 0; col < line.length() && col < this.mapWidth; col++) {
+            char c = line.charAt(col);
             switch (c) {
-                case '.' -> this.tileMap[col] = TILE_EMPTY;
-                case '#' -> this.tileMap[col] = TILE_WALL;
-                case 'D' -> this.tileMap[col] = TILE_DOOR;
-                case 'E' -> this.tileMap[col] = TILE_ELEVATOR;
-                case 'S' -> this.tileMap[col] = TILE_STAIR;
-                case 'd' -> this.tileMap[col] = TILE_SECRET_DOOR;
-                case '@' -> this.tileMap[col] = TILE_DECORATION;
-                case 'P' -> this.tileMap[col] = TILE_PLAYER;
-                case 'H' -> this.tileMap[col] = TILE_HEALTH;
-                default -> this.tileMap[col] = TILE_EMPTY;
+                case '.' -> this.tileMap[row][col] = TILE_EMPTY;
+                case '#' -> this.tileMap[row][col] = TILE_WALL;
+                case 'D' -> this.tileMap[row][col] = TILE_DOOR;
+                case 'E' -> this.tileMap[row][col] = TILE_ELEVATOR;
+                case 'S' -> this.tileMap[row][col] = TILE_STAIR;
+                case 'e' -> this.tileMap[row][col] = TILE_ENEMY;
+                case 'd' -> this.tileMap[row][col] = TILE_SECRET_DOOR;
+                case '@' -> this.tileMap[row][col] = TILE_DECORATION;
+                case 'P' -> this.tileMap[row][col] = TILE_PLAYER;
+                case 'H' -> this.tileMap[row][col] = TILE_HEALTH;
+                case 'A' -> this.tileMap[row][col] = TILE_AMMO;
+                case 'M' -> this.tileMap[row][col] = TILE_MONSTER;
+                default -> this.tileMap[row][col] = TILE_EMPTY;
             }
-            col++;
         }
     }
 
@@ -227,9 +252,48 @@ public class MapEditor {
      * @param line The spawn line to process
      */
     private void handleSpawnLine(String line) {
-        String spawnType = line.split("=", 2)[1].trim();
-        EntitySpawn spawn = new EntitySpawn(spawnType, null, -1, -1);
-        this.spawns.add(spawn);
+        String[] parts = line.split("=", 2);
+        if (parts.length == 2) {
+            String value = parts[1].trim();
+            if (value.startsWith("SPAWN_")) {
+                // Remove SPAWN_ prefix and parse coordinate
+                String[] coordParts = value.split(",", 2);
+                if (coordParts.length == 2) {
+                    int x = 0;
+                    int y = 0;
+                    try {
+                        x = Integer.parseInt(coordParts[0]);
+                        y = Integer.parseInt(coordParts[1]);
+                    } catch (NumberFormatException e) {
+                        // Keep as default 0,0
+                    }
+                    String spawnType = value.substring(6); // Remove "SPAWN_" prefix
+                    EntitySpawn spawn = new EntitySpawn(spawnType, null, x, y);
+                    this.spawns.add(spawn);
+                    // Also update the tile map if coordinates are valid
+                    if (y >= 0 && y < this.mapHeight && x >= 0 && x < this.mapWidth) {
+                        this.tileMap[y][x] = getSpawnTileChar(spawnType);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets the tile character for a spawn type.
+     *
+     * @param spawnType The spawn type string
+     * @return The tile character
+     */
+    private String getSpawnTileChar(String spawnType) {
+        switch (spawnType) {
+            case "PLAYER": return TILE_PLAYER;
+            case "ENEMY": return TILE_ENEMY;
+            case "AMMO": return TILE_AMMO;
+            case "HEALTH": return TILE_HEALTH;
+            case "MONSTER": return TILE_MONSTER;
+            default: return spawnType.isEmpty() ? TILE_EMPTY : spawnType;
+        }
     }
 
     /**
@@ -263,10 +327,10 @@ public class MapEditor {
      * @return The tile character, or empty string if out of bounds
      */
     public String getTile(int x, int y) {
-        if (y < 0 || y >= this.mapHeight || x < 0 || x >= this.tileMap.length) {
+        if (y < 0 || y >= this.mapHeight || x < 0 || x >= this.mapWidth) {
             return TILE_EMPTY;
         }
-        return this.tileMap[x];
+        return this.tileMap[y][x];
     }
 
     /**
@@ -278,11 +342,11 @@ public class MapEditor {
      * @return true if the placement was successful
      */
     public boolean setTile(int x, int y, String tile) {
-        if (x < 0 || y < 0 || x >= this.tileMap.length) {
+        if (x < 0 || y < 0 || x >= this.mapWidth || y >= this.mapHeight) {
             return false;
         }
 
-        this.tileMap[x] = tile;
+        this.tileMap[y][x] = tile;
         return true;
     }
 
@@ -309,8 +373,8 @@ public class MapEditor {
         // Use a placeholder visual character for new decorations
         MapDecoration decoration = new MapDecoration(-1, -1, decorationType, "", '@', 0);
         this.decorations.add(decoration);
-        if (y >= 0 && y < 20 && x >= 0 && x < this.tileMap.length) {
-            this.tileMap[x] = TILE_DECORATION;
+        if (y >= 0 && y < this.mapHeight && x >= 0 && x < this.mapWidth) {
+            this.tileMap[y][x] = TILE_DECORATION;
         }
         return true;
     }
@@ -400,10 +464,10 @@ public class MapEditor {
      * @return The map width
      */
     public int getMapWidth() {
-        if (this.tileMap == null || this.tileMap.length == 0) {
+        if (this.mapWidth <= 0 || this.tileMap == null) {
             return 0;
         }
-        return this.tileMap.length;
+        return this.mapWidth;
     }
 
     /**
@@ -423,25 +487,23 @@ public class MapEditor {
      * @return The tile character
      */
     private String getTileAt(int x, int y) {
-        if (y < 0 || x < 0 || x >= this.tileMap.length) {
+        if (y < 0 || x < 0 || y >= this.tileMap.length || x >= this.tileMap[y].length) {
             return TILE_EMPTY;
         }
 
-        String tile = this.tileMap[x];
-        if (tile == null || tile.isEmpty()) {
-            return TILE_EMPTY;
-        }
-
-        return tile;
+        return this.tileMap[y][x];
     }
 
     /**
      * Clears all tiles in the map.
      */
     public void clear() {
-        int width = this.tileMap == null ? 0 : this.tileMap.length;
-        for (int i = 0; i < width; i++) {
-            this.tileMap[i] = TILE_EMPTY;
+        int width = this.mapWidth;
+        int height = this.mapHeight;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                this.tileMap[y][x] = TILE_EMPTY;
+            }
         }
         this.decorations.clear();
         this.spawns.clear();
@@ -459,12 +521,12 @@ public class MapEditor {
      * @param tile The tile to fill
      */
     public void fill(int x1, int y1, int x2, int y2, String tile) {
-        int width = getMapWidth();
-        int height = getMapHeight();
+        int width = this.mapWidth;
+        int height = this.mapHeight;
         
         for (int y = y1; y <= y2 && y < height; y++) {
             for (int x = x1; x <= x2 && x < width && x >= 0; x++) {
-                this.tileMap[x] = tile;
+                this.tileMap[y][x] = tile;
             }
         }
     }
@@ -478,10 +540,13 @@ public class MapEditor {
      */
     public static MapEditor createBlankMap(int width, int height) {
         MapEditor editor = new MapEditor();
-        editor.tileMap = new String[width];
+        editor.tileMap = new String[height][width];
         editor.mapHeight = height;
-        for (int i = 0; i < width; i++) {
-            editor.tileMap[i] = TILE_EMPTY;
+        editor.mapWidth = width;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                editor.tileMap[y][x] = TILE_EMPTY;
+            }
         }
         return editor;
     }

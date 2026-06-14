@@ -1,6 +1,20 @@
+/**
+ * Entity spawn data structure representing spawn positions for game entities.
+ * <p>
+ * This class holds spawn position information for players, enemies,
+ * power-ups, and other game entities. Used by LevelLoader to manage
+ * spawn registry and entity placement.
+ * </p>
+ *
+ * @author ronobot
+ * @since 1.0
+ */
 package org.ronobot.engine.map;
 
-import org.ronobot.engine.map.MapFileParser;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
+
+import java.util.Objects;
 
 /**
  * Entity spawn data structure representing spawn positions for game entities.
@@ -44,10 +58,40 @@ public class EntitySpawn {
      * @param row The row position
      */
     public EntitySpawn(String typeName, MapFileParser.EntitySpawn.Type type, int col, int row) {
-        this.typeName = typeName;
-        this.type = type;
+        this.typeName = Objects.requireNonNull(typeName, "typeName cannot be null");
+        this.type = Objects.requireNonNull(type, "type cannot be null");
         this.col = col;
         this.row = row;
+    }
+
+    /**
+     * Creates an EntitySpawn from a JSON object.
+     *
+     * @param json the JSON object containing spawn data
+     * @return a new EntitySpawn instance
+     */
+    public static EntitySpawn fromJson(JsonObject json) {
+        String typeName = json.get("typeName").getAsString();
+        MapFileParser.EntitySpawn.Type type = MapFileParser.EntitySpawn.Type.valueOf(
+            json.get("type").getAsString()
+        );
+        int col = json.get("col").getAsInt();
+        int row = json.get("row").getAsInt();
+        return new EntitySpawn(typeName, type, col, row);
+    }
+
+    /**
+     * Converts this EntitySpawn to a JSON object.
+     *
+     * @return a JSON object representing this entity spawn
+     */
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("typeName", typeName);
+        json.addProperty("type", type.name());
+        json.addProperty("col", col);
+        json.addProperty("row", row);
+        return json;
     }
 
     /**
@@ -98,5 +142,36 @@ public class EntitySpawn {
                 ", col=" + col +
                 ", row=" + row +
                 '}';
+    }
+
+    /**
+     * Checks if this object equals another.
+     *
+     * @param obj the object to compare to
+     * @return true if equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        EntitySpawn that = (EntitySpawn) obj;
+        return col == that.col &&
+                row == that.row &&
+                typeName.equals(that.typeName) &&
+                type == that.type;
+    }
+
+    /**
+     * Gets the hash code.
+     *
+     * @return the hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(typeName, type, col, row);
     }
 }
