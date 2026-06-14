@@ -162,17 +162,13 @@ public class GameState {
         if (!file.exists() || !file.isFile()) {
             return null;
         }
-        try (FileReader reader = new FileReader(file)) {
-            StringBuilder sb = new StringBuilder();
-            int c;
-            while ((c = reader.read()) != -1) {
-                sb.append((char) c);
-            }
-            String content = sb.toString();
+        try {
+            // Read entire file as JSON string
+            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
             if (content != null && !content.isBlank()) {
                 try {
-                    JsonParser parser = new JsonParser();
-                    JsonObject json = parser.parse(content).getAsJsonObject();
+                    JsonElement jsonElement = JsonParser.parseString(content);
+                    JsonObject json = jsonElement.getAsJsonObject();
                     return GameState.fromJson(json);
                 } catch (JsonParseException e) {
                     throw new RuntimeException("Failed to parse game state JSON", e);
