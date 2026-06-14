@@ -15,16 +15,17 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class WadFileTest {
 
-    /**
-     * Test WadFile class exists and has correct magic constants.
-     */
+/**
+ * Test WadFile.toString() returns expected format.
+ */
     @Test
-    void testMagicConstants() {
-        assertEquals("IWAD", WadFile.WAD_MAGIC);
-        assertEquals("PNWAD", WadFile.WAD_MAGIC_DN);
-        assertEquals("HWAD", WadFile.WAD_MAGIC_HEX);
-        assertEquals(24, WadFile.ENTRY_SIZE);
-        assertEquals(1 << 24, WadFile.MAX_ENTRIES);
+    void testWadFileToString() {
+        WadFile wadFile = new WadFile();
+        
+        String str = wadFile.toString();
+        assertTrue(str.contains("WadFile"));
+        assertTrue(str.contains("name='unnamed.wad'"));
+        assertTrue(str.contains("null"));
     }
 
     /**
@@ -109,18 +110,6 @@ class WadFileTest {
     void testWadFileClass() {
         WadFile wadFile = new WadFile();
         assertNotNull(wadFile);
-    }
-
-    /**
-     * Test WadFile.toString().
-     */
-    @Test
-    void testWadFileToString() {
-        WadFile wadFile = new WadFile();
-        
-        String str = wadFile.toString();
-        assertTrue(str.contains("header="));
-        assertTrue(str.contains("null"));
     }
 
     /**

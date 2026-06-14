@@ -6,7 +6,9 @@ import org.ronobot.engine.math.Point;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +37,7 @@ public class SpriteLoader {
     /**
      * WAD header for sprite lookup.
      */
-    private WadFile.Header wadHeader;
+    private WadFile wadFile;
 
     /**
      * Sprite cache map.
@@ -102,21 +104,21 @@ public class SpriteLoader {
     }
 
     /**
-     * Sets the WAD header for sprite lookup.
+     * Sets the WAD file for sprite lookup.
      *
-     * @param header The WAD header
+     * @param wadFile The WAD file
      */
-    public void setWadHeader(WadFile.Header header) {
-        this.wadHeader = header;
+    public void setWadFile(WadFile wadFile) {
+        this.wadFile = wadFile;
     }
 
     /**
-     * Gets the WAD header.
+     * Gets the WAD file.
      *
-     * @return The WAD header, or null if not set
+     * @return The WAD file, or null if not set
      */
-    public WadFile.Header getWadHeader() {
-        return wadHeader;
+    public WadFile getWadFile() {
+        return wadFile;
     }
 
     /**
@@ -131,11 +133,11 @@ public class SpriteLoader {
      * @throws IOException If an error occurs while loading sprites
      */
     public void loadSprites(Path wadPath) throws IOException {
-        if (wadHeader == null) {
-            wadHeader = new WadFile().load(wadPath);
+        if (wadFile == null) {
+            wadFile = WadFile.load(wadPath.toAbsolutePath().toString());
         }
 
-        if (wadHeader == null || !wadHeader.isValid()) {
+        if (wadFile == null || !wadFile.hasSprites()) {
             return;
         }
 
@@ -149,62 +151,36 @@ public class SpriteLoader {
             dis = new DataInputStream(new GZIPInputStream(new FileInputStream(wadPath.toFile())));
         }
 
-        byte[] buffer = new byte[1024];
-
         try {
-            int dirOffset = wadHeader.getDirOffset();
-            if (dirOffset == 0) {
-                return;
-            }
+            int numEntries = wadFile.getLumpCount();
 
-            int numEntries = wadHeader.getNumEntries();
-            if (numEntries <= 0) {
-                return;
-            }
-
-            // Reset to directory offset
-            dis.skipBytes(dirOffset - dis.available() - 4);
-
+            // Iterate through lumps
             for (int i = 0; i < numEntries; i++) {
                 if (enableSpriteLoading) {
-                    // Read entry data
-                    int pos = dirOffset + (i * WadFile.ENTRY_SIZE);
-                    dis.skipBytes(pos);
-                    int bytesRead = dis.read(buffer, 0, WadFile.ENTRY_SIZE);
+                    WadFile.Lump lump = getLumpAt(wadFile, i);
+                    if (lump != null) {
+                        String lumpName = lump.name;
 
-                    if (bytesRead < WadFile.ENTRY_SIZE) {
-                        continue;
+                        // Only load sprite lumps
+                        if (!isSpriteLump(lumpName)) {
+                            continue;
+                        }
+
+                        // Create sprite cache entry
+                        SpriteCache sprite = new SpriteCache();
+                        sprite.name = lumpName;
+                        sprite.width = DEFAULT_WIDTH;
+                        sprite.height = DEFAULT_HEIGHT;
+                        sprite.frameCount = 0;
+                        sprite.offset = lump.offset;
+                        sprite.length = lump.size;
+
+                        // Determine sprite type
+                        sprite.type = determineSpriteType(lumpName);
+
+                        spriteCache.put(sprite.name, sprite);
+
                     }
-
-                    // Parse entry
-                    int nameLen = buffer[0] & 0xFF;
-                    if (nameLen == 0 || nameLen > 8) {
-                        continue;
-                    }
-
-                    String lumpName = new String(buffer, 1, nameLen);
-                    int lumpOffset = dis.readInt();
-                    int lumpLength = dis.readInt();
-
-                    // Only load sprite lumps
-                    if (!isSpriteLump(lumpName)) {
-                        continue;
-                    }
-
-                    // Create sprite cache entry
-                    SpriteCache sprite = new SpriteCache();
-                    sprite.name = lumpName;
-                    sprite.width = DEFAULT_WIDTH;
-                    sprite.height = DEFAULT_HEIGHT;
-                    sprite.frameCount = 0;
-                    sprite.offset = lumpOffset;
-                    sprite.length = lumpLength;
-
-                    // Determine sprite type
-                    sprite.type = determineSpriteType(lumpName);
-
-                    spriteCache.put(sprite.name, sprite);
-
                 }
             }
 
@@ -224,56 +200,32 @@ public class SpriteLoader {
      * @throws IOException If an error occurs while loading the WAD file
      */
     public SpriteCache loadSprite(String lumpName, Path wadPath) throws IOException {
-        if (wadHeader == null) {
-            wadHeader = new WadFile().load(wadPath);
+        if (wadFile == null) {
+            wadFile = WadFile.load(wadPath.toAbsolutePath().toString());
         }
 
-        if (wadHeader == null || !wadHeader.isValid()) {
+        if (wadFile == null) {
             return null;
         }
 
-        DataInputStream dis = null;
-        try {
-            dis = new DataInputStream(new FileInputStream(wadPath.toFile()));
+        // Check if we have this sprite already
+        SpriteCache cache = spriteCache.get(lumpName);
+        if (cache != null) {
+            return cache;
+        }
 
-            // Reset to directory offset
-            dis.skipBytes(wadHeader.getDirOffset() - dis.available() - 4);
-
-            // Find the entry
-            int numEntries = wadHeader.getNumEntries();
-            for (int i = 0; i < numEntries; i++) {
-                int pos = wadHeader.getDirOffset() + (i * WadFile.ENTRY_SIZE);
-                dis.skipBytes(pos);
-
-                byte[] entry = new byte[WadFile.ENTRY_SIZE];
-                dis.read(entry);
-
-                int nameLen = entry[0] & 0xFF;
-                if (nameLen == 0 || nameLen > 8) {
-                    continue;
-                }
-
-                String lumpNameEntry = new String(entry, 1, nameLen);
-                if (lumpNameEntry.equals(lumpName)) {
-                    SpriteCache sprite = new SpriteCache();
-                    sprite.name = lumpNameEntry;
-                    sprite.width = DEFAULT_WIDTH;
-                    sprite.height = DEFAULT_HEIGHT;
-                    sprite.offset = dis.readInt();
-                    sprite.length = dis.readInt();
-                    sprite.type = determineSpriteType(lumpNameEntry);
-                    return sprite;
-                }
-            }
-        } catch (IOException e) {
-            // Ignore
-        } finally {
-            if (dis != null) {
-                try {
-                    dis.close();
-                } catch (IOException e) {
-                    // Ignore
-                }
+        // Find the lump in the WAD file
+        for (WadFile.Lump lump : wadFile.getLumps()) {
+            if (lump.name.equals(lumpName)) {
+                SpriteCache sprite = new SpriteCache();
+                sprite.name = lump.name;
+                sprite.width = DEFAULT_WIDTH;
+                sprite.height = DEFAULT_HEIGHT;
+                sprite.offset = lump.offset;
+                sprite.length = lump.size;
+                sprite.type = determineSpriteType(lumpName);
+                spriteCache.put(lumpName, sprite);
+                return sprite;
             }
         }
 
@@ -413,7 +365,7 @@ public class SpriteLoader {
      */
     public void clearCache() {
         spriteCache.clear();
-        wadHeader = null;
+        wadFile = null;
     }
 
     /**
@@ -426,8 +378,33 @@ public class SpriteLoader {
         return "SpriteLoader{" +
                 "spriteCacheSize=" + spriteCache.size() +
                 ", enableSpriteLoading=" + enableSpriteLoading +
-                ", wadHeader=" + (wadHeader != null ? wadHeader.toString() : "null") +
+                ", wadFile=" + (wadFile != null ? wadFile.getName() : "null") +
                 '}';
+    }
+
+    /**
+     * Represents a lump in the WAD file iteration.
+     */
+    public static class Lump {
+        public String name;
+        public int offset;
+        public int compression;
+        public int size;
+        public int crc;
+    }
+
+    /**
+     * Gets the lump at the given index.
+     *
+     * @param wadFile The WAD file
+     * @param index The index
+     * @return The lump, or null if not found
+     */
+    public static WadFile.Lump getLumpAt(WadFile wadFile, int index) {
+        if (wadFile == null || index < 0 || index >= wadFile.getLumpCount()) {
+            return null;
+        }
+        return wadFile.getLumps().get(index);
     }
 
     /**

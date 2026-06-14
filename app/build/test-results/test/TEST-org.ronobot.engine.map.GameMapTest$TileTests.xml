@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Tile Operations" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:30:57.944Z" hostname="cherokee" time="0.001">
+<testsuite name="Tile Operations" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:41:13.328Z" hostname="cherokee" time="0.002">
   <properties/>
-  <testcase name="adds door at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
+  <testcase name="adds door at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.001"/>
   <testcase name="adds wall at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
   <testcase name="returns false for out of bounds tiles" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
-  <testcase name="adds floor at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.001"/>
-  <testcase name="gets correct tile value" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
+  <testcase name="adds floor at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
+  <testcase name="gets correct tile value" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.001"/>
   <testcase name="sets tile and returns change status" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

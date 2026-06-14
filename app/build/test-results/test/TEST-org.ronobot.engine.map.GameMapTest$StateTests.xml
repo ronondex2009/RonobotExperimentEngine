@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GameMap State" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:30:57.942Z" hostname="cherokee" time="0.001">
+<testsuite name="GameMap State" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:41:13.323Z" hostname="cherokee" time="0.002">
   <properties/>
   <testcase name="clears GameMap tiles and entities" classname="org.ronobot.engine.map.GameMapTest$StateTests" time="0.0"/>
-  <testcase name="creates copy of GameMap" classname="org.ronobot.engine.map.GameMapTest$StateTests" time="0.0"/>
+  <testcase name="creates copy of GameMap" classname="org.ronobot.engine.map.GameMapTest$StateTests" time="0.001"/>
   <testcase name="loads GameMap after load call" classname="org.ronobot.engine.map.GameMapTest$StateTests" time="0.0"/>
   <testcase name="toString contains GameMap info" classname="org.ronobot.engine.map.GameMapTest$StateTests" time="0.0"/>
   <testcase name="is initially not loaded" classname="org.ronobot.engine.map.GameMapTest$StateTests" time="0.0"/>

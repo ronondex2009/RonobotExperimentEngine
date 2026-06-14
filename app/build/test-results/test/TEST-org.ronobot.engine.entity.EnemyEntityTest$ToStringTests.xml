@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ToString Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:30:57.890Z" hostname="cherokee" time="0.004">
+<testsuite name="ToString Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:41:13.255Z" hostname="cherokee" time="0.003">
   <properties/>
-  <testcase name="ToString includes all relevant fields" classname="org.ronobot.engine.entity.EnemyEntityTest$ToStringTests" time="0.004"/>
+  <testcase name="ToString includes all relevant fields" classname="org.ronobot.engine.entity.EnemyEntityTest$ToStringTests" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

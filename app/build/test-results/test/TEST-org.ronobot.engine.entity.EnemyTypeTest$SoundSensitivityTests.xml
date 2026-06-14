@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Sound Sensitivity" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:30:57.894Z" hostname="cherokee" time="0.001">
+<testsuite name="Sound Sensitivity" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:41:13.258Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="Zombie has low sound sensitivity (immune)" classname="org.ronobot.engine.entity.EnemyTypeTest$SoundSensitivityTests" time="0.0"/>
+  <testcase name="Zombie has low sound sensitivity (immune)" classname="org.ronobot.engine.entity.EnemyTypeTest$SoundSensitivityTests" time="0.001"/>
   <testcase name="Demon has high sound sensitivity" classname="org.ronobot.engine.entity.EnemyTypeTest$SoundSensitivityTests" time="0.0"/>
   <testcase name="Knight has medium sound sensitivity" classname="org.ronobot.engine.entity.EnemyTypeTest$SoundSensitivityTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

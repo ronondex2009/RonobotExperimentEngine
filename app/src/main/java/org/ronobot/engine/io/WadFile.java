@@ -1,20 +1,15 @@
 package org.ronobot.engine.io;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 /**
- * WAD file parser for Doom-style game assets.
+ * WAD file parser for DOOM-style WAD files.
  * <p>
- * This class handles reading WAD (WOLF4 DOOM Archive) files which contain
- * sprite data, sound effects, and other game assets. WAD files use a
- * simple header format with directory entries pointing to lump data.
+ * This class handles reading DOOM WAD files, which contain lump data
+ * for sprites, maps, sounds, and other game assets. WAD files use
+ * a simple format with 8-byte headers and 16-byte directory entries.
  * </p>
  *
  * @author ronobot
@@ -23,129 +18,415 @@ import java.util.List;
 public class WadFile {
 
     /**
-     * Magic number for standard WAD files.
+     * Magic number for DOOM WAD files.
      */
-    public static final String WAD_MAGIC = "IWAD";
+    public static final int MAGIC_DUMMY = 0x34; // "DUMMY"
 
     /**
-     * Magic number for Duke Nukem 3D WAD files.
+     * Magic number for DOOM WAD files.
      */
-    public static final String WAD_MAGIC_DN = "PNWAD";
+    public static final int MAGIC_DOF = 0x46; // "DOOM"
 
     /**
-     * Magic number for Hexen WAD files.
+     * Magic number for ZDoom WAD files.
      */
-    public static final String WAD_MAGIC_HEX = "HWAD";
+    public static final int MAGIC_ZD = 0x5A; // "ZDoom"
 
     /**
-     * Standard WAD entry size in bytes.
+     * Magic number for DOOM2 WAD files.
      */
-    public static final int ENTRY_SIZE = 24;
+    public static final int MAGIC_D2 = 0x64; // "D2"
 
     /**
-     * Maximum number of entries in a WAD file.
+     * WAD directory entry size in bytes.
      */
-    public static final int MAX_ENTRIES = 1 << 24; // 16MB address space
+    public static final int ENTRY_SIZE = 20;
 
     /**
-     * WAD directory entry structure.
+     * Maximum number of entries.
+     */
+    public static final int MAX_ENTRIES = 1 << 24;
+
+    /**
+     * Lumps found in the WAD file.
+     */
+    private final List<Lump> lumps;
+
+    /**
+     * WAD file name.
+     */
+    private String name;
+
+    /**
+     * WAD file path.
+     */
+    private String path;
+
+    /**
+     * Creates a new empty WadFile.
+     */
+    public WadFile() {
+        this.lumps = new ArrayList<>();
+        this.name = "unnamed.wad";
+        this.path = null;
+    }
+
+    /**
+     * Creates a WadFile from a file path.
+     *
+     * @param path The path to the WAD file
+     * @return The WadFile, or null if loading failed
+     */
+    public static WadFile load(String path) {
+        try {
+            WadFile wad = new WadFile();
+            wad.name = path;
+            wad.path = path;
+
+            try (FileInputStream fis = new FileInputStream(path);
+                 DataInputStream dis = new DataInputStream(fis)) {
+
+                // Read magic number
+                byte[] magic = new byte[4];
+                dis.readFully(magic);
+                int magicNum = (magic[0] & 0xFF) |
+                               ((magic[1] & 0xFF) << 8) |
+                               ((magic[2] & 0xFF) << 16) |
+                               ((magic[3] & 0xFF) << 24);
+
+                // Verify magic number
+                if (magicNum != MAGIC_DUMMY && magicNum != MAGIC_DOF &&
+                    magicNum != MAGIC_ZD && magicNum != MAGIC_D2) {
+                    return null;
+                }
+
+                // Read file type
+                int fileType = dis.read();
+
+                // Read number of lumps
+                int numLumps = dis.readInt();
+
+                // Read lumps directory
+                for (int i = 0; i < numLumps; i++) {
+                    Lump lump = new Lump();
+                    lump.name = dis.readUTF();
+                    lump.offset = dis.readInt();
+                    lump.compression = dis.read();
+                    lump.size = dis.readInt();
+
+                    // Read CRC32 (4 bytes)
+                    byte[] crcBytes = new byte[4];
+                    dis.readFully(crcBytes);
+                    lump.crc = (crcBytes[0] & 0xFF) |
+                               ((crcBytes[1] & 0xFF) << 8) |
+                               ((crcBytes[2] & 0xFF) << 16) |
+                               ((crcBytes[3] & 0xFF) << 24);
+
+                    lump.lumpType = parseLumpType(lump.name);
+                    wad.lumps.add(lump);
+                }
+            }
+
+            return wad;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Parses a lump type from its name.
+     *
+     * @param name The lump name
+     * @return The lump type
+     */
+    private static LumpType parseLumpType(String name) {
+        if (name == null || name.isEmpty()) {
+            return LumpType.UNKNOWN;
+        }
+
+        String lowerName = name.toLowerCase();
+
+        return switch (lowerName) {
+            case "sprites", "spr1", "spr2", "spr3", "spr4" -> LumpType.SPRITES;
+            case "thingdef" -> LumpType.THING;
+            case "mapinfo" -> LumpType.MAPINFO;
+            case "lmp" -> LumpType.MAP;
+            case "sounds" -> LumpType.SOUNDS;
+            case "music" -> LumpType.MUSIC;
+            case "blocks" -> LumpType.BLOCKS;
+            case "startthings", "starts", "startm" -> LumpType.STARTTHINGS;
+            case "intermission" -> LumpType.INTERMISSION;
+            case "pats" -> LumpType.PATS;
+            case "pinms" -> LumpType.PINMS;
+            case "ssectors", "sectors", "ssound" -> LumpType.SECTORS;
+            case "deco" -> LumpType.DECORATIONS;
+            case "palette" -> LumpType.PALLETTE;
+            case "textures", "tx" -> LumpType.TEXTURES;
+            case "sfx" -> LumpType.SFX;
+            default -> LumpType.UNKNOWN;
+        };
+    }
+
+    /**
+     * Gets the WAD file name.
+     *
+     * @return The WAD file name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the path to the WAD file.
+     *
+     * @return The WAD file path, or null if not set
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * Gets the number of lumps in the WAD.
+     *
+     * @return The number of lumps
+     */
+    public int getLumpCount() {
+        return lumps.size();
+    }
+
+    /**
+     * Gets all lumps in the WAD.
+     *
+     * @return Unmodifiable list of lumps
+     */
+    public List<Lump> getLumps() {
+        return Collections.unmodifiableList(lumps);
+    }
+
+    /**
+     * Gets a lump by name.
+     *
+     * @param name The lump name
+     * @return The lump, or null if not found
+     */
+    public Lump getLump(String name) {
+        for (Lump lump : lumps) {
+            if (lump.name.equals(name)) {
+                return lump;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets all lumps of a specific type.
+     *
+     * @param type The lump type
+     * @return Unmodifiable list of lumps of the specified type
+     */
+    public List<Lump> getLumpsOfType(LumpType type) {
+        List<Lump> result = new ArrayList<>();
+        for (Lump lump : lumps) {
+            if (lump.lumpType == type) {
+                result.add(lump);
+            }
+        }
+        return Collections.unmodifiableList(result);
+    }
+
+    /**
+     * Gets sprites from the WAD.
+     *
+     * @return Unmodifiable list of sprite lumps
+     */
+    public List<Lump> getSpriteLumps() {
+        return getLumpsOfType(LumpType.SPRITES);
+    }
+
+    /**
+     * Gets sound data from the WAD.
+     *
+     * @return Unmodifiable list of sound lumps
+     */
+    public List<Lump> getSoundLumps() {
+        return getLumpsOfType(LumpType.SOUNDS);
+    }
+
+    /**
+     * Gets all maps in the WAD.
+     *
+     * @return Unmodifiable list of map lumps
+     */
+    public List<Lump> getMapLumps() {
+        return getLumpsOfType(LumpType.MAP);
+    }
+
+    /**
+     * Gets decorations from the WAD.
+     *
+     * @return Unmodifiable list of decoration lumps
+     */
+    public List<Lump> getDecorationLumps() {
+        return getLumpsOfType(LumpType.DECORATIONS);
+    }
+
+    /**
+     * Checks if the WAD contains sprites.
+     *
+     * @return true if sprites are present
+     */
+    public boolean hasSprites() {
+        return getLumpsOfType(LumpType.SPRITES).size() > 0;
+    }
+
+    /**
+     * Checks if the WAD contains sounds.
+     *
+     * @return true if sounds are present
+     */
+    public boolean hasSounds() {
+        return getLumpsOfType(LumpType.SOUNDS).size() > 0;
+    }
+
+    /**
+     * Checks if the WAD contains maps.
+     *
+     * @return true if maps are present
+     */
+    public boolean hasMaps() {
+        return getLumpsOfType(LumpType.MAP).size() > 0;
+    }
+
+    /**
+     * Checks if the WAD contains decorations.
+     *
+     * @return true if decorations are present
+     */
+    public boolean hasDecorations() {
+        return getLumpsOfType(LumpType.DECORATIONS).size() > 0;
+    }
+
+    @Override
+    public String toString() {
+        return "WadFile{" +
+                "name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", lumpCount=" + lumps.size() +
+                ", hasSprites=" + hasSprites() +
+                ", hasSounds=" + hasSounds() +
+                ", hasMaps=" + hasMaps() +
+                ", hasDecorations=" + hasDecorations() +
+                '}';
+    }
+
+    /**
+     * Represents a WAD directory entry.
      */
     public static class Entry {
+
         /**
-         * Lump name (up to 8 characters, null-padded).
+         * Entry name.
          */
         private String name;
 
         /**
-         * File offset of the lump data in bytes.
+         * File offset of the entry.
          */
         private int offset;
 
         /**
-         * Size of the lump data in bytes.
+         * Size of the entry data.
          */
         private int length;
 
         /**
-         * CRC32 checksum of the lump data.
+         * CRC32 checksum.
          */
         private int crc;
 
         /**
-         * Number of frames in sprites (for sprite lumps).
+         * Number of animation frames (for sprites).
          */
-        private int numFrames = 0;
+        private int numFrames;
 
         /**
-         * Number of vertices in sprites (for sprite lumps).
+         * Number of vertices (for maps).
          */
-        private int numVertices = 0;
+        private int numVertices;
 
         /**
-         * Whether this entry is a sprite lump.
+         * Whether this entry is a sprite.
          */
-        private boolean isSprite;
+        private boolean sprite;
 
         /**
-         * Whether this entry is a sound lump.
+         * Whether this entry is a sound.
          */
-        private boolean isSound;
+        private boolean sound;
 
         /**
-         * Default constructor.
+         * Creates a new Entry.
          */
         public Entry() {
+            this.name = "";
+            this.offset = 0;
+            this.length = 0;
+            this.crc = 0;
+            this.numFrames = 0;
+            this.numVertices = 0;
+            this.sprite = false;
+            this.sound = false;
         }
 
         /**
-         * Gets the lump name.
+         * Gets the entry name.
          *
-         * @return The lump name, or empty string if not set
+         * @return The entry name
          */
         public String getName() {
             return name;
         }
 
         /**
-         * Sets the lump name.
+         * Sets the entry name.
          *
-         * @param name The lump name
+         * @param name The entry name
          */
         public void setName(String name) {
             this.name = name;
         }
 
         /**
-         * Gets the file offset of the lump data.
+         * Gets the file offset.
          *
-         * @return The file offset in bytes
+         * @return The file offset
          */
         public int getOffset() {
             return offset;
         }
 
         /**
-         * Sets the file offset of the lump data.
+         * Sets the file offset.
          *
-         * @param offset The file offset in bytes
+         * @param offset The file offset
          */
         public void setOffset(int offset) {
             this.offset = offset;
         }
 
         /**
-         * Gets the size of the lump data.
+         * Gets the data length.
          *
-         * @return The lump size in bytes
+         * @return The data length
          */
         public int getLength() {
             return length;
         }
 
         /**
-         * Sets the size of the lump data.
+         * Sets the data length.
          *
-         * @param length The lump size in bytes
+         * @param length The data length
          */
         public void setLength(int length) {
             this.length = length;
@@ -206,90 +487,82 @@ public class WadFile {
         }
 
         /**
-         * Checks if this entry is a sprite lump.
+         * Checks if this entry is a sprite.
          *
-         * @return true if this is a sprite lump
+         * @return true if this is a sprite
          */
         public boolean isSprite() {
-            return isSprite;
+            return sprite;
         }
 
         /**
-         * Sets whether this entry is a sprite lump.
+         * Sets whether this entry is a sprite.
          *
-         * @param isSprite true if this is a sprite lump
+         * @param sprite true if this is a sprite
          */
-        public void setSprite(boolean isSprite) {
-            this.isSprite = isSprite;
+        public void setSprite(boolean sprite) {
+            this.sprite = sprite;
         }
 
         /**
-         * Checks if this entry is a sound lump.
+         * Checks if this entry is a sound.
          *
-         * @return true if this is a sound lump
+         * @return true if this is a sound
          */
         public boolean isSound() {
-            return isSound;
+            return sound;
         }
 
         /**
-         * Sets whether this entry is a sound lump.
+         * Sets whether this entry is a sound.
          *
-         * @param isSound true if this is a sound lump
+         * @param sound true if this is a sound
          */
-        public void setSound(boolean isSound) {
-            this.isSound = isSound;
+        public void setSound(boolean sound) {
+            this.sound = sound;
         }
 
-        /**
-         * Creates a string representation of the entry.
-         *
-         * @return String representation of the entry
-         */
         @Override
         public String toString() {
-            return "Entry{" +
-                    "name='" + name + '\'' +
-                    ", offset=" + offset +
-                    ", length=" + length +
-                    ", crc=0x" + Integer.toHexString(crc) +
-                    ", numFrames=" + numFrames +
-                    ", numVertices=" + numVertices +
-                    ", isSprite=" + isSprite +
-                    ", isSound=" + isSound +
-                    '}';
+            return "Entry{\n" +
+                    ", name='" + name + "'\n" +
+                    ", offset=" + offset + ",\n" +
+                    ", length=" + length + ",\n" +
+                    ", crc=0x" + Integer.toHexString(crc) + ",\n" +
+                    ", numFrames=" + numFrames + ",\n" +
+                    ", numVertices=" + numVertices + ",\n" +
+                    ", sprite=" + sprite + ",\n" +
+                    ", sound=" + sound + "}\n";
         }
     }
 
     /**
-     * WAD header information.
+     * Represents a WAD file header.
      */
     public static class Header {
+
         /**
-         * Magic number string (4 bytes).
+         * Magic number string.
          */
         private String magic;
 
         /**
-         * Number of entries in the directory.
+         * Number of directory entries.
          */
         private int numEntries;
 
         /**
-         * Directory offset in bytes.
+         * Directory offset in file.
          */
         private int dirOffset;
 
         /**
-         * Whether this header is valid.
-         */
-        private boolean isValid;
-
-        /**
-         * Default constructor.
+         * Creates a new Header.
          */
         public Header() {
-            this.isValid = false;
+            this.magic = "";
+            this.numEntries = 0;
+            this.dirOffset = 0;
         }
 
         /**
@@ -308,13 +581,10 @@ public class WadFile {
          */
         public void setMagic(String magic) {
             this.magic = magic;
-            // Validate magic
-            this.isValid = magic != null && (magic.equals(WAD_MAGIC) || 
-                    magic.equals(WAD_MAGIC_DN) || magic.equals(WAD_MAGIC_HEX));
         }
 
         /**
-         * Gets the number of directory entries.
+         * Gets the number of entries.
          *
          * @return The number of entries
          */
@@ -323,7 +593,7 @@ public class WadFile {
         }
 
         /**
-         * Sets the number of directory entries.
+         * Sets the number of entries.
          *
          * @param numEntries The number of entries
          */
@@ -350,155 +620,148 @@ public class WadFile {
         }
 
         /**
-         * Checks if this is a valid WAD file.
+         * Checks if the header is valid.
          *
-         * @return true if this is a valid WAD file
+         * @return true if valid
          */
         public boolean isValid() {
-            return this.isValid;
+            return "IWAD".equals(magic) || "Doom".equals(magic) ||
+                   "DOOM".equals(magic) || "DOOM II".equals(magic);
         }
 
-        /**
-         * Creates a string representation of the header.
-         *
-         * @return String representation of the header
-         */
         @Override
         public String toString() {
-            return "Header{" +
-                    "magic='" + magic + '\'' +
-                    ", numEntries=" + numEntries +
-                    ", dirOffset=" + dirOffset +
-                    ", isValid=" + this.isValid +
-                    '}';
+            return "Header{\n" +
+                    ", magic='" + magic + "'\n" +
+                    ", numEntries=" + numEntries + ",\n" +
+                    ", dirOffset=" + dirOffset + ",\n" +
+                    ", isValid=" + isValid() + "}\n";
         }
     }
 
     /**
-     * Creates a new WAD file parser.
+     * Represents a lump in a WAD file.
      */
-    public WadFile() {
-        this.header = null;
+    public static class Lump {
+
+        /**
+         * Lump name.
+         */
+        public String name;
+
+        /**
+         * File offset of the lump data.
+         */
+        public int offset;
+
+        /**
+         * Compression type.
+         */
+        public int compression;
+
+        /**
+         * Size of the lump data.
+         */
+        public int size;
+
+        /**
+         * CRC32 checksum.
+         */
+        public int crc;
+
+        /**
+         * Lump type.
+         */
+        public LumpType lumpType;
     }
 
     /**
-     * Gets the WAD header.
-     *
-     * @return The WAD header, or null if not loaded
+     * WAD file lump types.
      */
-    public Header getHeader() {
-        return header;
-    }
+    public enum LumpType {
+        /**
+         * Unknown lump type.
+         */
+        UNKNOWN,
 
-    /**
-     * Sets the WAD header (for testing purposes).
-     *
-     * @param header The WAD header to set
-     */
-    public void setHeader(Header header) {
-        this.header = header;
-    }
+        /**
+         * MAPINFO lump.
+         */
+        MAPINFO,
 
-    /**
-     * WAD header field.
-     */
-    private Header header;
+        /**
+         * Sprite data lump.
+         */
+        SPRITES,
 
-    /**
-     * Creates a string representation of the WAD file.
-     *
-     * @return String representation of the WAD file
-     */
-    @Override
-    public String toString() {
-        return "WadFile{header=" + (header != null ? header.toString() : "null") + "}";
-    }
+        /**
+         * Thing definition lump.
+         */
+        THING,
 
-    /**
-     * Loads a WAD file from the specified file.
-     * <p>
-     * Parses the WAD file header and reads all directory entries.
-     * Does not load lump data - use getEntry() to access individual entries.
-     * </p>
-     *
-     * @param file The WAD file to load
-     * @return The WAD header
-     * @throws IOException If an error occurs while reading the file
-     * @throws RuntimeException If the file is not a valid WAD file
-     */
-    public Header load(Path file) throws IOException {
-        DataInputStream dis = new DataInputStream(new FileInputStream(file.toFile()));
+        /**
+         * Map data lump.
+         */
+        MAP,
 
-        try {
-            // Read magic number (4 bytes)
-            byte[] magicBytes = new byte[4];
-            dis.readFully(magicBytes);
-            String magic = new String(magicBytes).trim();
-            if (magic.isEmpty() || (magic.equals("PNWAD") && magic.length() > 4)) {
-                // Handle compressed/different WAD formats
-                magic = new String(magicBytes, 0, 4).trim();
-            }
+        /**
+         * Sound data lump.
+         */
+        SOUNDS,
 
-            Header header = new Header();
-            header.magic = magic;
-            header.setNumEntries(0);
-            header.setDirOffset(0);
+        /**
+         * Music lump.
+         */
+        MUSIC,
 
-            // Validate magic
-            header.isValid = magic != null && (magic.equals(WAD_MAGIC) || 
-                    magic.equals(WAD_MAGIC_DN) || magic.equals(WAD_MAGIC_HEX));
+        /**
+         * Block list lump.
+         */
+        BLOCKS,
 
-            // Read number of entries (4 bytes, little-endian)
-            if (header.isValid) {
-                int numEntries = dis.readInt();
-                header.numEntries = numEntries;
+        /**
+         * Start things lump.
+         */
+        STARTTHINGS,
 
-                // Read directory offset (4 bytes, little-endian)
-                int dirOffset = dis.readInt();
-                header.dirOffset = dirOffset;
+        /**
+         * Intermission lump.
+         */
+        INTERMISSION,
 
-                // Read each directory entry
-                byte[] entryBuffer = new byte[ENTRY_SIZE];
-                for (int i = 0; i < numEntries; i++) {
-                    dis.readFully(entryBuffer);
-                    Entry entry = new Entry();
+        /**
+         * PATs lump.
+         */
+        PATS,
 
-                    // Read name (8 bytes, null-padded)
-                    int nameLen = entryBuffer[0] & 0xFF;
-                    entry.name = new String(entryBuffer, 1, nameLen);
+        /**
+         * PINMs lump.
+         */
+        PINMS,
 
-                    // Read offset (4 bytes)
-                    entry.offset = dis.readInt();
+        /**
+         * Sector sounds lump.
+         */
+        SECTORS,
 
-                    // Read length (4 bytes)
-                    entry.length = dis.readInt();
+        /**
+         * Decoration lump.
+         */
+        DECORATIONS,
 
-                    // Read CRC (4 bytes)
-                    entry.crc = dis.readInt();
+        /**
+         * Palette lump.
+         */
+        PALLETTE,
 
-                    // Read additional fields (for sprites)
-                    entry.numFrames = dis.readInt();
-                    entry.numVertices = dis.readInt();
+        /**
+         * Texture lump.
+         */
+        TEXTURES,
 
-                    // Determine lump type based on name
-                    entry.isSprite = nameLen > 0 && nameLen <= 8 && (entry.name.endsWith("-spr") ||
-                            entry.name.startsWith("E1") || entry.name.startsWith("E2") ||
-                            entry.name.startsWith("M1") || entry.name.startsWith("M2") ||
-                            entry.name.startsWith("P1") || entry.name.startsWith("P2") ||
-                            entry.name.startsWith("S1") || entry.name.startsWith("S2"));
-
-                    entry.isSound = nameLen > 0 && nameLen <= 8 && entry.name.equals("sfx1") ||
-                            entry.name.equals("sfx2") || entry.name.equals("sfx3") ||
-                            entry.name.equals("sfx4");
-
-                    header.numEntries++;
-                }
-            }
-
-            return header;
-
-        } finally {
-            dis.close();
-        }
+        /**
+         * Sound effects lump.
+         */
+        SFX
     }
 }

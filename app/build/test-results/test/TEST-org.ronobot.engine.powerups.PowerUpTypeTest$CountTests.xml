@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Total Power-Up Count" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:30:57.947Z" hostname="cherokee" time="0.0">
+<testsuite name="Total Power-Up Count" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:41:13.334Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="All 10 power-up types are defined" classname="org.ronobot.engine.powerups.PowerUpTypeTest$CountTests" time="0.0"/>
+  <testcase name="All 10 power-up types are defined" classname="org.ronobot.engine.powerups.PowerUpTypeTest$CountTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
