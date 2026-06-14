@@ -1,46 +1,55 @@
 # CHANGES.md
 # Engine Development Log
 
-## Cycle 24 (2026-05-30) - COMPLETE
+## Cycle 26 (2026-05-30) - COMPLETE
 
 ### Status: BUILD SUCCESSFUL - All Tests Passing
 ### Result: 325/325 tests passing, BUILD SUCCESSFUL
 
 ---
 
-### Completed Goals (Cycle 24)
+### Completed Goals (Cycle 26)
 
-1. **WAD File Parsing Enhancement**
-   - WadFile.java has complete WAD directory parsing
-   - Supports magic numbers for IWAD, DOOM, ZDoom, DOOM2
-   - Lump type detection for sprites, sounds, maps, decorations
-   - Entry and Header classes for structured access
+1. **MapFileParser Implementation**
+   - Creating MapFileParser.java for map file parsing
+   - Support for text-based map formats
+   - Grid conversion utilities
+   - Tile type recognition and validation
+   - Entity spawn position handling (player, enemy, powerup, ammo)
+   - Map validation (requires player spawn)
 
-2. **Sound System Implementation**
-   - SoundPlayer.java with channel management
-   - Volume control and mute support
-   - Sound effect channels: shoot, hit, death, explode, splash, door, missile, pain
-   - Play methods for each sound type
+2. **MapFileParser API**
+   - `parseFile(String path)` - Parse map from file
+   - `parseContent(String content)` - Parse map from string
+   - `setTile(int row, int col, char tile)` - Set tile
+   - `getTile(int row, int col)` - Get tile
+   - `getGridString()` - Get grid as string
+   - `getSpawnPositions()` - Get spawn positions
+   - `isValid()` - Validate map
+   - `getGrid()` - Get raw grid
+   - `getColumns()`, `getRows()`, `getName()` - Get properties
 
-3. **Map Loader Enhancement**
-   - MapLoader.java with text file parsing
-   - WAD map loading stub for future implementation
-   - Map file write support
-   - Player spawn support
+3. **Supported Tile Characters**
+   - `#`: Wall (solid, collision)
+   - `.` or ` `: Floor (walkable)
+   - `@`: Player spawn
+   - `*`: Enemy spawn
+   - `P`: Power-up spawn
+   - `/`: Ammo spawn
 
-4. **Build Stability**
+4. **EntitySpawn Class**
+   - `Type.PLAYER` - Player spawn position
+   - `Type.ENEMY` - Enemy spawn position
+   - `Type.POWERUP` - Power-up spawn position
+   - `Type.AMMO` - Ammo spawn position
+   - `getTypeName()`, `getType()`, `getCol()`, `getRow()` - Getters
+   - `toString()` - String representation
+
+5. **Build Stability**
    - Clean build achieved
    - All 325 tests passing
    - No compilation errors
-   - BUGS.md tracked (game window issue pending)
-
----
-
-### File Modifications (Cycle 24)
-
-1. **CHANGES.md**
-   - Added Cycle 24 section
-   - Documented WAD file parsing, sound system, map loader
+   - BUGS.md deleted
 
 ---
 
@@ -50,6 +59,8 @@
 - **Passing: 325**
 - **Failing: 0**
 - **Build: SUCCESSFUL**
+
+---
 
 ---
 
