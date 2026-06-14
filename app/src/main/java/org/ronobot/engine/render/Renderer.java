@@ -123,11 +123,61 @@ public class Renderer {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 int tileType = map.getTile(x, y);
-                if (tileType != GameMap.TILE_EMPTY) {
+                if (tileType >= GameMap.TILE_FLOOR && tileType < GameMap.TILE_WALL + 10) {
                     renderTile(x, y, tileType);
                 }
             }
         }
+        
+        // Render decorations if map has decorations enabled
+        if (map.getDecorationPositions() != null) {
+            renderMapDecorations(map);
+        }
+    }
+
+    /**
+     * Renders map decorations.
+     *
+     * @param map The game map with decorations
+     */
+    private void renderMapDecorations(GameMap map) {
+        if (map == null || map.getDecorationPositions() == null) {
+            return;
+        }
+
+        // Render each decoration in the map
+        for (org.ronobot.engine.math.Position pos : map.getDecorationPositions()) {
+            org.ronobot.engine.map.GameMap.DecorationType decoration = map.getDecorationType(
+                (int) pos.getX(), (int) pos.getY());
+            if (decoration != org.ronobot.engine.map.GameMap.DecorationType.NONE) {
+                renderDecoration(pos, decoration);
+            }
+        }
+    }
+
+    /**
+     * Renders a decoration at the specified position.
+     *
+     * @param position The decoration position
+     * @param decoration The decoration type
+     */
+    private void renderDecoration(org.ronobot.engine.math.Position position,
+                                  org.ronobot.engine.map.GameMap.DecorationType decoration) {
+        if (position == null || decoration == org.ronobot.engine.map.GameMap.DecorationType.NONE) {
+            return;
+        }
+
+        // Generate decoration texture key from the enum name (simple name only)
+        String typeName = decoration.name();
+        String decorationKey = "decoration_" + typeName;
+        if (!textures.containsKey(decorationKey)) {
+            // Map decoration type to texture using type name
+            String decorationPath = "decoration_" + typeName;
+            textures.put(decorationKey, decorationPath);
+        }
+
+        // In a full implementation, draw the decoration at position
+        // For now, we track what needs to be rendered
     }
 
     /**

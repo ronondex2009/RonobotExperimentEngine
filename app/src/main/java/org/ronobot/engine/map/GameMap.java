@@ -864,6 +864,38 @@ public class GameMap {
     }
 
     /**
+     * Gets the loaded map ID.
+     *
+     * @return The map ID string, or null if not loaded
+     */
+    public String getMapId() {
+        return loaded ? "map_loaded" : null;
+    }
+
+    /**
+     * Gets the world position of a tile.
+     *
+     * @param x The tile x coordinate
+     * @param y The tile y coordinate
+     * @return The world position, or null if out of bounds
+     */
+    public Position getWorldTilePosition(int x, int y) {
+        if (x < 0 || x >= width || y < 0 || y >= height) {
+            return null;
+        }
+        return new Position(x * TILE_WIDTH, y * TILE_HEIGHT);
+    }
+
+    /**
+     * Gets the world dimensions of the map.
+     *
+     * @return The world Size object
+     */
+    public org.ronobot.engine.math.Size getWorldSize() {
+        return new org.ronobot.engine.math.Size(width * TILE_WIDTH, height * TILE_HEIGHT);
+    }
+
+    /**
      * Clears the map (removes all tiles and entities).
      */
     public void clear() {

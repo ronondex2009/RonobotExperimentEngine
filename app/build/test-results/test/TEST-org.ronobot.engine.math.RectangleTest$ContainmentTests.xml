@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Containment Checks" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:26:58.541Z" hostname="cherokee" time="0.001">
+<testsuite name="Containment Checks" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:16:45.982Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="Rectangle containing itself" classname="org.ronobot.engine.math.RectangleTest$ContainmentTests" time="0.0"/>
   <testcase name="Small rectangle is contained within larger rectangle" classname="org.ronobot.engine.math.RectangleTest$ContainmentTests" time="0.0"/>
-  <testcase name="Non-contained rectangle returns false" classname="org.ronobot.engine.math.RectangleTest$ContainmentTests" time="0.001"/>
+  <testcase name="Non-contained rectangle returns false" classname="org.ronobot.engine.math.RectangleTest$ContainmentTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

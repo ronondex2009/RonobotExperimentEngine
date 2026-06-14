@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.io.SpriteTypeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:26:58.515Z" hostname="cherokee" time="0.003">
+<testsuite name="org.ronobot.engine.io.SpriteTypeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:16:45.968Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="testGetValue()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.0"/>
   <testcase name="testGetNameInvalidTypes()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.0"/>
-  <testcase name="testToString()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.002"/>
+  <testcase name="testToString()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.001"/>
   <testcase name="testEnumConstants()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.0"/>
   <testcase name="testGetNameValidTypes()" classname="org.ronobot.engine.io.SpriteTypeTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

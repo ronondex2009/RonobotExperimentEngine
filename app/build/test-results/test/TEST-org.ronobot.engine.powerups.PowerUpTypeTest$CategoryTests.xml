@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Category Tests" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:26:58.558Z" hostname="cherokee" time="0.002">
+<testsuite name="Category Tests" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:16:45.989Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Health category contains health power-ups" classname="org.ronobot.engine.powerups.PowerUpTypeTest$CategoryTests" time="0.001"/>
   <testcase name="Speed category contains speed power-ups" classname="org.ronobot.engine.powerups.PowerUpTypeTest$CategoryTests" time="0.0"/>
