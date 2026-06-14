@@ -119,7 +119,8 @@ class WadFileTest {
         WadFile wadFile = new WadFile();
         
         String str = wadFile.toString();
-        assertTrue(str.contains("header=") && str.contains("stub"));
+        assertTrue(str.contains("header="));
+        assertTrue(str.contains("null"));
     }
 
     /**

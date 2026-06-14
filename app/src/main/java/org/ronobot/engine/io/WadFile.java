@@ -378,7 +378,31 @@ public class WadFile {
      * Creates a new WAD file parser.
      */
     public WadFile() {
+        this.header = null;
     }
+
+    /**
+     * Gets the WAD header.
+     *
+     * @return The WAD header, or null if not loaded
+     */
+    public Header getHeader() {
+        return header;
+    }
+
+    /**
+     * Sets the WAD header (for testing purposes).
+     *
+     * @param header The WAD header to set
+     */
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+
+    /**
+     * WAD header field.
+     */
+    private Header header;
 
     /**
      * Creates a string representation of the WAD file.
@@ -387,7 +411,7 @@ public class WadFile {
      */
     @Override
     public String toString() {
-        return "WadFile{header=(stub)}";
+        return "WadFile{header=" + (header != null ? header.toString() : "null") + "}";
     }
 
     /**

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Power-Up Classification" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:16:45.985Z" hostname="cherokee" time="0.001">
+<testsuite name="Power-Up Classification" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T19:30:57.947Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Weapon upgrades are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.0"/>
-  <testcase name="Ammo-related power-ups are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.0"/>
+  <testcase name="Ammo-related power-ups are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.001"/>
   <testcase name="Value-based power-ups are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.0"/>
   <testcase name="Upgrade-based power-ups are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.0"/>
   <testcase name="Armor-related power-ups are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.0"/>
-  <testcase name="Health-related power-ups are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.001"/>
+  <testcase name="Health-related power-ups are identified correctly" classname="org.ronobot.engine.powerups.PowerUpTypeTest$ClassificationTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

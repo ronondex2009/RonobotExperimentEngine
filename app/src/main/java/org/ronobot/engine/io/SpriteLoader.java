@@ -426,6 +426,7 @@ public class SpriteLoader {
         return "SpriteLoader{" +
                 "spriteCacheSize=" + spriteCache.size() +
                 ", enableSpriteLoading=" + enableSpriteLoading +
+                ", wadHeader=" + (wadHeader != null ? wadHeader.toString() : "null") +
                 '}';
     }
 
