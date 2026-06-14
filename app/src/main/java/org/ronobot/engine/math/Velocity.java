@@ -67,6 +67,18 @@ public class Velocity {
         this.y = y;
     }
 
+    /**
+     * Applies a force to change velocity.
+     *
+     * @param forceX force in X direction
+     * @param forceY force in Y direction
+     */
+    public void applyForce(double forceX, double forceY) {
+        // Simple impulse: force/mass = acceleration, mass = 10
+        this.x += (forceX / 10.0f);
+        this.y += (forceY / 10.0f);
+    }
+
     @Override
     public String toString() {
         return "Velocity{" +

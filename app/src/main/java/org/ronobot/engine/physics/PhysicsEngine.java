@@ -1,10 +1,6 @@
 package org.ronobot.engine.physics;
 
 import org.ronobot.engine.collision.CollisionManager;
-import org.ronobot.engine.collision.CollisionResult;
-import org.ronobot.engine.entity.Entity;
-
-import java.util.List;
 
 /**
  * Physics engine for entity interactions, collision response, and movement.
@@ -44,65 +40,8 @@ public class PhysicsEngine {
             return;
         }
 
-        List<Entity> allEntities = collisionManager.getRegisteredEntities();
-
-        for (Entity entity : allEntities) {
-            if (entity == null) {
-                continue;
-            }
-
-            // Check collisions
-            List<CollisionResult> collisions = findCollisionsForEntity(entity);
-            for (CollisionResult collision : collisions) {
-                resolveCollision(entity, collision);
-            }
-        }
-    }
-
-    /**
-     * Finds all collisions involving an entity.
-     *
-     * @param entity the entity to check
-     * @return list of collision results, or empty if none
-     */
-    private List<CollisionResult> findCollisionsForEntity(Entity entity) {
-        if (collisionManager == null) {
-            return java.util.Collections.emptyList();
-        }
-
-        List<Entity> allEntities = collisionManager.getRegisteredEntities();
-        List<CollisionResult> collisions = java.util.Collections.emptyList();
-
-        if (allEntities == null) {
-            return collisions;
-        }
-
-        for (Entity other : allEntities) {
-            if (other == entity) {
-                continue;
-            }
-
-            // Simple collision detection based on entity bounding boxes
-            // This is a placeholder - full implementation would check overlap
-            collisions.add(new CollisionResult(entity, other));
-        }
-
-        return collisions;
-    }
-
-    /**
-     * Resolves a collision between entities.
-     *
-     * @param entity the entity that collided
-     * @param collision the collision result
-     */
-    private void resolveCollision(Entity entity, CollisionResult collision) {
-        Entity other = collision.getEntityB();
-        if (other == null) {
-            return;
-        }
-
-        // Collision resolution - for now just a stub
+        // Update physics stub - collisionManager handles entity movement
+        collisionManager.findAndResolveCollisions((float) deltaTime / 1000.0);
     }
 
     /**
@@ -112,7 +51,7 @@ public class PhysicsEngine {
      * @param impulseX impulse in X direction
      * @param impulseY impulse in Y direction
      */
-    public void applyImpulse(Entity entity, double impulseX, double impulseY) {
+    public void applyImpulse(Object entity, double impulseX, double impulseY) {
         // For now, this is a stub
     }
 
@@ -121,7 +60,7 @@ public class PhysicsEngine {
      *
      * @param entity the entity
      */
-    public void stopMovement(Entity entity) {
+    public void stopMovement(Object entity) {
         // For now, just a stub
     }
 
