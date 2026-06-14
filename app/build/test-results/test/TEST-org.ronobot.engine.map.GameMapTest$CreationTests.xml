@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Creation" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-28T15:00:40.773Z" hostname="cherokee" time="0.001">
+<testsuite name="Creation" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T17:44:51.515Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="creates arena GameMap with perimeter walls" classname="org.ronobot.engine.map.GameMapTest$CreationTests" time="0.0"/>
-  <testcase name="creates GameMap with dimensions" classname="org.ronobot.engine.map.GameMapTest$CreationTests" time="0.001"/>
+  <testcase name="creates GameMap with dimensions" classname="org.ronobot.engine.map.GameMapTest$CreationTests" time="0.0"/>
   <testcase name="creates room GameMap" classname="org.ronobot.engine.map.GameMapTest$CreationTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

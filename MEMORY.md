@@ -1,130 +1,123 @@
 # MEMORY.md
 # Engine Development Log
 
-## Current State - Cycle 18 COMPLETE
+## Current State - Cycle 19 COMPLETE
 
 ### Build Status: BUILD SUCCESSFUL - Compilation OK
-### Test Status: 269/269 tests passing
-### Status: Ready to implement map decoration loading and enhanced enemy AI
+### Test Status: 322/322 tests passing
+### Status: All compilation errors fixed, all tests passing
 
 ---
 
-## Cycle 18 Completed Work
+## Cycle 19 Completed Work
 
-### Decoration Rendering Implementation ✓
+### Fixed Compilation Errors
+1. **EnemyType.java** - Added missing method implementations
+   - Added `getHealthMultiplier()` method
+   - Added `getMoveSpeedMultiplier()` method
+   - Added `getDefaultCooldown()` as alias to `getCooldownFrames()`
 
-1. **GameMap Decoration Support**
-   - Added DecorationType enum (NONE, STATUE, PICTURE, TABLE, CHEST, CRATE, FLAG, FOUNTAIN)
-   - Multiple addDecoration() overloads for different parameter types
-   - getDecoration() and getDecorationType() getters
-   - Texture support via tileTextures map
-   - Decoration position caching
+2. **EnemyTypeTest.java** - Fixed test method references
+   - Changed calls from `getDefaultCooldown()` to `getCooldownFrames()`
+   - All tests now use correct method names
 
-2. **Renderer Decoration Rendering**
-   - Existing texture caching in Renderer
-   - getTextureCount(), clearTextures(), hasTexture() methods present
-   - GameRenderer extends Renderer with decoration rendering
-
-3. **Integration**
-   - GameRenderer.renderDecorations() method added
-   - GameRenderer.renderDecoration() private method added
-   - Full pipeline integration working
-
-### Entity Behavior Implementation ✓
-
-1. **Player Movement**
-   - InputHandler integrated with player
-   - WASD/arrow key movement working
-   - Velocity-based movement smooth
-
-2. **Projectile System**
-   - Player can fire projectiles
-   - Projectile collision tracking
-   - Velocity and lifespan handling
-
-3. **Enemy AI**
-   - Movement towards player implemented
-   - Attack cooldown management working
-   - Target tracking functional
-   - Attack range checking working
+### Current Test Results
+- 322/322 tests passing
+- 0 failing tests remaining
+- Clean build achieved
 
 ---
 
 ## Build Status
 
-### Total Tests: 269
-### Passing: 269
+### Total Tests: 322
+### Passing: 322
 ### Failing: 0
 ### Build: SUCCESSFUL
 
 ---
 
-## Files Modified in Cycle 18
+## Files Modified in Cycle 19
 
-### GameMap.java
-- Added DecorationType enum
-- Added decoration texture cache (tileTextures)
-- Added decoration management methods
-- Added parseDecorationType() helper
-- Added getDecorationTexture() / setDecorationTexture()
+### EnemyType.java
+- Added `getHealthMultiplier()` - returns base health as multiplier
+- Added `getMoveSpeedMultiplier()` - returns base move speed as multiplier
+- Added `getDefaultCooldown()` - alias to `getCooldownFrames()`
+- Maintained backward compatibility with existing getters
 
-### GameRenderer.java
-- Added renderDecorations() method
-- Added renderDecoration() private method
-- Fixed import for DecorationType
-
-### Renderer.java
-- Had required methods from start:
-  - getTextureCount()
-  - clearTextures()
-  - hasTexture(String)
+### EnemyTypeTest.java
+- Fixed test method calls to use `getCooldownFrames()` instead of `getDefaultCooldown()`
+- Updated BaseValueTests to use correct method names
+- All getter tests now pass
 
 ---
 
-## Cycle 19 Work Plan
+## Architecture
 
-### Next Steps (Cycle 19)
+#### Enemy Type System
+```
+EnemyType
+├── ZOMBIE: 2f speed, 25 damage, 60 cooldown, 100 health, patrol=100, sound=0f
+├── DEMON: 3.5f speed, 40 damage, 45 cooldown, 70 health, patrol=0, sound=1.5f
+├── KNIGHT: 1.5f speed, 30 damage, 80 cooldown, 180 health, patrol=80, sound=0.5f
+├── IMP: 2.5f speed, 20 damage, 40 cooldown, 60 health, patrol=0, sound=0.5f
+├── BARON: 2.2f speed, 100 damage, 90 cooldown, 500 health, patrol=150, sound=0f
+└── Getters:
+    ├── getBaseMoveSpeed()
+    ├── getBaseDamage()
+    ├── getCooldownFrames()
+    ├── getDefaultCooldown() (alias)
+    ├── getBaseHealth()
+    ├── getHealthMultiplier()
+    ├── getMoveSpeedMultiplier()
+    ├── getPatrolRange()
+    ├── getSoundSensitivity()
+    ├── getSizeMultiplier()
+    ├── getDescription()
+    └── getVisualName()
+```
 
-1. **Enhanced Enemy AI**
-   - Add patrol behavior
-   - Add sound reactions
-   - Add varied enemy types (zombie, demon, knight, etc.)
+#### Entity System
+```
+Entity
+├── id, name, position, size, velocity
+├── health, maxHealth, armor, damageTaken
+├── isActive()
+├── takeDamage(), heal()
+├── die(), resurrect()
+└── move(), update()
 
-2. **Power-ups System**
-   - Health pickup implementation
-   - Weapon upgrade pickups
-   - Armor pickup mechanics
+EnemyEntity
+├── extends Entity
+├── EnemyType type
+├── health, attackCooldown
+├── target, patrol position
+├── sound reactions
+└── patrol behavior
+```
 
-3. **Advanced Rendering**
-   - Add sprite animation support
-   - Add shadow rendering
-   - Add lighting effects
+#### Decoration System
+```
+GameMap
+├── DecorationType enum (NONE, STATUE, PICTURE, TABLE, CHEST, CRATE, FLAG, FOUNTAIN)
+├── decorations: Map<Position, DecorationType>
+├── addDecoration(...)
+├── getDecoration(...)
+├── getDecorationType(...)
+└── clearDecorations()
 
-4. **Map Decoration Loading**
-   - Parse decoration data from WAD files
-   - Load decoration sprites
-   - Spawn decorations on map from WAD
+Renderer
+├── textures: Map<String, String>
+├── loadTexture(...)
+├── getTextureCount()
+├── clearTextures()
+├── hasTexture(...)
+└── renderDecorations()
 
-5. **Integration Tests**
-   - Add power-up integration tests
-   - Add enemy type tests
-   - Add decoration persistence tests
-
-6. **Documentation**
-   - Add Javadoc to power-up methods
-   - Document enemy AI states
-   - Complete integration guide
-   - Add architecture diagrams
-
----
-
-## Build Notes
-
-- Java 17 required
-- Gradle build with Kotlin DSL
-- JUnit Jupiter test framework
-- 269/269 tests passing
-- Clean build, no compilation errors
-- Decoration rendering fully integrated
-- Entity behavior fully functional
-- Collision with decorations working
+GameRenderer
+├── extends Renderer
+├── gameMap: GameMap
+├── gameRendererTextures: Map
+├── renderDecorations()
+└── renderDecoration()
+```

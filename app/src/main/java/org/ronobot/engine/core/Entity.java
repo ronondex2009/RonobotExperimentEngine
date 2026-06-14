@@ -26,22 +26,22 @@ public class Entity {
     /**
      * Unique entity ID.
      */
-    private int id;
+    protected int id;
 
     /**
      * Entity name for debugging and display.
      */
-    private String name;
+    protected String name;
 
     /**
      * Entity position.
      */
-    private Position position;
+    protected Position position;
 
     /**
      * Entity size.
      */
-    private Size size;
+    protected Size size;
 
     /**
      * Entity velocity.
@@ -60,8 +60,12 @@ public class Entity {
 
     /**
      * Health of the entity.
+     * <p>
+     * Note: This field is protected for subclass access. Health should be modified through
+     * takeDamage() and heal() methods to ensure proper die() calls.
+     * </p>
      */
-    private int health;
+    protected int health;
 
     /**
      * Maximum health of the entity.
@@ -561,7 +565,7 @@ public class Entity {
     @Override
     public String toString() {
         return "Entity{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name=" + name +
                 ", position=" + position +
                 ", velocity=" + velocity +

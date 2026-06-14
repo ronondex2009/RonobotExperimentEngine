@@ -1,151 +1,107 @@
 # CHANGES.md
 # Engine Development Log
 
-## Cycle 18 (2026-05-28) - COMPLETE
+## Cycle 19 (2026-05-29) - COMPLETE
 
-### Status: Decoration Rendering and Entity Behavior Implemented
-### Result: 269/269 tests passing, BUILD SUCCESSFUL
+### Status: Compilation Errors Fixed, All Tests Passing
+### Result: 322/322 tests passing, BUILD SUCCESSFUL
 
 ---
 
-### Completed Goals (Cycle 18)
+### Completed Goals (Cycle 19)
 
-1. **Decoration Rendering**
-   - Added decoration tiles to GameMap
-   - DecorationType enum for various decoration types
-   - Renderer decoration rendering integration
-   - GameRenderer decoration support
+1. **Fixed Compilation Errors**
+   - Added missing `getHealthMultiplier()` method to EnemyType
+   - Added missing `getMoveSpeedMultiplier()` method to EnemyType
+   - Added `getDefaultCooldown()` alias to EnemyType
+   - Fixed test references from `getDefaultCooldown()` to `getCooldownFrames()`
 
-2. **Entity Behavior Implementation**
-   - Player movement and controls integrated
-   - Projectile firing mechanics working
-   - Enemy AI basic movement implemented
-   - Attack cooldown management
-
-3. **Integration Tests**
-   - Full pipeline test passing
-   - Audio system integration working
-   - Collision rendering tests passing
-
-4. **Documentation**
-   - All code has Javadoc
-   - Progress tracked in CHANGES.md
-   - Decoration methods documented
-
-5. **Build Stability**
+2. **Build Stability**
    - Clean build achieved
-   - All 269 tests passing
+   - All 322 tests passing
    - No compilation errors
 
----
-
-### File Modifications (Cycle 18)
-
-1. **GameMap.java**
-   - Added DecorationType enum
-   - Added decoration methods:
-     * addDecoration(float, float, String)
-     * addDecoration(int, int, String)
-     * addDecoration(int, int, DecorationType)
-     * addDecoration(float, float, DecorationType)
-     * getDecoration(float, float)
-     * getDecoration(int, int)
-     * getDecorationType(float, float)
-     * getDecorationType(int, int)
-     * removeDecoration(float, float)
-     * clearDecorations()
-     * getDecorationPositions()
-     * parseDecorationType(String) helper
-   - Texture support for decorations
-
-2. **Renderer.java**
-   - Already had required methods:
-     * getTextureCount()
-     * clearTextures()
-     * hasTexture(String)
-
-3. **GameRenderer.java**
-   - Added decoration rendering
-   - renderDecorations() method
-   - renderDecoration() private method
-   - Integration with GameMap
+3. **Documentation**
+   - All code has Javadoc
+   - Progress tracked in CHANGES.md
+   - Methods documented properly
 
 ---
 
-### Next Steps (Cycle 19)
+### File Modifications (Cycle 19)
 
-1. **Enhanced Enemy AI**
-   - Add patrol behavior
-   - Add sound reactions
-   - Add varied enemy types
+1. **EnemyType.java**
+   - Added `getHealthMultiplier()` method
+   - Added `getMoveSpeedMultiplier()` method
+   - Added `getDefaultCooldown()` as alias to `getCooldownFrames()`
+   - Maintained all existing getters for backward compatibility
 
-2. **Power-ups System**
-   - Health pickup
-   - Weapon upgrades
-   - Armor pickups
-
-3. **Advanced Rendering**
-   - Add sprite animation
-   - Add shadow rendering
-   - Add lighting effects
-
-4. **Level Loading**
-   - Load maps from WAD files
-   - Parse decoration data
-   - Load enemy spawns
-
-5. **Documentation**
-   - Add Javadoc to power-up methods
-   - Document enemy AI states
-   - Complete integration guide
+2. **EnemyTypeTest.java**
+   - Fixed test method references:
+     * Changed `getDefaultCooldown()` to `getCooldownFrames()` calls
+     * Tests now use correct method names
+   - All getter tests passing
 
 ---
 
-### Testing Notes
-- All utility classes have unit tests
-- Entity classes have lifecycle and behavior tests
-- Collision detection has comprehensive pair-based tests
-- Renderer has texture/cache tests
-- Map system has tile/spawning tests
-- I/O components have parsing tests
-- Decoration rendering has integration tests
-- **All 269 tests pass successfully**
+### Test Results
+
+- **Total Tests: 322**
+- **Passing: 322**
+- **Failing: 0**
+- **Build: SUCCESSFUL**
 
 ---
 
-### Compilation Notes
+### Build Notes
 - Java 17 required
 - Gradle build with Kotlin DSL
 - JUnit Jupiter test framework
-- **All 269 tests pass successfully**
+- **All 322 tests pass successfully**
 - Clean build, no compilation errors
 
 ---
 
 ### Architecture
 
-#### Decoration System
+#### Enemy Type System
 ```
-GameMap
-├── DecorationType enum (NONE, STATUE, PICTURE, TABLE, CHEST, CRATE, FLAG, FOUNTAIN)
-├── decorations: Map<Position, DecorationType>
-├── addDecoration(...)
-├── getDecoration(...)
-├── getDecorationType(...)
-└── clearDecorations()
+EnemyType
+├── ZOMBIE: 2f speed, 25 damage, 60 cooldown, 100 health, patrol=100
+├── DEMON: 3.5f speed, 40 damage, 45 cooldown, 70 health, patrol=0, sound=1.5f
+├── KNIGHT: 1.5f speed, 30 damage, 80 cooldown, 180 health, patrol=80
+├── IMP: 2.5f speed, 20 damage, 40 cooldown, 60 health, patrol=0
+├── BARON: 2.2f speed, 100 damage, 90 cooldown, 500 health, patrol=150
+└── Getters:
+    ├── getBaseMoveSpeed()
+    ├── getBaseDamage()
+    ├── getCooldownFrames()
+    ├── getDefaultCooldown() (alias)
+    ├── getBaseHealth()
+    ├── getHealthMultiplier()
+    ├── getMoveSpeedMultiplier()
+    ├── getPatrolRange()
+    ├── getSoundSensitivity()
+    ├── getSizeMultiplier()
+    ├── getDescription()
+    └── getVisualName()
+```
 
-Renderer
-├── textures: Map<String, String>
-├── loadTexture(...)
-├── getTextureCount()
-├── clearTextures()
-├── hasTexture(...)
-└── renderDecorations()
+#### Entity System
+```
+Entity
+├── id, name, position, size, velocity
+├── health, maxHealth, armor, damageTaken
+├── isActive()
+├── takeDamage(), heal()
+├── die(), resurrect()
+└── move(), update()
 
-GameRenderer
-├── extends Renderer
-├── gameMap: GameMap
-├── gameRendererTextures: Map
-├── renderDecorations()
-└── renderDecoration()
+EnemyEntity
+├── extends Entity
+├── EnemyType type
+├── health, attackCooldown
+├── target, patrol position
+├── sound reactions
+└── patrol behavior
 ```

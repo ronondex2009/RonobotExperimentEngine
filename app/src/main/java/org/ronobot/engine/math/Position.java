@@ -14,12 +14,12 @@ public class Position {
     /**
      * X coordinate.
      */
-    private final float x;
+    public float x;
 
     /**
      * Y coordinate.
      */
-    private final float y;
+    public float y;
 
     /**
      * Creates a new Position with the specified coordinates.
