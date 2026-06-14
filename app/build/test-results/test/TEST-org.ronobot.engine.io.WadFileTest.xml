@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.io.WadFileTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-30T01:33:47.867Z" hostname="cherokee" time="0.006">
+<testsuite name="org.ronobot.engine.io.WadFileTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:07:50.847Z" hostname="cherokee" time="0.011">
   <properties/>
-  <testcase name="testSetValidMagic()" classname="org.ronobot.engine.io.WadFileTest" time="0.0"/>
-  <testcase name="testHeaderToString()" classname="org.ronobot.engine.io.WadFileTest" time="0.0"/>
-  <testcase name="testEntryToString()" classname="org.ronobot.engine.io.WadFileTest" time="0.002"/>
-  <testcase name="testWadFileToString()" classname="org.ronobot.engine.io.WadFileTest" time="0.002"/>
+  <testcase name="testSetValidMagic()" classname="org.ronobot.engine.io.WadFileTest" time="0.001"/>
+  <testcase name="testHeaderToString()" classname="org.ronobot.engine.io.WadFileTest" time="0.002"/>
+  <testcase name="testEntryToString()" classname="org.ronobot.engine.io.WadFileTest" time="0.003"/>
+  <testcase name="testWadFileToString()" classname="org.ronobot.engine.io.WadFileTest" time="0.004"/>
   <testcase name="testWadFileClass()" classname="org.ronobot.engine.io.WadFileTest" time="0.0"/>
-  <testcase name="testEntrySetters()" classname="org.ronobot.engine.io.WadFileTest" time="0.001"/>
+  <testcase name="testEntrySetters()" classname="org.ronobot.engine.io.WadFileTest" time="0.0"/>
   <testcase name="testInvalidHeader()" classname="org.ronobot.engine.io.WadFileTest" time="0.0"/>
   <testcase name="testHeaderClass()" classname="org.ronobot.engine.io.WadFileTest" time="0.0"/>
   <testcase name="testValidHeader()" classname="org.ronobot.engine.io.WadFileTest" time="0.0"/>

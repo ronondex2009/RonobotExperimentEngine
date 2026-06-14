@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.collision.CollisionResultTest$ToString" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-30T01:33:47.786Z" hostname="cherokee" time="0.001">
+<testsuite name="org.ronobot.engine.collision.CollisionResultTest$ToString" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:07:50.728Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="CollisionResult toString includes entity names" classname="org.ronobot.engine.collision.CollisionResultTest$ToString" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

@@ -31,7 +31,8 @@ class AppTest {
         @Test
         void testDefaultGame() {
             App app = new App();
-            assertNull(app.getGame());
+            assertNotNull(app.getGame());
+            assertNotNull(app.getGame().getEntityManager());
         }
     }
 
@@ -39,11 +40,11 @@ class AppTest {
     @DisplayName("Game Getter and Setter")
     class GameGetterSetterTests {
 
-        @DisplayName("Should get null game initially")
+        @DisplayName("Should get non-null game initially")
         @Test
         void testGetGameInitially() {
             App app = new App();
-            assertNull(app.getGame());
+            assertNotNull(app.getGame());
         }
 
         @DisplayName("Should set game and get it back")

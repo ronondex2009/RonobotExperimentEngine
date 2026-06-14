@@ -40,13 +40,17 @@ public class App {
     private InputHandler input;
 
     /**
-     * Creates a new App instance.
+     * Creates a new App instance with an initialized Game.
+     * <p>
+     * The Game is automatically created and initialized to ensure
+     * the application is ready for use immediately after construction.
+     * </p>
      */
     public App() {
         this.physics = new PhysicsEngine();
         this.renderer = new Renderer();
         this.input = new InputHandler();
-        this.game = null;
+        this.game = new Game();
     }
 
     /**
