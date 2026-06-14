@@ -29,6 +29,7 @@
 - **Rendering**: Renderer, GameRenderer, SpriteRenderer
 - **Game Core**: Game, GameMap, GameState
 - **EntityManager**: Entity lifecycle management, active entity queries
+- **AIStateMachine**: State machine for enemy AI behavior
 
 ### Build Commands Used
 - `./gradlew clean build` - Full build with test
@@ -56,3 +57,5 @@
 
 ### Status
 - In progress - focused on feature implementation and improvements
+- GameState file loading refactored to use NIO for modern JSON parsing
+- AIStateMachine added with state transitions (IDLE, PATROL, CHASE, ATTACK, RETREAT, STUNNED)

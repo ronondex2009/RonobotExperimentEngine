@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Edge Cases" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-11T02:50:50.568Z" hostname="cherokee" time="0.001">
+<testsuite name="Edge Cases" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-11T04:55:17.599Z" hostname="cherokee" time="0.002">
   <properties/>
   <testcase name="Attack does nothing when enemy is dead" classname="org.ronobot.engine.entity.EnemyEntityTest$EdgeCases" time="0.0"/>
   <testcase name="Update does nothing when dead" classname="org.ronobot.engine.entity.EnemyEntityTest$EdgeCases" time="0.001"/>
