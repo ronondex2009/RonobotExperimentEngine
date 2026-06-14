@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Collision detection" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:12:36.972Z" hostname="cherokee" time="0.0">
+<testsuite name="Collision detection" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T18:26:58.435Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="Colliding entities return collision result" classname="org.ronobot.engine.collision.CollisionManagerTest$CollisionDetection" time="0.0"/>
+  <testcase name="Colliding entities return collision result" classname="org.ronobot.engine.collision.CollisionManagerTest$CollisionDetection" time="0.001"/>
   <testcase name="Non-colliding entities return no collision" classname="org.ronobot.engine.collision.CollisionManagerTest$CollisionDetection" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
