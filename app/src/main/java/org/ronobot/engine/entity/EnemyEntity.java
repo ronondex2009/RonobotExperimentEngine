@@ -402,7 +402,8 @@ public class EnemyEntity extends Entity {
      * </p>
      */
     private void processSoundReaction() {
-        if (soundSource == null || soundReactionCooldown <= 0) {
+        // Check if cooldown allows reaction
+        if (soundReactionCooldown <= 0 || soundSource == null) {
             return;
         }
 
@@ -411,10 +412,28 @@ public class EnemyEntity extends Entity {
 
         // Determine reaction based on sensitivity
         float sensitivity = type.getSoundSensitivity();
-        if (sensitivity > 0) {
-            // Simple reaction: move towards or away from sound
-            // For now, just log the reaction
-            // In a full implementation, would add flinch, distraction, etc.
+        if (sensitivity > 0.5f) {
+            // High sensitivity: move away from sound briefly and get distracted
+            // Find direction away from sound source
+            Position sourcePos = soundSource.getPosition();
+            Position myPos = getPosition();
+            
+            float dx = sourcePos.getX() - myPos.getX();
+            float dy = sourcePos.getY() - myPos.getY();
+            float dist = (float) Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist > 0 && dist < 500) {
+                // Move away from sound
+                if (dx != 0) {
+                    move(-dx / dist * MOVE_SPEED * 1.5f, 0);
+                }
+                if (dy != 0) {
+                    move(0, -dy / dist * MOVE_SPEED * 1.5f);
+                }
+            }
+        } else if (sensitivity > 0) {
+            // Medium sensitivity: slight distraction
+            // Flash a visual indicator or slightly change behavior
         }
     }
 
@@ -474,12 +493,22 @@ public class EnemyEntity extends Entity {
      * Finds a new target to attack.
      * <p>
      * This method looks for active entities and sets them as targets.
+     * Currently prioritizes player over other enemies.
      * </p>
      */
     private void findTarget() {
-        // Keep current target if alive, otherwise find a new one
-        // For now, this is a stub - in a full implementation, would find player
-        // or nearest enemy for team mechanics
+        // Keep current target if alive
+        if (target != null && !target.isDead()) {
+            return;
+        }
+
+        // Find player target if exists
+        if (game != null) {
+            this.target = game.getPlayer();
+        }
+        
+        // Fallback: find nearest enemy for team mechanics
+        // For now, this is a stub for future multiplayer/team AI
     }
 
     /**
