@@ -1,6 +1,11 @@
 package org.ronobot.engine.physics;
 
 import org.ronobot.engine.collision.CollisionManager;
+import org.ronobot.engine.core.Entity;
+import org.ronobot.engine.math.Velocity;
+import org.ronobot.engine.math.Position;
+
+import java.util.List;
 
 /**
  * Physics engine for entity interactions, collision response, and movement.
@@ -40,8 +45,10 @@ public class PhysicsEngine {
             return;
         }
 
-        // Update physics stub - collisionManager handles entity movement
-        collisionManager.findAndResolveCollisions((float) deltaTime / 1000.0);
+        // Update physics - collisionManager handles entity movement
+        // Convert ms to seconds for collision manager
+        float deltaTimeSeconds = (float) (deltaTime / 1000.0);
+        collisionManager.findAndResolveCollisions(deltaTimeSeconds);
     }
 
     /**
@@ -51,8 +58,11 @@ public class PhysicsEngine {
      * @param impulseX impulse in X direction
      * @param impulseY impulse in Y direction
      */
-    public void applyImpulse(Object entity, double impulseX, double impulseY) {
-        // For now, this is a stub
+    public void applyImpulse(Entity entity, double impulseX, double impulseY) {
+        Velocity vel = entity.getVelocity();
+        if (vel != null) {
+            vel.applyForce(impulseX, impulseY);
+        }
     }
 
     /**
@@ -60,8 +70,12 @@ public class PhysicsEngine {
      *
      * @param entity the entity
      */
-    public void stopMovement(Object entity) {
-        // For now, just a stub
+    public void stopMovement(Entity entity) {
+        Velocity vel = entity.getVelocity();
+        if (vel != null) {
+            vel.setX(0f);
+            vel.setY(0f);
+        }
     }
 
     /**

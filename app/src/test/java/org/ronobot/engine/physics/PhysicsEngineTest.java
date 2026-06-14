@@ -1,7 +1,7 @@
 package org.ronobot.engine.physics;
 
 import org.ronobot.engine.collision.CollisionManager;
-import org.ronobot.engine.entity.Entity;
+import org.ronobot.engine.core.Entity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

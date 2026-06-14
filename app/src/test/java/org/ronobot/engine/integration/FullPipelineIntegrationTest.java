@@ -292,7 +292,7 @@ class FullPipelineIntegrationTest {
             game.setPlayer(player);
             
             // Update physics
-            game.getPhysicsEngine().process(game);
+            game.update();
             
             // Player should still exist
             assertNotNull(game.getEntityManager().getEntity(0));
@@ -316,9 +316,9 @@ class FullPipelineIntegrationTest {
             projectile.setVelocity(new Velocity(0.5f, 0f));
             em.addEntity(projectile);
             
-            // Update physics a few times
+            // Update physics a few times via game loop
             for (int i = 0; i < 10; i++) {
-                game.getPhysicsEngine().process(game);
+                game.update();
             }
             
             // Projectile should be dead (lifetime exceeded)
@@ -415,7 +415,7 @@ class FullPipelineIntegrationTest {
             input.handle(game);
             
             // Update physics
-            game.getPhysicsEngine().process(game);
+            game.update();
             
             // Render again
             renderer.render(game);

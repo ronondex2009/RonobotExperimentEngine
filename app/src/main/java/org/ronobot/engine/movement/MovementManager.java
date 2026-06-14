@@ -1,9 +1,6 @@
 package org.ronobot.engine.movement;
 
-import org.ronobot.engine.entity.PlayerEntity;
-import org.ronobot.engine.entity.EnemyEntity;
-import org.ronobot.engine.entity.Projectile;
-import org.ronobot.engine.entity.Entity;
+import org.ronobot.engine.core.Entity;
 import org.ronobot.engine.math.Velocity;
 
 import java.util.HashMap;
