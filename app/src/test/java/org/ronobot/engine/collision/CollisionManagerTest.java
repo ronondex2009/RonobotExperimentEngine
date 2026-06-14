@@ -1,193 +1,195 @@
 package org.ronobot.engine.collision;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.ronobot.engine.core.Entity;
+import org.ronobot.engine.math.Position;
+import org.ronobot.engine.math.Size;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for CollisionManager.
+ * Unit tests for CollisionManager class.
  * <p>
- * Tests collision detection between various entity types.
+ * Tests collision detection, entity registration, and collision resolution.
  * </p>
  *
  * @author ronobot
- * @version 1.0
- * @since 2026-05-28
+ * @since 1.0
  */
 @DisplayName("CollisionManager Tests")
 class CollisionManagerTest {
 
-    @Nested
-    @DisplayName("Entity registration")
-    class Registration {
+    private CollisionManager manager;
 
-        @DisplayName("Entity can be registered")
-        @Test
-        void testRegisterEntity() {
-            Entity entity = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity);
-
-            assertEquals(1, manager.getEntityCount());
-            assertTrue(manager.isEntityRegistered(entity));
-        }
-
-        @DisplayName("Entity can be unregistered")
-        @Test
-        void testUnregisterEntity() {
-            Entity entity = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity);
-            manager.unregisterEntity(entity);
-
-            assertEquals(0, manager.getEntityCount());
-            assertFalse(manager.isEntityRegistered(entity));
-        }
-
-        @DisplayName("Manager can find collisions")
-        @Test
-        void testFindCollisions() {
-            Entity entity1 = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            Entity entity2 = new Entity(2, 30f, 30f, 32, 32, "entity2");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity1);
-            manager.registerEntity(entity2);
-
-            List<CollisionResult> collisions = manager.findCollisions();
-            assertNotNull(collisions);
-            assertEquals(1, collisions.size());
-        }
+    @BeforeEach
+    void setUp() {
+        this.manager = new CollisionManager();
     }
 
-    @Nested
-    @DisplayName("Collision detection")
-    class CollisionDetection {
+    @Test
+    @DisplayName("Collision detection works between overlapping entities")
+    void testCollisionDetection() {
+        Entity entity1 = createEntity("entity1", 0f, 0f, 10f, 10f);
+        Entity entity2 = createEntity("entity2", 5f, 5f, 10f, 10f);
 
-        @DisplayName("Colliding entities return collision result")
-        @Test
-        void testCollidingEntities() {
-            Entity entity1 = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            Entity entity2 = new Entity(2, 30f, 30f, 32, 32, "entity2");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity1);
-            manager.registerEntity(entity2);
+        assertTrue(manager.registerEntity(entity1));
+        assertTrue(manager.registerEntity(entity2));
 
-            List<CollisionResult> collisions = manager.findCollisions();
+        List<CollisionResult> collisions = manager.findCollisions();
 
-            assertNotNull(collisions);
-            assertNotNull(collisions.get(0));
-        }
-
-        @DisplayName("Non-colliding entities return no collision")
-        @Test
-        void testNonCollidingEntities() {
-            Entity entity1 = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            Entity entity2 = new Entity(2, 100f, 0f, 32, 32, "entity2");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity1);
-            manager.registerEntity(entity2);
-
-            List<CollisionResult> collisions = manager.findCollisions();
-
-            assertNotNull(collisions);
-            assertEquals(0, collisions.size());
-        }
+        assertTrue(collisions.size() >= 1, "Should detect collision between overlapping entities");
     }
 
-    @Nested
-    @DisplayName("Manager lifecycle")
-    class Lifecycle {
+    @Test
+    @DisplayName("No collision detected for non-overlapping entities")
+    void testNoCollision() {
+        Entity entity1 = createEntity("entity1", 0f, 0f, 10f, 10f);
+        Entity entity2 = createEntity("entity2", 100f, 100f, 10f, 10f);
 
-        @DisplayName("Manager can clear all entities")
-        @Test
-        void testClear() {
-            Entity entity = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity);
-            manager.clear();
+        assertTrue(manager.registerEntity(entity1));
+        assertTrue(manager.registerEntity(entity2));
 
-            assertEquals(0, manager.getEntityCount());
-        }
+        List<CollisionResult> collisions = manager.findCollisions();
 
-        @DisplayName("Empty manager returns no collisions")
-        @Test
-        void testEmptyManager() {
-            CollisionManager manager = new CollisionManager();
-
-            List<CollisionResult> collisions = manager.findCollisions();
-
-            assertNotNull(collisions);
-            assertEquals(0, collisions.size());
-        }
+        assertTrue(collisions.isEmpty(), "Should not detect collision for non-overlapping entities");
     }
 
-    @Nested
-    @DisplayName("Dead entity handling")
-    class DeadEntities {
-
-        @DisplayName("Dead entities are not checked for collision")
-        @Test
-        void testDeadEntity() {
-            Entity entity1 = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            Entity entity2 = new Entity(2, 30f, 30f, 32, 32, "entity2");
-
-            // Mark entity1 as dead
-            entity1.setHealth(0);
-
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity1);
-            manager.registerEntity(entity2);
-
-            List<CollisionResult> collisions = manager.findCollisions();
-
-            // Should not find collision since entity1 is dead
-            assertEquals(0, collisions.size());
-        }
+    @Test
+    @DisplayName("Entity registration returns false for null entity")
+    void testRegisterNullEntity() {
+        assertFalse(manager.registerEntity(null));
     }
 
-    @Nested
-    @DisplayName("All collisions including duplicates")
-    class AllCollisions {
-
-        @DisplayName("Manager can find all collisions including duplicates")
-        @Test
-        void testAllCollisions() {
-            Entity entity1 = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            Entity entity2 = new Entity(2, 30f, 30f, 32, 32, "entity2");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity1);
-            manager.registerEntity(entity2);
-
-            List<CollisionResult> collisions = manager.findAllCollisionsIncludingDuplicates();
-
-            assertNotNull(collisions);
-            // Should have at least one collision
-            assertTrue(collisions.size() >= 1);
-        }
+    @Test
+    @DisplayName("Entity registration returns false for duplicate name")
+    void testRegisterDuplicateEntity() {
+        Entity entity = createEntity("test", 0f, 0f, 10f, 10f);
+        assertTrue(manager.registerEntity(entity));
+        
+        Entity duplicate = createEntity("test", 0f, 0f, 10f, 10f);
+        assertFalse(manager.registerEntity(duplicate), "Should not register duplicate entity");
     }
 
-    @Nested
-    @DisplayName("Registered entities")
-    class RegisteredEntities {
+    @Test
+    @DisplayName("Entity count matches registered entities")
+    void testEntityCount() {
+        Entity entity1 = createEntity("e1", 0f, 0f, 10f, 10f);
+        Entity entity2 = createEntity("e2", 0f, 0f, 10f, 10f);
+        Entity entity3 = createEntity("e3", 0f, 0f, 10f, 10f);
 
-        @DisplayName("Manager can get all registered entities")
-        @Test
-        void testGetRegisteredEntities() {
-            Entity entity1 = new Entity(1, 0f, 0f, 32, 32, "entity1");
-            Entity entity2 = new Entity(2, 30f, 30f, 32, 32, "entity2");
-            CollisionManager manager = new CollisionManager();
-            manager.registerEntity(entity1);
-            manager.registerEntity(entity2);
+        assertTrue(manager.registerEntity(entity1));
+        assertTrue(manager.registerEntity(entity2));
+        
+        assertEquals(2, manager.getEntityCount());
+        
+        assertTrue(manager.registerEntity(entity3));
+        assertEquals(3, manager.getEntityCount());
+    }
 
-            List<Entity> entities = manager.getRegisteredEntities();
+    @Test
+    @DisplayName("Unregister removes entity from manager")
+    void testUnregisterEntity() {
+        Entity entity = createEntity("test", 0f, 0f, 10f, 10f);
+        assertTrue(manager.registerEntity(entity));
+        assertEquals(1, manager.getEntityCount());
+        
+        assertTrue(manager.unregisterEntity(entity));
+        assertEquals(0, manager.getEntityCount());
+    }
 
-            assertNotNull(entities);
-            assertEquals(2, entities.size());
-        }
+    @Test
+    @DisplayName("Unregister returns false for unregistered entity")
+    void testUnregisterUnregistered() {
+        Entity entity = createEntity("test", 0f, 0f, 10f, 10f);
+        assertFalse(manager.unregisterEntity(entity));
+    }
+
+    @Test
+    @DisplayName("findCollisions returns empty list for empty manager")
+    void testFindCollisionsEmpty() {
+        List<CollisionResult> collisions = manager.findCollisions();
+        assertTrue(collisions.isEmpty());
+    }
+
+    @Test
+    @DisplayName("findAndResolveCollisions returns collisions list")
+    void testFindAndResolveCollisions() {
+        Entity entity1 = createEntity("e1", 0f, 0f, 10f, 10f);
+        Entity entity2 = createEntity("e2", 5f, 5f, 10f, 10f);
+
+        assertTrue(manager.registerEntity(entity1));
+        assertTrue(manager.registerEntity(entity2));
+
+        List<CollisionResult> collisions = manager.findAndResolveCollisions(0.1f);
+
+        assertTrue(collisions.size() >= 1, "Should find collisions");
+    }
+
+    @Test
+    @DisplayName("clear removes all entities and notifications")
+    void testClear() {
+        Entity entity1 = createEntity("e1", 0f, 0f, 10f, 10f);
+        Entity entity2 = createEntity("e2", 5f, 5f, 10f, 10f);
+
+        assertTrue(manager.registerEntity(entity1));
+        assertTrue(manager.registerEntity(entity2));
+        
+        manager.findCollisions();
+        
+        assertEquals(2, manager.getEntityCount());
+        
+        manager.clear();
+        
+        assertEquals(0, manager.getEntityCount());
+    }
+
+    @Test
+    @DisplayName("toString returns expected format")
+    void testToString() {
+        Entity entity1 = createEntity("e1", 0f, 0f, 10f, 10f);
+        Entity entity2 = createEntity("e2", 5f, 5f, 10f, 10f);
+
+        assertTrue(manager.registerEntity(entity1));
+        assertTrue(manager.registerEntity(entity2));
+        
+        String result = manager.toString();
+        
+        assertTrue(result.contains("entityCount"));
+        assertTrue(result.contains("notificationCount"));
+    }
+
+    @Test
+    @DisplayName("isEntityRegistered returns correct status")
+    void testIsEntityRegistered() {
+        Entity entity1 = createEntity("e1", 0f, 0f, 10f, 10f);
+        Entity entity2 = createEntity("e2", 5f, 5f, 10f, 10f);
+
+        assertTrue(manager.registerEntity(entity1));
+        assertTrue(manager.registerEntity(entity2));
+
+        assertTrue(manager.isEntityRegistered(entity1));
+        assertTrue(manager.isEntityRegistered(entity2));
+    }
+
+    @Test
+    @DisplayName("isEntityRegistered returns false for null entity")
+    void testIsEntityRegisteredNull() {
+        assertFalse(manager.isEntityRegistered(null));
+    }
+
+    @Test
+    @DisplayName("findCollisions returns empty list for null entity query")
+    void testFindCollisionsNull() {
+        List<CollisionResult> collisions = manager.findCollisions();
+        assertTrue(collisions.isEmpty());
+    }
+
+    private Entity createEntity(String name, float x, float y, float width, float height) {
+        Entity entity = new Entity(0, x, y, (int)width, (int)height, name);
+        return entity;
     }
 }

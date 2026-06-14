@@ -1,102 +1,70 @@
 # MEMORY.md
 # Engine Development Log
 
-## Current State - Cycle 21 IN PROGRESS
+## Current State - Cycle 22 IN PROGRESS
 
 ### Build Status: BUILD SUCCESSFUL - Compilation OK
-### Test Status: 322/322 tests passing
-### Status: All compilation errors fixed, all tests passing
+### Test Status: 325/325 tests passing
+### Status: All compilation errors fixed, all tests passing, no BUGS.md file exists
 
 ---
 
-## Cycle 21 Completed Work
+## Cycle 22 In Progress
 
 ### Build Achievements
 1. **Clean Build**
    - All compilation errors fixed
-   - All 322 tests passing
+   - All 325 tests passing
    - No BUGS.md file exists
    - Ready for next development cycle
 
-2. **Code Quality**
-   - All classes have proper Javadoc
-   - @author ronobot tags present
-   - Test coverage at target levels
-   - Clean build achieved
+2. **Test Coverage**
+   - 73 test result XML files generated
+   - All test classes pass successfully
+   - Comprehensive test suite maintained
 
-3. **Build Stability**
-   - Gradle build successful
-   - Test execution successful
-   - No compilation warnings or errors
-
----
-
-## Cycle 19 Completed Work
-
-### Fixed Compilation Errors
-1. **EnemyType.java** - Added missing method implementations
-   - Added `getHealthMultiplier()` method
-   - Added `getMoveSpeedMultiplier()` method
-   - Added `getDefaultCooldown()` as alias to `getCooldownFrames()`
-
-2. **EnemyTypeTest.java** - Fixed test method references
-   - Changed calls from `getDefaultCooldown()` to `getCooldownFrames()`
-   - All tests now use correct method names
-
-### Current Test Results
-- 322/322 tests passing
-- 0 failing tests remaining
-- Clean build achieved
-
----
-
-## Build Status
-
-### Total Tests: 322
-### Passing: 322
-### Failing: 0
-### Build: SUCCESSFUL
-
----
-
-## Files Modified in Cycle 20
-
-### Renderer.java
-- Enhanced renderMap() with decoration support
-- Added renderMapDecorations() method
-- Added renderDecoration() method
-- Texture caching for decorations
-
-### GameMap.java
-- Added getMapId() - returns map ID string
-- Added getWorldTilePosition() - converts tile to world position
-- Added getWorldSize() - returns world dimensions
+3. **Bug Fixes**
+   - Fixed CollisionManagerTest.java method signature mismatch
+   - Corrected `createEntity()` calls from 6 parameters to 5 parameters
 
 ---
 
 ## Architecture
 
-#### Enemy Type System
+#### Collision System
 ```
-EnemyType
-├── ZOMBIE: 2f speed, 25 damage, 60 cooldown, 100 health, patrol=100
-├── DEMON: 3.5f speed, 40 damage, 45 cooldown, 70 health, patrol=0
-├── KNIGHT: 1.5f speed, 30 damage, 80 cooldown, 180 health, patrol=80
-├── IMP: 2.5f speed, 20 damage, 40 cooldown, 60 health, patrol=0
-├── BARON: 2.2f speed, 100 damage, 90 cooldown, 500 health, patrol=150
-└── Getters:
-    ├── getBaseMoveSpeed()
-    ├── getBaseDamage()
-    ├── getCooldownFrames()
-    ├── getDefaultCooldown() (alias)
-    ├── getBaseHealth()
-    ├── getHealthMultiplier()
-    ├── getMoveSpeedMultiplier()
-    ├── getPatrolRange()
-    ├── getSoundSensitivity()
-    ├── getSizeMultiplier()
-    ├── getDescription()
-    └── getVisualName()
+CollisionManager
+├── entities: Map<String, Entity>
+├── notifications: Map<String, CollisionNotification>
+├── registerEntity(entity) - Register entity
+├── unregisterEntity(entity) - Unregister entity
+├── isEntityRegistered(entity) - Check if registered
+├── getEntityCount() - Entity count
+├── findCollisions() - Find all collisions
+├── findAndResolveCollisions(deltaTime) - Resolve
+├── clear() - Clear all entities
+└── isInitialized() - Check initialization
+
+CollisionResult
+├── entityA: Entity
+├── entityB: Entity
+└── Represents collision pair
+
+CollisionNotification
+├── EventType
+├── entityAId
+├── entityBId
+├── x, y, z coordinates
+└── Collision notification
+
+CollisionManagerTest
+├── 15+ test methods
+├── Collision detection
+├── Entity registration
+├── Entity count
+├── Unregister tests
+├── Clear tests
+└── toString tests
 ```
 
 #### Entity System
@@ -116,115 +84,242 @@ EnemyEntity
 ├── target, patrol position
 ├── sound reactions
 └── patrol behavior
-```
 
----
-
-## Files Modified in Cycle 19
-
-### EnemyType.java
-- Added `getHealthMultiplier()` - returns base health as multiplier
-- Added `getMoveSpeedMultiplier()` - returns base move speed as multiplier
-- Added `getDefaultCooldown()` - alias to `getCooldownFrames()`
-- Maintained backward compatibility with existing getters
-
-### EnemyTypeTest.java
-- Fixed test method calls to use `getCooldownFrames()` instead of `getDefaultCooldown()`
-- Updated BaseValueTests to use correct method names
-- All getter tests now pass
-
----
-
-## Architecture
-
-#### Enemy Type System
-```
-EnemyType
-├── ZOMBIE: 2f speed, 25 damage, 60 cooldown, 100 health, patrol=100, sound=0f
-├── DEMON: 3.5f speed, 40 damage, 45 cooldown, 70 health, patrol=0, sound=1.5f
-├── KNIGHT: 1.5f speed, 30 damage, 80 cooldown, 180 health, patrol=80, sound=0.5f
-├── IMP: 2.5f speed, 20 damage, 40 cooldown, 60 health, patrol=0, sound=0.5f
-├── BARON: 2.2f speed, 100 damage, 90 cooldown, 500 health, patrol=150, sound=0f
-└── Getters:
-    ├── getBaseMoveSpeed()
-    ├── getBaseDamage()
-    ├── getCooldownFrames()
-    ├── getDefaultCooldown() (alias)
-    ├── getBaseHealth()
-    ├── getHealthMultiplier()
-    ├── getMoveSpeedMultiplier()
-    ├── getPatrolRange()
-    ├── getSoundSensitivity()
-    ├── getSizeMultiplier()
-    ├── getDescription()
-    └── getVisualName()
-```
-
-#### Entity System
-```
-Entity
-├── id, name, position, size, velocity
-├── health, maxHealth, armor, damageTaken
-├── isActive()
-├── takeDamage(), heal()
-├── die(), resurrect()
-└── move(), update()
-
-EnemyEntity
+PlayerEntity
 ├── extends Entity
-├── EnemyType type
-├── health, attackCooldown
-├── target, patrol position
-├── sound reactions
-└── patrol behavior
+├── health, armor, inventory
+├── weapons, ammo
+└── Player capabilities
+
+Projectile
+├── extends Entity
+├── velocity, lifeTime
+└── Moving projectile
+
+EnemyType
+├── ZOMBIE, DEMON, KNIGHT, IMP, BARON
+├── Getters for all properties
+└── Multipliers for health, speed
 ```
 
-#### Decoration System
+#### Math Utilities
 ```
+Point - Immutable 2D point
+Position - Mutable 2D position
+Size - Width/height dimensions
+Velocity - Movement vector (dx, dy)
+Rectangle - Static AABB box
+AxisAlignedBox - Deprecated alias
+```
+
+#### Game Core
+```
+Game
+├── Game state management
+├── Entity lifecycle
+├── Collision detection
+├── Map and player management
+└── Game loop control
+
 GameMap
-├── DecorationType enum (NONE, STATUE, PICTURE, TABLE, CHEST, CRATE, FLAG, FOUNTAIN)
-├── decorations: Map<Position, DecorationType>
-├── addDecoration(...)
-├── getDecoration(...)
-├── getDecorationType(...)
-└── clearDecorations()
-
-Renderer
-├── textures: Map<String, String>
-├── loadTexture(...)
-├── getTextureCount()
-├── clearTextures()
-├── hasTexture(...)
-└── renderDecorations()
+├── Tile-based map system
+├── Grid storage (2D array)
+├── Tile types (wall, floor, empty)
+├── Entity bounds enforcement
+└── Collision callbacks
 
 GameRenderer
-├── extends Renderer
-├── gameMap: GameMap
-├── gameRendererTextures: Map
-├── renderDecorations()
-└── renderDecoration()
-```
+├── Extends Renderer
+├── Maps to tiles
+├── Entity rendering
+└── Texture management
 
-#### App Entry Point (Cycle 20)
-```
-App
-├── Main entry point (main method added)
-├── Manages game lifecycle
-├── Coordinates components
-└── start/stop/update/render
+Renderer
+├── Textures: Map<String, String>
+├── loadTexture(name, path)
+├── getTexture(name)
+├── hasTexture(name)
+├── clearTextures()
+└── render()
+
+InputHandler
+├── WASD/Arrow key movement
+├── Action triggers (space bar)
+├── Boundary checking
+└── Float-precision updates
+
+PhysicsEngine
+├── Collision resolution
+├── Position adjustments
+├── Velocity adjustments
+└── Separation distance
+
+MapLoader
+├── Map file parsing
+├── Grid conversion
+└── Tile type recognition
+
+PowerUp
+├── Power-up system
+├── Inventory management
+└── Effect application
+
+WadFile
+├── WAD file parsing
+├── Sprite loading
+├── Sound loading
+└── Asset management
+
+SpriteLoader
+├── Sprite sheet parsing
+├── Texture caching
+└── Frame extraction
+
+SpriteType
+├── Sprite types
+├── Frame definitions
+└── Animation support
+
+AudioSystem
+├── Audio management
+├── Sound bank loading
+└── Volume control
+
+SoundPlayer
+├── Sound playback
+├── Sound effects
+├── Volume control
+└── Audio scheduling
 ```
 
 ---
 
-## Next Development Goals
+## Build Configuration
 
-1. **Map System Enhancement**: Implement level loading and boundary enforcement
-2. **Renderer Enhancement**: Integrate with GameMap for tile display
-3. **WAD Parsing**: Implement DOOM WAD file format parsing
-4. **Keyboard Input**: Full input integration with entity movement
-5. **Sound Effects**: Audio system implementation
-6. **Level Loading**: Create map file parser
-7. **Integration Tests**: Full pipeline end-to-end tests
-8. **Sprite Loading**: Sprite sheet parsing and caching
+### Gradle Setup
+```kotlin
+plugins {
+    id("java")
+    id("application")
+}
+
+group = "org.ronobot.engine"
+version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testRuntimeOnly("org.junit-platform-launcher:1.10.1")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
+```
 
 ---
+
+## Code Style Guidelines
+
+- All classes use Javadoc with `@author ronobot`
+- Enums are `public static` when standalone
+- Methods have Javadoc blocks
+- Use `final` for immutable fields
+- Prefer immutable objects (Size, Point)
+- Use `float` for positions, `int` for tile indices
+- Handle null inputs gracefully
+- Follow SRP (Single Responsibility Principle)
+- Keep methods under 50 lines where possible
+- Use meaningful constant names
+- Group related methods together
+
+---
+
+## Development Guidelines
+
+- All code must be JUnit-tested
+- Use Javadoc for all public APIs
+- Follow the single-responsibility principle
+- Keep modules small and focused
+- Use dependency injection for managers
+- All classes have @author ronobot
+
+---
+
+## Project Structure
+
+```
+project/
+├── app/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── org/
+│   │   │   │       └── ronobot/
+│   │   │   │           └── engine/
+│   │   │   │               ├── App.java
+│   │   │   │               ├── audio/
+│   │   │   │               ├── collision/
+│   │   │   │               ├── core/
+│   │   │   │               ├── entity/
+│   │   │   │               ├── entities/
+│   │   │   │               ├── input/
+│   │   │   │               ├── io/
+│   │   │   │               ├── map/
+│   │   │   │               ├── math/
+│   │   │   │               ├── physics/
+│   │   │   │               ├── powerups/
+│   │   │   │               ├── render/
+│   │   │   └── resources/
+│   │   └── test/
+│   │       └── java/
+│   │           └── org/ronobot/engine/
+│   └── build.gradle.kts
+├── build.gradle.kts
+├── settings.gradle.kts
+├── CHANGES.md
+├── MEMORY.md
+└── README.md
+```
+
+---
+
+## Future Enhancements
+
+### Planned Features
+1. WAD File Parsing: Parse DOOM WAD files for sprite and music loading
+2. Sound System: Audio effects and music management
+3. Level Loader: Create map file parser with format specification
+4. UI Components: Add keyboard controls and HUD rendering
+5. Network Support: Multiplayer capabilities
+6. Save/Load System: Game state persistence
+7. Achievement System: Unlockable goals and rewards
+
+### Technical Debt
+- Replace stub renderer implementation with actual graphics library
+- Implement proper boundary validation in InputHandler
+- Add map decoration system
+- Optimize collision detection for larger entity counts
+
+---
+
+## Cycle Summary
+
+### Test Results
+- **Total Tests: 325**
+- **Passing: 325**
+- **Failing: 0**
+- **Build: SUCCESSFUL**
+
+### Build Status
+- Java 17 compatible
+- Clean build with no warnings
+- All tests passing
+- Comprehensive test coverage

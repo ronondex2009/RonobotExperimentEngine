@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Lifetime" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:41:13.277Z" hostname="cherokee" time="0.001">
+<testsuite name="Lifetime" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-30T01:33:47.835Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="Projectile lifetime decreases each frame" classname="org.ronobot.engine.entity.ProjectileTest$LifetimeTests" time="0.001"/>
+  <testcase name="Projectile lifetime decreases each frame" classname="org.ronobot.engine.entity.ProjectileTest$LifetimeTests" time="0.0"/>
   <testcase name="Projectile survives with positive lifetime" classname="org.ronobot.engine.entity.ProjectileTest$LifetimeTests" time="0.0"/>
   <testcase name="Projectile dies when lifetime reaches zero" classname="org.ronobot.engine.entity.ProjectileTest$LifetimeTests" time="0.0"/>
   <testcase name="Projectile with zero lifetime is already dead" classname="org.ronobot.engine.entity.ProjectileTest$LifetimeTests" time="0.0"/>
