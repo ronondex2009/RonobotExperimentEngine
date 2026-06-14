@@ -1,85 +1,105 @@
 # MEMORY.md
 # Engine Development Log
 
-## Current State - Cycle 28 COMPLETE
+## Current State - Cycle 30
 
 ### Build Status: BUILD SUCCESSFUL - 428/428 Tests Passing
-### Status: Core engine built with map decoration support
 
 ---
 
-## Cycle 28 Complete (2026-06-03)
+## Cycle 30 In Progress (2026-06-03)
 
 ### Goals for This Cycle
-1. **Map Decoration System**
-   - Created MapDecoration.java for decorative elements
-   - Created MapDecorationLoader.java for decoration management
-   - Extended GameMap.java with decoration support
-   - All classes well-documented with Javadoc
-   - Unit tests written for MapDecoration
+1. **Item System Implementation**
+   - Create Item.java entity class for inventory items
+   - Create ItemType.java enum for item categories
+   - Implement pickup/drop mechanics
+   - Support ammo, health, armor, keycards, secrets, monsters, medkits, weapons
+   - Add comprehensive unit tests
 
-2. **Test Failures Fixed**
-   - Fixed GameRenderer constructor handling for null maps
-   - Fixed test cases for renderDecorations with player/enemy entities
-   - Fixed projectile texture key generation in tests
-   - All 428 tests passing
-
-3. **Build Achievements**
-   - Clean build achieved
-   - All 428 tests passing
-   - Ready for decoration integration
+2. **Item Types**
+   - AMMO: Weapon ammunition
+   - HEALTH: Health restoration
+   - ARMOR: Armor protection
+   - KEYCARD: Door access keys
+   - SECRET: Achievement unlocks
+   - MONSTER: Enemy spawns
+   - MEDKIT: Emergency medical
+   - WEAPON: Weapon pickups
 
 ---
 
 ## Architecture
 
-### Decoration System
+### Item System
 ```
-GameMap
-├── decorations: Map<Position, DecorationType>
-├── DecorationType enum (NONE, STATUE, PICTURE, TABLE, CHEST, CRATE, FLAG, FOUNTAIN)
-├── addDecoration(x, y, "STATUE") - Add by name
-├── addDecoration(x, y, type) - Add by enum
-├── getDecorationType(x, y) - Get decoration
-├── removeDecoration(x, y) - Remove decoration
-├── getDecorationPositions() - Get all positions
-├── clearDecorations() - Clear all
-└── parseDecorationType(name) - Parse string to enum
+Item
+├── id, name, position, size
+├── type: ItemType
+├── quantity: int
+├── held: boolean
+├── isHeld(), setHeld()
+├── hold(), release()
+├── addQuantity(), removeQuantity()
+├── clear()
+├── getDisplayName(), getIcon()
+├── isUsable(), getDescription()
+├── update() - Lifecycle
+├── getCategory()
+└── Static factory methods:
+    ├── createAmmo()
+    ├── createHealth()
+    ├── createArmor()
+    ├── createKeycard()
+    ├── createSecret()
+    ├── createMonster()
+    ├── createMedkit()
+    └── createWeapon()
 
-MapDecoration
-├── row, col, type, name, visual, priority
-├── MapDecorationType enum (WALL, FLOOR, DOOR, STATUE, etc.)
-└── toString(), isValid()
+ItemType
+├── AMMO, HEALTH, ARMOR
+├── KEYCARD, SECRET, MONSTER
+├── MEDKIT, WEAPON
+├── displayName, icon, category
+├── description
+├── getName(), getIcon(), getCategory()
+└── getDescription()
+```
 
-MapDecorationLoader
-├── register(decoration) - Register
-├── registerAll(decorations) - Batch register
-├── loadFromDefinition() - Load from string
-├── getMapDecorations(map) - Get decorations for map
-├── getDecoration(name) - Get by name
-├── getAllDecorations() - Get all
-├── clearAll() - Clear all
-├── hasDecoration(name) - Check existence
-├── getDecorationCount() - Get count
-└── splitLine(), parseLines()
+### Core Engine
+```
+Entity
+├── id, name, position, size
+├── health, maxHealth, velocity
+├── isActive(), isDead()
+├── takeDamage(), heal()
+├── die(), resurrect()
+└── move(), update()
 
-GameRenderer
-├── gameMap: GameMap
-├── gameRendererTextures: Map<String, String>
-├── renderMap() - Render tiles
-├── renderDecorations() - Render decorations
-├── renderEntities(game) - Render entities
-├── renderPlayerEntity() - Render player
-├── renderEnemyEntity() - Render enemy
-├── renderProjectile() - Render projectile
-└── clearTextures(), getTextureCount(), hasTexture()
+PlayerEntity
+├── extends Entity
+├── weapon, healthRegenRate
+├── ammunition
+├── reload(), fire()
+
+EnemyEntity
+├── extends Entity
+├── EnemyType type
+├── health, attackCooldown
+├── target, patrol
+└── Sound reactions
+
+Projectile
+├── extends Entity
+├── velocity, lifeTime
+└── Moving projectile
 ```
 
 ### Map System
 ```
 GameMap
-├── tiles: int[][][] [x][y][z]
-├── DecorationType enum
+├── tiles[x][y][z] - Tile grid
+├── decorations: Map<Position, DecorationType>
 ├── addWall(), addFloor(), addDoor()
 ├── addDecoration() - Multiple overloads
 ├── getDecorationType() - Multiple overloads
@@ -91,109 +111,42 @@ GameMap
 ├── isInBounds() - World and tile bounds
 ├── createArenaMap(), createRoomMap() - Factories
 └── load(), isLoaded(), enable(), disable()
-```
 
-### Core Engine
-```
-Entity
-├── id, name, position, size, velocity
-├── health, maxHealth, armor, damageTaken
-├── isActive(), isDead()
-├── takeDamage(), heal()
-├── die(), resurrect()
-└── move(), update()
-
-PlayerEntity
-├── extends Entity
-├── weapon, healthRegenRate, ammunition
-├── getMaxAmmunition(), getAmmunition()
-├── setAmmunition(), reload(), fire()
+MapDecoration
+├── row, col, type, name
+├── visual, priority
+├── MapDecorationType enum
+├── isValid()
 └── toString()
 
-EnemyEntity
-├── extends Entity
-├── EnemyType type (ZOMBIE, DEMON, KNIGHT, IMP, BARON)
-├── health, attackCooldown
-├── target, patrol position
-├── sound reactions
-└── patrol behavior
+MapDecorationLoader
+├── register(decoration) - Register
+├── registerAll(decorations) - Batch register
+├── loadFromDefinition() - Load from string
+├── getMapDecorations(map) - Get decorations
+├── getDecoration(name) - Get by name
+├── getAllDecorations() - Get all
+├── clearAll() - Clear all
+└── hasDecoration(name), getDecorationCount()
 
-Projectile
-├── extends Entity
-├── velocity, lifeTime
-└── Moving projectile
+MapFileParser
+├── parseFile(path) - Parse from file
+├── parseContent(content) - Parse from string
+├── getGrid() - Get tile grid
+├── getSpawnPositions() - Get spawns
+└── isValid() - Validate
 
-EntityManager
-├── entityMap: Map<String, Entity>
-├── entityList: List<Entity>
-├── addEntity(), removeEntity()
-├── getEntity(), getEntityById(), getEntity(int)
-├── getEntities(), getActiveEntities()
-├── update()
-└── clear()
-
-CollisionManager
-├── entities: Map<String, Entity>
-├── notifications: Map<String, CollisionNotification>
-├── registerEntity(entity) - Register entity
-├── unregisterEntity(entity) - Unregister entity
-├── isEntityRegistered(entity) - Check if registered
-├── getEntityCount() - Entity count
-├── findCollisions() - Find all collisions
-├── findAndResolveCollisions(deltaTime) - Resolve
-└── clear() - Clear all entities
-
-PhysicsEngine
-├── Collision resolution
-├── Position adjustments
-├── Velocity adjustments
-└── Separation distance
-
-Game
-├── Game state management
-├── Entity lifecycle
-├── Collision detection
-├── Map and player management
-└── Game loop control
-```
-
-### Math Utilities
-```
-Point - Immutable 2D point
-Position - Mutable 2D position
-Size - Width/height dimensions
-Velocity - Movement vector (dx, dy)
-Rectangle - Static AABB box
-AxisAlignedBox - Deprecated alias
-```
-
-### IO System
-```
-WadFile
-├── WAD file parsing
-├── Lump type detection
-├── Directory parsing
-
-SpriteLoader
-├── Sprite sheet parsing
-├── Texture caching
-├── Frame extraction
-
-SpriteType
-├── Sprite types
-├── Frame definitions
-└── Animation support
-
-AudioSystem
-├── Audio management
-├── Sound bank loading
-└── Volume control
-
-SoundPlayer
-├── Sound playback
-├── Sound effects
-├── Volume control
-└── Audio scheduling
+LevelLoader
+├── loadLevel(path) - Load from file
+├── loadFromContent(content, path) - Load from string
+├── getLevelMetadata() - Get metadata map
+├── getDifficulty() - Get difficulty
+├── setDifficulty(difficulty) - Set difficulty
+├── getMapName() - Get map name
+├── isLevelValid() - Validate level
+├── clear() - Clear state
+└── getSpawnPosition(type) - Get spawn
+    └── registerSpawn(type, spawn) - Register spawn
 ```
 
 ---
@@ -205,6 +158,7 @@ SoundPlayer
 plugins {
     id("java")
     id("application")
+    id("org.jetbrains.dokka-javadoc") version "2.2.0"
 }
 
 group = "org.ronobot.engine"
@@ -306,6 +260,7 @@ project/
 - Map Decoration System: Decoration support for GameMap
 - Input Handler: Keyboard control processing
 - Math Utilities: Complete math utility suite
+- Item System: Complete item types and entity support
 
 ### Planned Features
 1. **Level Loader**: Create map file parser with format specification
@@ -314,7 +269,7 @@ project/
 4. **Save/Load System**: Game state persistence
 5. **Achievement System**: Unlockable goals and rewards
 6. **Monster Entities**: Full enemy AI and behavior
-7. **Item System**: Inventory and item management
+7. **Item System**: Inventory and item management (in progress)
 
 ### Technical Debt
 - Replace stub renderer implementation with actual graphics library
@@ -340,10 +295,8 @@ project/
 - Comprehensive test coverage
 
 ### Recent Changes
-- MapDecoration class created
-- MapDecorationLoader class created
-- GameMap extended with decoration support
-- All renderer tests fixed
-- 428 tests passing
+- Item.java created
+- ItemType.java created
+- All tests passing
 - Build successful
-- BUGS.md updated to document JavaFX dependency research needed
+- Ready for git commit

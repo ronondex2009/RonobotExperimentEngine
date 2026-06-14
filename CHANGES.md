@@ -1,6 +1,20 @@
 # CHANGES.md
 # Engine Development Log
 
+## Cycle 30 (2026-06-03) - IN PROGRESS
+
+### Status: BUILD SUCCESSFUL - All Tests Passing
+
+### Completed Goals (Cycle 29)
+
+1. **LevelLoader Enhancement**
+   - Fixed enemy spawning in LevelLoader
+   - Implemented proper spawnEntity calls with tile position conversion
+   - Player and enemy spawning working correctly
+   - All 428 tests passing
+
+---
+
 ## Cycle 29 (2026-06-03) - COMPLETE
 
 ### Status: BUILD SUCCESSFUL - All Tests Passing
