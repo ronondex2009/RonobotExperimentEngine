@@ -70,7 +70,7 @@ echo location of your Java installation. 1>&2
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\org.ronobot.engine-1.0-SNAPSHOT.jar;%APP_HOME%\lib\kotlin-stdlib-1.9.21.jar;%APP_HOME%\lib\annotations-13.0.jar
+set CLASSPATH=%APP_HOME%\lib\org.ronobot.engine-1.0-SNAPSHOT.jar;%APP_HOME%\lib\kotlin-stdlib-1.9.21.jar;%APP_HOME%\lib\gson-2.10.1.jar;%APP_HOME%\lib\annotations-13.0.jar
 
 
 @rem Execute org.ronobot.engine

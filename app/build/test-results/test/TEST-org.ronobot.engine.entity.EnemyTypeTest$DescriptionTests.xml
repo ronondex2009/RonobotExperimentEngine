@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Description Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.851Z" hostname="cherokee" time="0.001">
+<testsuite name="Description Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-09T05:58:12.524Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Imp has correct description" classname="org.ronobot.engine.entity.EnemyTypeTest$DescriptionTests" time="0.0"/>
-  <testcase name="Baron has correct description" classname="org.ronobot.engine.entity.EnemyTypeTest$DescriptionTests" time="0.0"/>
+  <testcase name="Baron has correct description" classname="org.ronobot.engine.entity.EnemyTypeTest$DescriptionTests" time="0.001"/>
   <testcase name="Knight has correct description" classname="org.ronobot.engine.entity.EnemyTypeTest$DescriptionTests" time="0.0"/>
   <testcase name="Zombie has correct description" classname="org.ronobot.engine.entity.EnemyTypeTest$DescriptionTests" time="0.0"/>
   <testcase name="Demon has correct description" classname="org.ronobot.engine.entity.EnemyTypeTest$DescriptionTests" time="0.0"/>

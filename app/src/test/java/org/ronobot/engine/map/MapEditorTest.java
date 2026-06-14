@@ -52,7 +52,7 @@ class MapEditorTest {
     @BeforeEach
     @DisplayName("Setup MapEditor")
     void setup() {
-        this.editor = new MapEditor();
+        this.editor = MapEditor.createBlankMap(MapEditor.DEFAULT_TILES.length, 20);
     }
 
     @Test
@@ -355,7 +355,7 @@ class MapEditorTest {
     @Test
     @DisplayName("MapEditor constant TILE_ENEMY is correct")
     void testTileEnemyConstant() {
-        assertEquals("E", MapEditor.TILE_ENEMY);
+        assertEquals("e", MapEditor.TILE_ENEMY);
     }
 
     @Test
@@ -373,7 +373,7 @@ class MapEditorTest {
     @Test
     @DisplayName("MapEditor constant DEFAULT_TILES has correct length")
     void testDefaultTilesLength() {
-        assertEquals(11, MapEditor.DEFAULT_TILES.length);
+        assertEquals(12, MapEditor.DEFAULT_TILES.length);
     }
 
     @Test

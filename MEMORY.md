@@ -1,29 +1,31 @@
 # MEMORY.md
 # Engine Development Log
 
-## Current State - Cycle 32
+## Current State - Cycle 35
 
-### Build Status: BUILD SUCCESSFUL - 471/471 Tests Passing
+### Build Status: BUILD SUCCESSFUL - 521/521 Tests Passing
 
 ### Next Goal: Continue engine development
 
 ---
 
-## Cycle 32 In Progress (2026-06-06)
+## Cycle 35 In Progress (2026-06-09)
 
 ### Goals for This Cycle
-1. **Fix Game Loop and Rendering Issues**
-   - App.start() calls game.runLoop() properly
-   - Game.runLoop() implements continuous game loop with rendering
-   - BUGS.md issue resolved and deleted
+1. **Fix MapEditor Compilation Errors**
+   - Fixed `handleSpawnLine()` to properly parse spawn coordinates
+   - Added `getSpawnTileChar()` helper to get tile char from spawn type
+   - Spawn directives now correctly update tile map at coordinates
+   - All 521 tests passing
 
 2. **Code Quality**
    - No compilation errors
    - All tests passing
+   - BUGS.md deleted (not present)
 
 3. **Documentation**
-   - BUGS.md deleted as all issues resolved
-   - CHANGES.md updated
+   - CHANGES.md updated with progress
+   - All classes have Javadoc
 
 ---
 
@@ -59,14 +61,19 @@ Game
 ├── stop()
 ├── end()
 ├── update()
-├── runLoop() - Main game loop with rendering
-│   ├── inputHandler.handle(this)
-│   ├── update()
-│   ├── detectCollisions()
-│   ├── collision.resolve()
-│   ├── renderer.render(this)
-│   └── Thread.sleep(16) for ~60 FPS
-└── cleanup()
+└── runLoop() - Main game loop with rendering
+    ├── inputHandler.handle(this)
+    ├── update()
+    ├── detectCollisions()
+    ├── collision.resolve()
+    ├── renderer.render(this)
+    └── Thread.sleep(16) for ~60 FPS
+
+GameState
+├── GameState
+├── save()
+├── load()
+└── ...
 ```
 
 ### Map System
@@ -81,14 +88,35 @@ LevelLoader
 ├── loadFromContent(content, path)
 ├── parseMetadata(content)
 ├── parseSpawns(content)
-├── parseGrid(content)
 ├── getSpawnPosition(type)
 ├── getLevelMetadata()
 ├── getDifficulty()
 ├── getMapName()
 ├── isLevelValid()
+└── clear()
+
+MapEditor
+├── tileMap: String[]
+├── decorations: List
+├── spawns: List
+├── mapNames: List
+├── difficultyStrings: List
+├── mapHeight: int
+├── mapWidth: int
+├── createBlankMap(width, height)
+├── createTestMap()
+├── loadFromFile(path)
+├── saveToFile(path)
+├── saveToWriter(writer)
+├── getTile(x, y)
+├── setTile(x, y, tile)
+├── removeTile(x, y)
+├── addDecoration(x, y, type)
+├── getDecorations()
+├── getSpawns()
+├── fill(x1, y1, x2, y2, tile)
 ├── clear()
-└── setDifficulty(int)
+└── toString()
 
 GameMap
 ├── tiles[x][y][z]
@@ -215,16 +243,25 @@ project/
 - Input Handler: Keyboard control processing
 - Math Utilities: Complete math utility suite
 - Item System: Complete item types and entity support (AMMO, HEALTH, ARMOR, KEYCARD, SECRET, MONSTER, MEDKIT, WEAPON)
+- Level Loader: Text-based map file parser with spawn support (COMPLETED)
+- Game Loop: Implemented in Game.runLoop() with rendering (COMPLETED)
+- Map Editor: Created MapEditor.java with comprehensive editing capabilities (COMPLETED)
+- SpriteRenderer: Created for debug/HUD overlay rendering (COMPLETED)
+- GameState: Added for save/load system (COMPLETED)
+- AI State Machine: Basic AI state machine for enemies (COMPLETED)
 
 ### Completed Features
 - Level Loader: Text-based map file parser with spawn support (COMPLETED)
 - Game Loop: Implemented in Game.runLoop() with rendering (COMPLETED)
-- BUGS.md: All issues resolved, BUGS.md deleted
+- Map Editor: Created MapEditor.java with comprehensive editing capabilities (COMPLETED)
+- SpriteRenderer: Created for HUD/debug rendering (COMPLETED)
+- GameState: Added for save/load system persistence (COMPLETED)
+- AI State Machine: Basic AI state machine framework (COMPLETED)
 
 ### Planned Features
 1. **UI Components**: Add keyboard controls and HUD rendering
 2. **Network Support**: Multiplayer capabilities
-3. **Save/Load System**: Game state persistence
+3. **Save/Load System**: Game state persistence using GameState
 4. **Achievement System**: Unlockable goals and rewards
 5. **Monster Entities**: Full enemy AI and behavior
 
@@ -240,8 +277,8 @@ project/
 ## Cycle Summary
 
 ### Test Results
-- **Total Tests: 471**
-- **Passing: 471**
+- **Total Tests: 521**
+- **Passing: 521**
 - **Failing: 0**
 - **Build: SUCCESSFUL**
 
@@ -252,16 +289,19 @@ project/
 - BUGS.md deleted - all issues resolved
 
 ### Recent Changes
-- LevelLoader.java - Fixed enemy spawn registration in game map
-- GameMap.java - Made entitySpawns protected for LevelLoader access
+- MapEditor.java - Fixed spawn directive parsing with coordinate handling
+- EntitySpawn.java - Added x, y coordinates for spawn positions
+- GameState.java - Added game state persistence class
+- AIState.java - Added AI state enum
+- AIStateMachine.java - Added AI state machine for enemy behavior
 - BUGS.md deleted after resolution
-- CHANGES.md updated with progress
-- All 471 tests passing
+- CHANGES.md updated with cycle progress
+- All 521 tests passing
 - Repository committed and stable
 
 ### Next Steps
 - Continue developing Doom-like engine features
-- Focus on completing game loop and rendering
-- Implement UI components when ready
-- Add save/load system
+- Focus on Save/Load system implementation
+- Implement Monster entity AI behavior
 - Consider multiplayer support
+- Add UI/HUD components

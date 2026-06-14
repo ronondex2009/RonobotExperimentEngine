@@ -1,6 +1,67 @@
 # CHANGES.md
 # Engine Development Log
 
+## Cycle 35 (2026-06-09) - COMPLETE
+
+### Status: BUILD SUCCESSFUL - All Tests Passing
+
+### Test Results
+- **Total Tests: 521**
+- **Passing: 521**
+- **Failing: 0**
+- **Build: SUCCESSFUL**
+
+### Completed Goals (Cycle 35)
+
+1. **MapEditor Compilation Errors Fixed**
+   - Fixed `handleSpawnLine()` to properly parse spawn coordinates from directives
+   - Added `getSpawnTileChar()` helper method to get tile character from spawn type
+   - Spawn directives now correctly parse format like `SPAWN_PLAYER=0,0` and update tile map
+   - All 521 tests passing
+
+2. **Build Achievements**
+   - Clean build achieved
+   - All 521 tests passing
+   - BUGS.md: NOT PRESENT
+
+3. **Documentation**
+   - CHANGES.md updated with cycle progress
+   - All classes have Javadoc
+   - MEMORY.md updated with current state
+
+4. **Added State/Save Classes**
+   - GameState.java: Game state persistence for save/load system
+   - AIState.java: AI state enum for enemy behaviors
+   - AIStateMachine.java: Basic AI state machine for enemy AI
+
+### Status: BUILD SUCCESSFUL - All Tests Passing
+
+### Test Results
+- **Total Tests: 521**
+- **Passing: 521**
+- **Failing: 0**
+- **Build: SUCCESSFUL**
+
+### Goals for This Cycle
+1. **Save/Load System Implementation**
+   - Create GameState class for game state persistence
+   - Implement save() method to serialize game state
+   - Implement load() method to restore game state
+   - Handle game map, entities, player position, etc.
+
+2. **Monster Entity AI Behavior**
+   - Create basic AI for enemy entities
+   - Implement patrol behavior
+   - Implement target tracking
+   - Add enemy state machine
+
+3. **Enhance HUD/Debug Renderer**
+   - Add SpriteRenderer for debug overlay rendering
+   - Add entity health bars
+   - Add ammunition display
+
+---
+
 ## Cycle 33 (2026-06-07) - COMPLETE
 
 ### Status: BUILD SUCCESSFUL - All Tests Passing
@@ -314,14 +375,14 @@ project/
 - Math Utilities: Complete math utility suite
 - Item System: Complete item types and entity support (AMMO, HEALTH, ARMOR, KEYCARD, SECRET, MONSTER, MEDKIT, WEAPON)
 - Level Loader: Text-based map file parser with spawn support (COMPLETED)
-- Map Editor: Text-based map editor with fill, clear, and decoration support (COMPLETED)
 - Game Loop: Implemented in Game.runLoop() with rendering (COMPLETED)
+- Map Editor: Created MapEditor.java with comprehensive editing capabilities (COMPLETED)
 
 ### Completed Features
 - Level Loader: Text-based map file parser with spawn support (COMPLETED)
 - Game Loop: Implemented in Game.runLoop() with rendering (COMPLETED)
 - Map Editor: Created MapEditor.java with comprehensive editing capabilities (COMPLETED)
-- BUGS.md: All issues resolved, BUGS.md deleted (COMPLETED)
+- SpriteRenderer: Created for debug/HUD overlay rendering (COMPLETED)
 
 ### Planned Features
 1. **UI Components**: Add keyboard controls and HUD rendering
@@ -357,6 +418,7 @@ project/
 ### Recent Changes
 - MapEditor.java created with full editing system
 - MapEditorTest.java with 50 comprehensive tests
+- SpriteRenderer.java created for HUD/debug rendering
 - BUGS.md deleted after resolution
 - CHANGES.md updated with cycle progress
 - All 521 tests passing
@@ -364,6 +426,6 @@ project/
 
 ### Next Steps
 - Continue developing Doom-like engine features
-- Focus on UI components when ready
-- Implement save/load system
+- Focus on Save/Load system implementation
+- Implement Monster entity AI behavior
 - Consider multiplayer support

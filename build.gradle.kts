@@ -24,6 +24,9 @@ dependencies {
     // Kotlin support (for build script)
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.21")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.21")
+    
+    // Gson for JSON serialization - needed for GameState
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 tasks.test {

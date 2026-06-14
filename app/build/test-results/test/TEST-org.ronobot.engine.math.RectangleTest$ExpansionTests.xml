@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Expansion Operations" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.956Z" hostname="cherokee" time="0.0">
+<testsuite name="Expansion Operations" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-09T05:58:12.653Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Expand by negative amount (contract)" classname="org.ronobot.engine.math.RectangleTest$ExpansionTests" time="0.0"/>
   <testcase name="Zero expansion returns same rectangle" classname="org.ronobot.engine.math.RectangleTest$ExpansionTests" time="0.0"/>

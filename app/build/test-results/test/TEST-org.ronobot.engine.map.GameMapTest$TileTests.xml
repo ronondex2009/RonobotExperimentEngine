@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Tile Operations" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-06-07T17:48:54.938Z" hostname="cherokee" time="0.001">
+<testsuite name="Tile Operations" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-06-09T05:58:12.602Z" hostname="cherokee" time="0.0">
   <properties/>
   <testcase name="adds door at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
-  <testcase name="adds wall at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.001"/>
+  <testcase name="adds wall at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
   <testcase name="returns false for out of bounds tiles" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
   <testcase name="adds floor at position" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
   <testcase name="gets correct tile value" classname="org.ronobot.engine.map.GameMapTest$TileTests" time="0.0"/>
