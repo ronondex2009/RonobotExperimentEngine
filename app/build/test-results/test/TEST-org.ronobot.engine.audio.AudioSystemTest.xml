@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.audio.AudioSystemTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-06-03T14:00:35.613Z" hostname="cherokee" time="0.014">
+<testsuite name="org.ronobot.engine.audio.AudioSystemTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-06-03T21:28:52.370Z" hostname="cherokee" time="0.012">
   <properties/>
   <testcase name="testSetVolumeClamped()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
   <testcase name="testInitDefault()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
   <testcase name="testStopMusic()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
   <testcase name="testCreation()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
-  <testcase name="testMuteControl()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
+  <testcase name="testMuteControl()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
   <testcase name="testActiveMusicCount()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
   <testcase name="testInitCustomVolume()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
-  <testcase name="testToString()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.006"/>
+  <testcase name="testToString()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.004"/>
   <testcase name="testActiveSoundCount()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.001"/>
   <testcase name="testVolumeClamped()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>
   <testcase name="testGetSoundEffect()" classname="org.ronobot.engine.audio.AudioSystemTest" time="0.0"/>

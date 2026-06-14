@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Entity Lifecycle Integration" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-03T14:00:35.716Z" hostname="cherokee" time="0.001">
+<testsuite name="Entity Lifecycle Integration" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-03T21:28:52.446Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="multiple entities can coexist" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$EntityLifecycleTests" time="0.0"/>
   <testcase name="entity lifecycle works" classname="org.ronobot.engine.integration.FullPipelineIntegrationTest$EntityLifecycleTests" time="0.0"/>

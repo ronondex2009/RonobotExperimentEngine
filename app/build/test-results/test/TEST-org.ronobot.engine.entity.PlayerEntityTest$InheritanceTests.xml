@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Inheritance" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-03T14:00:35.700Z" hostname="cherokee" time="0.001">
+<testsuite name="Inheritance" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-03T21:28:52.432Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="PlayerEntity extends Entity" classname="org.ronobot.engine.entity.PlayerEntityTest$InheritanceTests" time="0.0"/>
   <testcase name="PlayerEntity has entity position" classname="org.ronobot.engine.entity.PlayerEntityTest$InheritanceTests" time="0.0"/>
