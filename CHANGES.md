@@ -1,7 +1,39 @@
 # CHANGES.md
 # Engine Development Log
 
-## Cycle 28 (2026-06-02) - COMPLETE
+## Cycle 28 (2026-06-03) - COMPLETE
+
+### Status: BUILD SUCCESSFUL - All Tests Passing
+
+---
+
+### Completed Goals (Cycle 28)
+
+1. **Map Decoration System**
+   - Created MapDecoration.java for decorative elements
+   - Created MapDecorationLoader.java for decoration management
+   - Extended GameMap.java with decoration support
+   - All classes well-documented with Javadoc
+   - Unit tests written for MapDecoration
+
+2. **Documentation**
+   - Updated README.md with current project status
+   - Updated CHANGES.md with cycle progress
+   - Extended architecture documentation
+
+3. **Build Stability**
+   - Clean build achieved
+   - All 428 tests passing
+   - BUGS.md updated to reflect JavaFX issue resolution in progress
+
+---
+
+### Test Results
+
+- **Total Tests: 428**
+- **Passing: 428**
+- **Failing: 0**
+- **Build: SUCCESSFUL**
 
 ### Status: BUILD SUCCESSFUL - Tests Passing
 

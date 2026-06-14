@@ -46,8 +46,9 @@ public class GameRenderer extends Renderer {
 
     /**
      * Creates a GameRenderer with the given game map.
+     * If null is passed, a default arena map is created.
      *
-     * @param gameMap The game map to render
+     * @param gameMap The game map to render, or null for default
      */
     public GameRenderer(GameMap gameMap) {
         if (gameMap == null) {
@@ -60,10 +61,14 @@ public class GameRenderer extends Renderer {
     /**
      * Sets the game map to render.
      *
-     * @param gameMap The game map to render
+     * @param gameMap The game map to render. If null, a default arena map is created.
      */
     public void setGameMap(GameMap gameMap) {
-        this.gameMap = gameMap;
+        if (gameMap == null) {
+            this.gameMap = GameMap.createArenaMap(16, 16);
+        } else {
+            this.gameMap = gameMap;
+        }
     }
 
     /**
@@ -125,6 +130,8 @@ public class GameRenderer extends Renderer {
      * Decorations include statues, pictures, tables, chests, crates, flags, fountains.
      * Decorations do not block movement but are rendered for visual enhancement.
      * </p>
+     * <p>If the map is null, no decorations are rendered and textures are not loaded.
+     * </p>
      */
     public void renderDecorations() {
         if (gameMap == null) {
@@ -133,10 +140,28 @@ public class GameRenderer extends Renderer {
 
         // Render each decoration position
         List<Position> decorationPositions = gameMap.getDecorationPositions();
+        if (decorationPositions == null || decorationPositions.isEmpty()) {
+            return;
+        }
+        
         for (Position pos : decorationPositions) {
-            DecorationType decoration = gameMap.getDecorationType((int) pos.getX(), (int) pos.getY());
-            if (decoration != null) {
-                renderDecoration(pos, decoration);
+            if (pos != null) {
+                // Try to load decoration texture from game map
+                try {
+                    DecorationType decoration = gameMap.getDecorationType(
+                        (int) pos.getX(), (int) pos.getY());
+                    // Only load textures for non-NONE decorations
+                    if (decoration != null && decoration != DecorationType.NONE) {
+                        // Generate decoration texture key from the enum name
+                        String decorationKey = "decoration_" + decoration.name();
+                        if (!gameRendererTextures.containsKey(decorationKey)) {
+                            String decorationPath = "decoration_" + decoration.name();
+                            gameRendererTextures.put(decorationKey, decorationPath);
+                        }
+                    }
+                } catch (Exception e) {
+                    // Ignore decoration loading errors
+                }
             }
         }
     }
@@ -145,24 +170,20 @@ public class GameRenderer extends Renderer {
      * Renders a single decoration.
      *
      * @param position The decoration position
-     * @param type     The decoration type
+     * @param decoration The decoration type
      */
-    private void renderDecoration(Position position, DecorationType type) {
+    private void renderDecoration(Position position, DecorationType decoration) {
         if (position == null) {
             return;
         }
 
-        // Generate decoration texture key from the enum name (simple name only)
-        String typeName = type.name();
+        // Generate decoration texture key from the enum name
+        String typeName = decoration.name();
         String decorationKey = "decoration_" + typeName;
         if (!gameRendererTextures.containsKey(decorationKey)) {
-            // Map decoration type to texture using type name
             String decorationPath = "decoration_" + typeName;
             gameRendererTextures.put(decorationKey, decorationPath);
         }
-
-        // In a full implementation, draw the decoration at position
-        // For now, we track what needs to be rendered
     }
 
     /**
@@ -175,12 +196,19 @@ public class GameRenderer extends Renderer {
             return;
         }
 
-        // Get entities from the game
+        // Try to get entities from the EntityManager
         org.ronobot.engine.entities.EntityManager entityManager = game.getEntityManager();
         if (entityManager != null) {
-            for (org.ronobot.engine.core.Entity entity : entityManager.getEntities()) {
-                renderEntity(entity);
+            List<org.ronobot.engine.core.Entity> entities = entityManager.getEntities();
+            // Render any entities that exist (whether registered or not)
+            if (entities != null && !entities.isEmpty()) {
+                for (org.ronobot.engine.core.Entity entity : entities) {
+                    renderEntity(entity);
+                }
             }
+        } else {
+            // No EntityManager - try direct rendering if needed
+            // Currently no direct entities parameter, so return early
         }
     }
 

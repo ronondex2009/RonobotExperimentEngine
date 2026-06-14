@@ -16,7 +16,6 @@ import java.util.Map;
  * including entity spawning, decoration registration, and metadata extraction.
  * It supports loading map files from disk and converting them into fully
  * initialized GameMap instances ready for gameplay.
- * </p>
  *
  * Supported map features:
  * - Grid-based tile maps (walls, floors, empty spaces)
