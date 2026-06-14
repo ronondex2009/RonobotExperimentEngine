@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Inheritance" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-12T10:30:33.693Z" hostname="cherokee" time="0.001">
+<testsuite name="Inheritance" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-14T17:08:49.968Z" hostname="cherokee" time="0.0">
   <properties/>
-  <testcase name="Projectile extends Entity" classname="org.ronobot.engine.entity.ProjectileTest$InheritanceTests" time="0.001"/>
+  <testcase name="Projectile extends Entity" classname="org.ronobot.engine.entity.ProjectileTest$InheritanceTests" time="0.0"/>
   <testcase name="Projectile has entity health" classname="org.ronobot.engine.entity.ProjectileTest$InheritanceTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
