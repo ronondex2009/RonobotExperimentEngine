@@ -76,7 +76,7 @@ set CLASSPATH=%APP_HOME%\lib\org.ronobot.engine-1.0-SNAPSHOT.jar;%APP_HOME%\lib\
 @rem Execute org.ronobot.engine
 @rem endlocal doesn't take effect until after the line is parsed and variables are expanded
 @rem which allows us to clear the local environment before executing the java command
-endlocal & "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %ORG_RONOBOT_ENGINE_OPTS%  -classpath "%CLASSPATH%"  %* & call :exitWithErrorLevel
+endlocal & "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %ORG_RONOBOT_ENGINE_OPTS%  -classpath "%CLASSPATH%" org.ronobot.engine.App %* & call :exitWithErrorLevel
 
 :exitWithErrorLevel
 @rem Use "%COMSPEC%" /c exit to allow operators to work properly in scripts

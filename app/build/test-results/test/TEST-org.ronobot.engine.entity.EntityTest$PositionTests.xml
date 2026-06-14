@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Position" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-03T07:20:53.235Z" hostname="cherokee" time="0.0">
+<testsuite name="Position" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-03T14:00:35.695Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="Position update updates entity" classname="org.ronobot.engine.entity.EntityTest$PositionTests" time="0.0"/>
+  <testcase name="Position update updates entity" classname="org.ronobot.engine.entity.EntityTest$PositionTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

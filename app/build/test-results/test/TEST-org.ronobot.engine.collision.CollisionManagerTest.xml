@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CollisionManager Tests" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-03T07:20:53.172Z" hostname="cherokee" time="0.007">
+<testsuite name="CollisionManager Tests" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-03T14:00:35.628Z" hostname="cherokee" time="0.008">
   <properties/>
   <testcase name="findAndResolveCollisions returns collisions list" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.003"/>
   <testcase name="No collision detected for non-overlapping entities" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
-  <testcase name="clear removes all entities and notifications" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.001"/>
+  <testcase name="clear removes all entities and notifications" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
   <testcase name="findCollisions returns empty list for null entity query" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
-  <testcase name="toString returns expected format" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
+  <testcase name="toString returns expected format" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.001"/>
   <testcase name="Entity registration returns false for duplicate name" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
   <testcase name="Unregister returns false for unregistered entity" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
   <testcase name="isEntityRegistered returns correct status" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
-  <testcase name="Entity count matches registered entities" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.001"/>
+  <testcase name="Entity count matches registered entities" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
   <testcase name="Collision detection works between overlapping entities" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
   <testcase name="isEntityRegistered returns false for null entity" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
   <testcase name="Unregister removes entity from manager" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
-  <testcase name="Entity registration returns false for null entity" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
+  <testcase name="Entity registration returns false for null entity" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.001"/>
   <testcase name="findCollisions returns empty list for empty manager" classname="org.ronobot.engine.collision.CollisionManagerTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

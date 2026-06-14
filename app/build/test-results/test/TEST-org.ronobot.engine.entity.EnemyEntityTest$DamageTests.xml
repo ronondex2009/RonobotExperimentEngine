@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Damage Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-03T07:20:53.205Z" hostname="cherokee" time="0.001">
+<testsuite name="Damage Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-03T14:00:35.664Z" hostname="cherokee" time="0.002">
   <properties/>
   <testcase name="Take damage returns remaining health" classname="org.ronobot.engine.entity.EnemyEntityTest$DamageTests" time="0.0"/>
   <testcase name="Take damage clamps health to minimum" classname="org.ronobot.engine.entity.EnemyEntityTest$DamageTests" time="0.0"/>
-  <testcase name="Take damage reduces health" classname="org.ronobot.engine.entity.EnemyEntityTest$DamageTests" time="0.001"/>
-  <testcase name="Take damage does nothing when dead" classname="org.ronobot.engine.entity.EnemyEntityTest$DamageTests" time="0.0"/>
+  <testcase name="Take damage reduces health" classname="org.ronobot.engine.entity.EnemyEntityTest$DamageTests" time="0.0"/>
+  <testcase name="Take damage does nothing when dead" classname="org.ronobot.engine.entity.EnemyEntityTest$DamageTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

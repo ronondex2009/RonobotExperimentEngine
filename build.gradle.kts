@@ -37,3 +37,13 @@ java {
     withSourcesJar()
     withJavadocJar()
 }
+
+application {
+    mainClass = "org.ronobot.engine.App"
+    
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+}

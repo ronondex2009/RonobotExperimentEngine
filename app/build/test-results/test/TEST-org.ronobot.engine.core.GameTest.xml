@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.core.GameTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-06-03T07:20:53.188Z" hostname="cherokee" time="0.005">
+<testsuite name="org.ronobot.engine.core.GameTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-06-03T14:00:35.642Z" hostname="cherokee" time="0.009">
   <properties/>
   <testcase name="testRegisterEntity()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testUpdateNotRunning()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
@@ -11,12 +11,12 @@
   <testcase name="testToString()" classname="org.ronobot.engine.core.GameTest" time="0.002"/>
   <testcase name="testSetStateNull()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testEntityCount()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
-  <testcase name="testCollisionDetection()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
+  <testcase name="testCollisionDetection()" classname="org.ronobot.engine.core.GameTest" time="0.001"/>
   <testcase name="testRestart()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
-  <testcase name="testUnregisterEntity()" classname="org.ronobot.engine.core.GameTest" time="0.001"/>
-  <testcase name="testSetPlayer()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
+  <testcase name="testUnregisterEntity()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
+  <testcase name="testSetPlayer()" classname="org.ronobot.engine.core.GameTest" time="0.001"/>
   <testcase name="testEntityManagerInitialized()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
-  <testcase name="testGetMap()" classname="org.ronobot.engine.core.GameTest" time="0.001"/>
+  <testcase name="testGetMap()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testGetPlayer()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testSetMap()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>
   <testcase name="testSetState()" classname="org.ronobot.engine.core.GameTest" time="0.0"/>

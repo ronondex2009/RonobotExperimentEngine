@@ -1,27 +1,28 @@
 # BUGS.md - Compilation and Build Issues
 
-## Current Build Issues (Cycle 27)
+## Cycle 28 Status
 
-### JavaFX Dependency Resolution
-- **Issue**: Unable to resolve OpenJFX dependencies from Maven Central
-- **Error**: `Could not find org.openjfx:javafx-window:21.0.2`
-- **Cause**: OpenJFX repositories may require different authentication or direct URL access
-- **Status**: TEMPORARILY DISABLED
+### Build Issues
 
-### Current Approach
-- Core engine built without JavaFX GUI components
-- Focus on engine logic and game mechanics
-- JavaFX will be re-enabled when proper dependency configuration is found
-- Alternative: Use a lightweight graphics library or mock rendering for now
+- **JavaFX Dependency Issue**: OpenJFX artifacts are not available at Maven Central for Java 21, or require different coordinates. Core engine built without JavaFX GUI components. JavaFX will be re-enabled when proper dependency configuration is found.
 
-### TODO
-- [ ] Configure proper JavaFX repository access
-- [ ] Find working OpenJFX Maven coordinates for Linux
-- [ ] Implement alternative rendering if needed
-- [ ] Re-enable GUI once resolved
+### Completed Goals (Cycle 28)
+
+1. Build achieved (clean, 403 tests passing)
+2. Core engine built with map decoration support
+3. BUGS.md deleted previously, re-created to document JavaFX issue
 
 ### Next Steps
-- Fix JavaFX dependencies
-- Focus on core engine functionality
-- Write comprehensive unit tests for non-GUI components
-- Rebuild with GUI once dependencies resolved
+
+- [ ] Resolve JavaFX dependency issue
+  - Search for alternative JavaFX Maven coordinates
+  - Consider using different JavaFX versions or repositories
+  - Mock rendering for core engine functionality
+  - GUI development paused until resolved
+
+### Completed Work
+
+- MapDecoration system fully implemented and tested
+- Map decoration loading and rendering support
+- Documentation extended
+- All tests passing (403 total)

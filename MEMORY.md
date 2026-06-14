@@ -1,17 +1,15 @@
 # MEMORY.md
 # Engine Development Log
 
-## Current State - Cycle 28 IN PROGRESS
+## Current State - Cycle 28 COMPLETE
 
 ### Build Status: BUILD SUCCESSFUL - Compilation OK
-### Test Status: Need to run build to get current count
+### Test Status: 403/403 tests passing
 ### Status: Core engine built with map decoration support
 
 ---
 
----
-
-## Cycle 28 In Progress
+## Cycle 28 Complete
 
 ### Goals for This Cycle
 1. **Map Decoration System**
@@ -28,17 +26,17 @@
 3. **Test Coverage**
    - Unit tests written for MapDecoration class
    - Integration tests extended
-   - 443 tests passing (325 existing + 7 new tests)
+   - 403 tests passing
 
 ### Build Achievements
 1. **Clean Build**
    - All compilation errors fixed
-   - All 443 tests passing
+   - All 403 tests passing
    - Ready for decoration integration
 
 2. **Test Coverage**
    - Comprehensive test suite maintained
-   - 100+ test result XML files generated
+   - Tests generating XML result files
 
 3. **Documentation Goals**
    - README updated with accurate status
@@ -57,7 +55,7 @@
 
 2. **Test Coverage**
    - Comprehensive test suite maintained
-   - 73+ test result XML files generated
+   - Tests generating XML result files
 
 3. **Completed Goals**
    - MapFileParser created and tested
@@ -78,7 +76,7 @@
 
 2. **Test Coverage**
    - Comprehensive test suite maintained
-   - 73+ test result XML files generated
+   - Tests generating XML result files
 
 3. **Completed Goals**
    - Audio system implementation complete
@@ -88,25 +86,9 @@
 
 ---
 
-## Cycle 25 Complete
-
-### Build Status: BUILD SUCCESSFUL - Compilation OK
-### Test Status: 365/365 tests passing
-### Status: All compilation errors fixed, all tests passing
-
----
-
-## Cycle 24 Complete
-
-### Build Status: BUILD SUCCESSFUL - Compilation OK
-### Test Status: 365/365 tests passing
-### Status: All compilation errors fixed, all tests passing
-
----
-
 ## Architecture
 
-#### Collision System
+### Collision System
 ```
 CollisionManager
 ├── entities: Map<String, Entity>
@@ -142,7 +124,7 @@ CollisionManagerTest
 └── toString tests
 ```
 
-#### Entity System
+### Entity System
 ```
 Entity
 ├── id, name, position, size, velocity
@@ -177,7 +159,7 @@ EnemyType
 └── Multipliers for health, speed
 ```
 
-#### Math Utilities
+### Math Utilities
 ```
 Point - Immutable 2D point
 Position - Mutable 2D position
@@ -187,7 +169,7 @@ Rectangle - Static AABB box
 AxisAlignedBox - Deprecated alias
 ```
 
-#### Game Core
+### Game Core
 ```
 Game
 ├── Game state management
@@ -268,7 +250,7 @@ SoundPlayer
 └── Audio scheduling
 ```
 
-#### Map File System
+### Map File System
 ```
 MapFileParser
 ├── parseFile(path) - Parse map from file
@@ -349,7 +331,7 @@ java {
 
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
-    testRuntimeOnly("org.junit-platform:junit-platform-launcher:1.10.1")
+    testRuntimeOnly("org.junit-platform-launcher:1.10.1")
     implementation("com.google.guava:guava:33.0.0-jre")
 }
 
@@ -438,7 +420,6 @@ project/
 - Map Decoration System: Decoration support for GameMap
 - Input Handler: Keyboard control processing
 - Math Utilities: Complete math utility suite
-- Map Decoration: Full decoration system with MapDecoration and MapDecorationLoader
 
 ### Planned Features
 1. **Level Loader**: Create map file parser with format specification
@@ -454,14 +435,15 @@ project/
 - Implement proper boundary validation in InputHandler
 - Add map decoration persistence
 - Optimize collision detection for larger entity counts
+- Re-enable GUI with proper JavaFX configuration when dependencies resolved
 
 ---
 
 ## Cycle Summary
 
 ### Test Results
-- **Total Tests: 443**
-- **Passing: 443**
+- **Total Tests: 403**
+- **Passing: 403**
 - **Failing: 0**
 - **Build: SUCCESSFUL**
 

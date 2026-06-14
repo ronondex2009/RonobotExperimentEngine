@@ -212,7 +212,7 @@ DEFAULT_JVM_OPTS=""
 
 set -- \
         -classpath "$CLASSPATH" \
-         \
+        org.ronobot.engine.App \
         "$@"
 
 # Stop when "xargs" is not available.
