@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.ronobot.engine.input.InputHandlerTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-05-30T02:15:53.353Z" hostname="cherokee" time="0.005">
+<testsuite name="org.ronobot.engine.input.InputHandlerTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-05-30T04:32:45.501Z" hostname="cherokee" time="0.005">
   <properties/>
   <testcase name="testHandleNullPlayer()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
-  <testcase name="testReset()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
+  <testcase name="testReset()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.001"/>
   <testcase name="testToString()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.001"/>
   <testcase name="testSetMovingRight()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
-  <testcase name="testHandleInWall()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
+  <testcase name="testHandleInWall()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.001"/>
   <testcase name="testInitialState()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testHandleResetsAction()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testHandleValidPlayer()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testSetMovingDown()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
-  <testcase name="testSetMovingLeft()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.001"/>
+  <testcase name="testSetMovingLeft()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testActionReset()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testBothVertical()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testSetMovingUp()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testHandleGame()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <testcase name="testSetActionPressed()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
-  <testcase name="testBothHorizontal()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
+  <testcase name="testBothHorizontal()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.001"/>
   <testcase name="testHandleUpdatesPosition()" classname="org.ronobot.engine.input.InputHandlerTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
