@@ -39,12 +39,25 @@
 - **Input System**: Keyboard input with action handling ✓
 - **Rendering System**: Map tiles, entities, decorations, HUD ✓
 
-### Next Steps
-- Collision response visualization
-- Save/load functionality (filesystem stubbed for CI)
-- Achievement system
-- Map editing/creation tools
-- High-level game window GUI
+### Cycle 6 Planning (June 14, 2026 - 4:50 PM)
+- **Next focus**: Collision response visualization
+- **Save/load system**: Implement persistent storage
+- **Achievement system**: Unlockable goals and rewards
+- **Map editing tools**: Create GUI map editor
+- **High-level game window GUI**: Complete game window integration
+- **Enhanced HUD**: Better rendering and effects
+- **Texture loading**: Load textures from disk files
+- **AI integration**: Connect enemy AI with movement system
+
+### Planned Features (Cycle 6+)
+- Implement collision response visualization
+- Add save/load with persistent storage
+- Create achievement system
+- Build map editor GUI
+- Complete high-level game window integration
+- Extend HUD rendering with effects
+- Implement texture loading from disk files
+- Complete entity AI integration with movement
 
 ### Files Modified
 - `app/src/main/java/org/ronobot/engine/render/Renderer.java` - Fixed removeHUDElement case conversion
