@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Targeting Tests" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-15T01:14:13.522Z" hostname="cherokee" time="0.001">
+<testsuite name="Targeting Tests" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-15T04:59:36.206Z" hostname="cherokee" time="0.002">
   <properties/>
   <testcase name="Attack returns false when target is dead" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
   <testcase name="Cooldown decrements correctly" classname="org.ronobot.engine.entity.EnemyEntityTest$TargetingTests" time="0.0"/>
