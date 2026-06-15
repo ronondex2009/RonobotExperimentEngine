@@ -216,10 +216,6 @@ public class GameState {
         return Collections.unmodifiableList(spawnedProjectiles);
     }
 
-    public enum GameStateType {
-        PLAYING, PAUSED, WON, LOST
-    }
-
     @Override
     public String toString() {
         return "GameState{" +

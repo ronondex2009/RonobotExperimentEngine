@@ -137,11 +137,15 @@ public class MapEditor {
      *
      * @param path Path to the map file
      * @return true if the map was loaded successfully
-     * @throws IOException if the file cannot be read
      * @see #loadFromFile
      */
-    public boolean load(Path path) throws IOException {
-        return loadFromFile(path);
+    public boolean load(Path path) {
+        try {
+            return loadFromFile(path);
+        } catch (IOException e) {
+            System.err.println("Failed to load map: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -149,10 +153,14 @@ public class MapEditor {
      *
      * @param path Path string to the map file
      * @return true if the map was loaded successfully
-     * @throws IOException if the file cannot be read
      */
-    public boolean loadFromFile(String path) throws IOException {
-        return loadFromFile(Paths.get(path));
+    public boolean loadFromFile(String path) {
+        try {
+            return loadFromFile(Paths.get(path));
+        } catch (IOException e) {
+            System.err.println("Failed to load map: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -417,12 +425,16 @@ public class MapEditor {
      *
      * @param path Path to save the map
      * @return true if the save was successful
-     * @throws IOException if an I/O error occurs
      */
-    public boolean saveToFile(Path path) throws IOException {
-        try (Writer writer = Files.newBufferedWriter(path)) {
-            saveToWriter(writer);
-            return true;
+    public boolean saveToFile(Path path) {
+        try {
+            try (Writer writer = Files.newBufferedWriter(path)) {
+                saveToWriter(writer);
+                return true;
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to save map: " + e.getMessage());
+            return false;
         }
     }
 
