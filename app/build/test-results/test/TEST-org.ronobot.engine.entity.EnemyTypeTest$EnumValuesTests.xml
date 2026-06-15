@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Enum Values" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-14T21:51:54.598Z" hostname="cherokee" time="0.002">
+<testsuite name="Enum Values" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-15T01:14:13.528Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="Baron type exists with boss characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.001"/>
+  <testcase name="Baron type exists with boss characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.0"/>
   <testcase name="Zombie type exists with default characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.0"/>
   <testcase name="Demon type exists with aggressive characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.0"/>
   <testcase name="Knight type exists with defensive characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.0"/>
-  <testcase name="Imp type exists with fast fragile characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.001"/>
+  <testcase name="Imp type exists with fast fragile characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
