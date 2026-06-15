@@ -1,341 +1,341 @@
-/**
- * SaveGame - Manages game state persistence for the engine.
- *
- * <p>Provides functionality for saving and loading complete game states,
- * including player position, inventory, entity states, and map data.</p>
- *
- * @author ronobot
- * @version 1.0
- * @since 2026-06-15
- */
 package org.ronobot.engine.io;
 
-import org.ronobot.engine.map.GameMap;
-import org.ronobot.engine.map.MapDecoration;
 import org.ronobot.engine.core.Game;
-import org.ronobot.engine.core.GameState;
-import org.ronobot.engine.core.GameStateType;
-import org.ronobot.engine.map.EntitySpawn;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
- * SaveGame handles serialization and deserialization of complete game states.
- *
- * <p>Supports saving:
- * - Player position, health, ammo, and state
- * - All active entities (enemies, items, projectiles)
- * - Map data and decorations
- * - Game statistics (score, time, achievements)</p>
- *
- * <p>Supports loading:
- * - Complete game state restoration
- * - Validation of saved game integrity
- * - Error handling for corrupted save files</p>
+ * SaveGame handles saving and loading game state for a DOOM-like engine.
+ * <p>
+ * This class provides methods to persist game state to files and restore
+ * it later. Supports saving game progress, entity positions, player stats,
+ * and world state.
+ * </p>
  *
  * @author ronobot
  * @since 1.0
  */
 public class SaveGame {
 
-    // === Constants ===
-
     /**
-     * File extension for save game files.
+     * Save file extension.
      */
     public static final String SAVE_EXTENSION = ".sav";
 
     /**
-     * Save file version for compatibility checking.
+     * Temporary directory for save files.
      */
-    private static final int SAVE_VERSION = 1;
+    private final String saveDir;
 
     /**
-     * Default save directory relative to game home.
+     * Creates a new SaveGame with default save directory.
      */
-    private static final String SAVE_DIR = "saves";
-
-    // === Fields ===
-
-    /**
-     * Current game instance.
-     */
-    private final Game game;
-
-    /**
-     * Current game state snapshot.
-     */
-    private GameState gameState;
-
-    /**
-     * Save file path.
-     */
-    private String savePath;
-
-    // === Constructors ===
-
-    /**
-     * Creates a new SaveGame instance.
-     *
-     * @param game The game instance to save
-     */
-    public SaveGame(Game game) {
-        this.game = game;
-        this.savePath = null;
-        this.gameState = null;
+    public SaveGame() {
+        this.saveDir = System.getProperty("user.home") + "/.ronobot_engine/saves/";
     }
 
-    // === Methods ===
+    /**
+     * Creates a new SaveGame with a custom save directory.
+     *
+     * @param saveDir The custom save directory
+     */
+    public SaveGame(String saveDir) {
+        this.saveDir = saveDir;
+    }
 
     /**
-     * Saves the current game state to a file.
+     * Saves the game to a file.
+     * <p>
+     * This method serializes the entire game state including player position,
+     * health, ammo, entity positions, and world state. The file is stored
+     * in the save directory with a timestamped filename.
+     * </p>
      *
-     * @param savePath Path to save the game
-     * @return true if save was successful
+     * @param game The game to save
+     * @param name The save name (without extension)
+     * @return true if save succeeded, false otherwise
      */
-    public boolean save(String savePath) {
-        if (savePath == null || savePath.isEmpty()) {
+    public boolean saveGame(Game game, String name) {
+        if (game == null || name == null) {
             return false;
         }
 
-        // Set up path
-        this.savePath = savePath;
-        File saveFile = new File(savePath);
-        
-        // Create directory if needed
-        File dir = saveFile.getParentFile();
-        if (dir != null && !dir.exists()) {
+        // Create save directory if it doesn't exist
+        File dir = new File(saveDir);
+        if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                System.err.println("Could not create save directory: " + saveFile.getParent());
+                System.err.println("SaveGame: Could not create save directory");
                 return false;
             }
         }
 
-        // Capture current game state
-        captureGameState();
+        // Create unique save filename with timestamp
+        long timestamp = System.currentTimeMillis();
+        String filename = name + "_" + timestamp + SAVE_EXTENSION;
+        File saveFile = new File(dir, filename);
 
-        // Write to file as JSON
-        try (FileWriter writer = new FileWriter(saveFile)) {
-            writer.write(gameState.toJson().toString());
+        try (ObjectOutputStream out = new ObjectOutputStream(
+                new FileOutputStream(saveFile))) {
+
+            // Write game state
+            out.writeObject(game);
+
             return true;
         } catch (IOException e) {
-            System.err.println("Error saving game: " + e.getMessage());
+            System.err.println("SaveGame: Error saving game: " + e.getMessage());
             return false;
         }
     }
 
     /**
-     * Saves the current game state to a path.
+     * Saves the game to a file with a specific path.
      *
-     * @param path Path to save the game
-     * @return true if save was successful
+     * @param game The game to save
+     * @param path The full path including filename
+     * @return true if save succeeded, false otherwise
      */
-    public boolean save(Path path) {
+    public boolean saveGameAtPath(Game game, String path) {
+        if (game == null || path == null) {
+            return false;
+        }
+
+        File file = new File(path);
+        if (!file.getParentFile().exists()) {
+            if (!file.getParentFile().mkdirs()) {
+                System.err.println("SaveGame: Could not create parent directory");
+                return false;
+            }
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(
+                new FileOutputStream(file))) {
+            out.writeObject(game);
+            return true;
+        } catch (IOException e) {
+            System.err.println("SaveGame: Error saving game: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Loads a game from a file.
+     *
+     * @param path The path to the save file
+     * @return The loaded game, or null if load failed
+     */
+    public Game loadGame(String path) {
+        if (path == null) {
+            return null;
+        }
+
+        File file = new File(path);
+        if (!file.exists()) {
+            System.err.println("SaveGame: Save file does not exist: " + path);
+            return null;
+        }
+
+        try (ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(file))) {
+            Object obj = in.readObject();
+            if (!(obj instanceof Game)) {
+                System.err.println("SaveGame: Save file contains invalid game data");
+                return null;
+            }
+            return (Game) obj;
+        } catch (IOException e) {
+            System.err.println("SaveGame: Error loading game: " + e.getMessage());
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.err.println("SaveGame: Class not found during game load: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Loads a game by name from the save directory.
+     * <p>
+     * Searches for the latest save file matching the name.
+     * </p>
+     *
+     * @param name The save name (without extension)
+     * @return The loaded game, or null if not found
+     */
+    public Game loadGameByName(String name) {
+        if (name == null) {
+            return null;
+        }
+
+        File dir = new File(saveDir);
+        if (!dir.exists()) {
+            return null;
+        }
+
+        File[] saveFiles = dir.listFiles((dir1, name1) ->
+                name1.startsWith(name) && name1.endsWith(SAVE_EXTENSION));
+
+        if (saveFiles == null || saveFiles.length == 0) {
+            System.err.println("SaveGame: No save files found for name: " + name);
+            return null;
+        }
+
+        // Find the most recent save file
+        File latestSave = null;
+        long latestTime = 0;
+        for (File saveFile : saveFiles) {
+            long time = saveFile.lastModified();
+            if (time > latestTime) {
+                latestTime = time;
+                latestSave = saveFile;
+            }
+        }
+
+        return loadGame(latestSave.getAbsolutePath());
+    }
+
+    /**
+     * Lists all save files in the save directory.
+     *
+     * @return An array of save file names, or empty array if none exist
+     */
+    public String[] listSaves() {
+        File dir = new File(saveDir);
+        if (!dir.exists()) {
+            return new String[0];
+        }
+
+        File[] files = dir.listFiles((dir1, name1) ->
+                name1.endsWith(SAVE_EXTENSION));
+
+        if (files == null) {
+            return new String[0];
+        }
+
+        String[] names = new String[files.length];
+        for (int i = 0; i < files.length; i++) {
+            names[i] = files[i].getName();
+        }
+
+        // Sort by modification time (newest first)
+        Integer[] indices = new Integer[names.length];
+        for (int i = 0; i < names.length; i++) {
+            indices[i] = i;
+        }
+
+        java.util.Arrays.sort(indices, (i1, i2) -> {
+            File f1 = files[i1];
+            File f2 = files[i2];
+            return Long.compare(f2.lastModified(), f1.lastModified());
+        });
+
+        // Reorder names based on sorted indices
+        String[] sortedNames = new String[names.length];
+        for (int i = 0; i < names.length; i++) {
+            sortedNames[i] = names[indices[i]];
+        }
+
+        return sortedNames;
+    }
+
+    /**
+     * Deletes a save file by name.
+     *
+     * @param name The save name (without extension)
+     * @return true if deleted, false if not found
+     */
+    public boolean deleteSave(String name) {
+        if (name == null) {
+            return false;
+        }
+
+        File[] saveFiles = listSavesByName(name);
+        if (saveFiles == null || saveFiles.length == 0) {
+            return false;
+        }
+
+        File fileToDelete = saveFiles[saveFiles.length - 1]; // Delete oldest
+        if (!fileToDelete.exists()) {
+            return false;
+        }
+
+        if (!fileToDelete.delete()) {
+            System.err.println("SaveGame: Could not delete save file: " + fileToDelete.getAbsolutePath());
+            return false;
+        }
+
+        System.out.println("SaveGame: Deleted save: " + fileToDelete.getName());
+        return true;
+    }
+
+    /**
+     * Deletes a save file by path.
+     *
+     * @param path The path to the save file
+     * @return true if deleted, false otherwise
+     */
+    public boolean deleteSaveByPath(String path) {
         if (path == null) {
             return false;
         }
 
-        String pathStr = path.toAbsolutePath().toString();
-        File file = new File(pathStr);
-        File dir = file.getParentFile();
-        if (dir != null && !dir.exists()) {
-            if (!dir.mkdirs()) {
-                return false;
-            }
-        }
-
-        this.savePath = pathStr;
-        captureGameState();
-
-        try (FileWriter writer = new FileWriter(file)) {
-            writer.write(gameState.toJson().toString());
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error saving game: " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Loads a game state from a file.
-     *
-     * @param savePath Path to the save file
-     * @return true if load was successful
-     */
-    public boolean load(String savePath) {
-        if (savePath == null || savePath.isBlank()) {
-            return false;
-        }
-        
-        Path path = Paths.get(savePath);
-        
-        if (path == null) {
+        File file = new File(path);
+        if (!file.exists()) {
             return false;
         }
 
-        String pathStr = path.toAbsolutePath().toString();
-        File saveFile = new File(pathStr);
-        
-        if (!saveFile.exists() || !saveFile.isFile()) {
-            System.err.println("Save file not found: " + pathStr);
+        if (!file.delete()) {
+            System.err.println("SaveGame: Could not delete save file: " + path);
             return false;
         }
 
-        // Load state from file
-        try {
-            String content = new String(Files.readAllBytes(saveFile.toPath()));
-            if (content == null || content.trim().isEmpty()) {
-                System.err.println("Save file is empty: " + pathStr);
-                return false;
-            }
-
-            // Parse JSON
-            com.google.gson.JsonElement jsonElement = com.google.gson.JsonParser.parseString(content);
-            com.google.gson.JsonObject json = jsonElement.getAsJsonObject();
-            
-            // Create game state from JSON
-            this.gameState = GameState.fromJson(json);
-
-            // Apply saved state to game
-            if (gameState != null && game != null) {
-                // Update frame count from saved state
-                game.setFrameCount(gameState.getFrameCount());
-                // Update level name
-                String savedLevelName = gameState.getLevelName();
-                if (savedLevelName != null && !savedLevelName.isEmpty()) {
-                    GameMap currentMap = game.getMap();
-                    if (currentMap != null) {
-                        currentMap.setName(savedLevelName);
-                    }
-                }
-            }
-
-            this.savePath = pathStr;
-            return true;
-
-        } catch (Exception e) {
-            System.err.println("Error loading save: " + e.getMessage());
-            return false;
-        }
+        System.out.println("SaveGame: Deleted save: " + path);
+        return true;
     }
 
     /**
-     * Captures the current game state for saving.
+     * Lists all save files by name prefix.
+     *
+     * @param name The name prefix
+     * @return Array of File objects matching the name
      */
-    private void captureGameState() {
-        if (game == null) {
-            gameState = new GameState("Unknown", 0, GameStateType.STOPPED,
-                0, 0,
-                new ArrayList<>(), null, null, null);
-            return;
+    private File[] listSavesByName(String name) {
+        File dir = new File(saveDir);
+        if (!dir.exists()) {
+            return null;
         }
 
-        // Capture map name from current map if available
-        String levelName = "Level " + game.getFrameCount();
-        if (game.getMap() != null && game.getMap().getName() != null) {
-            levelName = game.getMap().getName();
-        }
+        File[] files = dir.listFiles((dir1, name1) ->
+                name1.startsWith(name) && name1.endsWith(SAVE_EXTENSION));
 
-        // Capture current game state type
-        GameStateType currentState = game.getGameState();
-        if (currentState == null) {
-            currentState = GameStateType.PLAYING;
-        }
-
-        // Create snapshot of current state with empty lists for now
-        // Full entity capture would require more extensive refactoring
-        gameState = new GameState(
-            levelName,
-            1, // Default difficulty
-            currentState,
-            game.getFrameCount(),
-            0,
-            new ArrayList<>(), // Spawn positions
-            new ArrayList<>(), // Decorations
-            new ArrayList<>(), // Spawned entities
-            new ArrayList<>()  // Spawned projectiles
-        );
+        return files;
     }
 
     /**
-     * Gets the save file path.
+     * Gets the save directory.
      *
-     * @return The save path, or null if not saved
+     * @return The save directory path
      */
-    public String getSavePath() {
-        return savePath;
+    public String getSaveDir() {
+        return saveDir;
     }
 
     /**
-     * Checks if a save exists at the given path.
+     * Gets the save file extension.
      *
-     * @param path Path to check
-     * @return true if save exists
+     * @return The save file extension
      */
-    public boolean exists(String path) {
-        return new File(path).exists() && new File(path).isFile();
+    public static String getSaveExtension() {
+        return SAVE_EXTENSION;
     }
 
-    /**
-     * Gets all available save files.
-     *
-     * @param directory Directory to search
-     * @return List of save file paths
-     */
-    public List<String> getSaveFiles(String directory) {
-        List<String> saves = new ArrayList<>();
-        File dir = new File(directory);
-        
-        if (!dir.exists() || !dir.isDirectory()) {
-            return saves;
-        }
-
-        File[] files = dir.listFiles((d, name) -> name.endsWith(SAVE_EXTENSION));
-        if (files != null) {
-            for (File f : files) {
-                saves.add(f.getAbsolutePath());
-            }
-        }
-        
-        return saves;
-    }
-
-    /**
-     * Deletes a save file.
-     *
-     * @param path Path to delete
-     * @return true if deleted successfully
-     */
-    public boolean delete(String path) {
-        return new File(path).delete();
-    }
-
-    /**
-     * Gets the save version.
-     *
-     * @return The save version number
-     */
-    public int getVersion() {
-        return SAVE_VERSION;
-    }
-
-    /**
-     * Gets a string representation of the save state.
-     *
-     * @return String representation
-     */
     @Override
     public String toString() {
         return "SaveGame{" +
-                "savePath='" + savePath + '\'' +
-                ", version=" + SAVE_VERSION +
-                ", gameState=" + gameState +
+                "saveDir='" + saveDir + '\'' +
                 '}';
     }
-
 }

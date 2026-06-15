@@ -83,11 +83,6 @@ public class GameMap {
     private boolean enabled = true;
 
     /**
-     * The level name.
-     */
-    private String levelName;
-
-    /**
      * Entity spawned at this position (cached).
      */
     private final Map<Position, Entity> spawnedEntities;
@@ -171,7 +166,6 @@ public class GameMap {
     public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.levelName = "Level " + width + "x" + height;
         this.tiles = new int[width][height][1];
         this.spawnedEntities = new HashMap<>();
         this.spawnedProjectiles = new HashMap<>();
@@ -250,34 +244,6 @@ public class GameMap {
      */
     public int getHeight() {
         return height;
-    }
-
-    /**
-     * Gets the level name.
-     *
-     * @return The level name, or null if not set
-     */
-    public String getName() {
-        return levelName;
-    }
-
-    /**
-     * Sets the level name.
-     *
-     * @param name The level name to set
-     */
-    public void setName(String name) {
-        this.levelName = name;
-    }
-
-    /**
-     * Gets the level name or default.
-     *
-     * @param defaultName The default name if name is null
-     * @return The level name or default
-     */
-    public String getNameOrDefault(String defaultName) {
-        return levelName != null ? levelName : defaultName;
     }
 
     /**

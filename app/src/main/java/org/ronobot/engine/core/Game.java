@@ -9,7 +9,6 @@ import org.ronobot.engine.map.GameMap;
 import org.ronobot.engine.math.Position;
 import org.ronobot.engine.physics.PhysicsEngine;
 import org.ronobot.engine.render.Renderer;
-import org.ronobot.engine.core.GameStateType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,11 +76,6 @@ public class Game {
      * The input handler.
      */
     private InputHandler inputHandler;
-
-    /**
-     * Current game state type.
-     */
-    private GameStateType gameState;
 
     /**
      * Creates a new Game instance.
@@ -203,15 +197,6 @@ public class Game {
      */
     public int getFrameCount() {
         return frameCount;
-    }
-
-    /**
-     * Sets the frame count.
-     *
-     * @param frameCount The new frame count
-     */
-    public void setFrameCount(int frameCount) {
-        this.frameCount = frameCount;
     }
 
     /**
@@ -376,20 +361,9 @@ public class Game {
 
     /**
      * Gets the current state.
-     *
-     * @return The current state description
      */
     public String getState() {
         return state;
-    }
-
-    /**
-     * Gets the current game state type.
-     *
-     * @return The current GameStateType, or null if not set
-     */
-    public GameStateType getGameState() {
-        return gameState;
     }
 
     /**
@@ -397,15 +371,6 @@ public class Game {
      */
     public void setState(String state) {
         this.state = state != null ? state : "unknown";
-    }
-
-    /**
-     * Sets the current game state type.
-     *
-     * @param gameState The GameStateType to set
-     */
-    public void setGameState(GameStateType gameState) {
-        this.gameState = gameState;
     }
 
     @Override

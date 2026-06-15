@@ -469,12 +469,21 @@ public class MapEditorGUI extends JFrame {
             int result = chooser.showOpenDialog(this);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File file = chooser.getSelectedFile();
-                if (mapEditor.loadFromFile(file.getAbsolutePath())) {
-                    refreshMap();
-                } else {
+                try {
+                    if (mapEditor.loadFromFile(file.getAbsolutePath())) {
+                        refreshMap();
+                    } else {
+                        JOptionPane.showMessageDialog(
+                            this,
+                            "Failed to load map.",
+                            "Load Error",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                } catch (IOException ioException) {
                     JOptionPane.showMessageDialog(
                         this,
-                        "Failed to load map.",
+                        "Failed to load map: " + ioException.getMessage(),
                         "Load Error",
                         JOptionPane.ERROR_MESSAGE
                     );
