@@ -9,6 +9,10 @@ import org.ronobot.engine.render.Renderer;
 
 /**
  * Main application entry point for the engine.
+ *
+ * @author ronobot
+ * @version 1.0
+ * @since 2026-05-28
  */
 public class App {
 
