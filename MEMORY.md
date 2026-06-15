@@ -5,8 +5,8 @@
 ### Current Development Status
 - **Cycle 8:** COMPLETE ✓
 - **Build:** SUCCESSFUL ✓
-- **Tests:** 639 passing
-- **Branch:** dev (ready for merge to main)
+- **Tests:** 639+ passing
+- **Branch:** main (merged from dev)
 - **BUGS.md:** Not present (no outstanding bugs)
 
 ### Completed in Cycle 7
@@ -59,7 +59,7 @@
 - `app/src/main/java/org/ronobot/engine/io/SaveGame.java` - Path handling fixes
 - `app/src/main/java/org/ronobot/engine/map/GameMap.java` - Case-insensitive tile lookup
 - `app/src/main/java/org/ronobot/engine/map/MapEditor.java` - Tile selector improvements
-- `app/src/main/java/org/ronobot/engine/map/MapEditorGUI.java` - Added map editor GUI
+- `app/src/main/java/org/ronobot/engine/map/MapEditorGUI.java` - Added map editor GUI with IOException handling
 - `app/src/test/java/org/ronobot/engine/io/SaveGameTest.java` - Path vs String test fixes
 
 ---
@@ -74,7 +74,7 @@
 - `README.md`: Project documentation
 - `SAVE_LOAD_README.md`: Save/load system documentation
 - `CHANGES.md`: Change log with cycle history
-- `MEMORY.md`: This long-term memory file
+- `MEMORY.md`: Long-term memory file
 - `SOUL.md`: Project identity and tone
 - `AGENTS.md`: Agent specifications
 
