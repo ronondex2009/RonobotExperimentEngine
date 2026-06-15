@@ -1,7 +1,11 @@
 package org.ronobot.engine.math;
 
 /**
- * Represents velocity in 2D space.
+ * Represents 2D velocity for moving entities.
+ *
+ * @author ronobot
+ * @version 1.0
+ * @since 2026-05-28
  */
 public class Velocity {
 

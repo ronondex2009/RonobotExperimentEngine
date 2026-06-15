@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Core game state management.
+ * Core game state management and game loop control.
+ *
+ * @author ronobot
+ * @version 1.0
+ * @since 2026-05-28
  */
 public class Game {
 
