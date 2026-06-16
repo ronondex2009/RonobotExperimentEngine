@@ -1,57 +1,62 @@
 # BUGS.md - Outstanding Issues
 
-## Cycle 10 - Game Window GUI Development
+## Cycle 11 - HUD Graphics Conversion
 
-### Issue: Game Window Not Producing Window
+### Issue: Renderer Outputs to stdout Instead of Swing Graphics
 **Status**: OPEN
-**Priority**: CRITICAL
-**Description**: The program does not produce a game window. The current implementation uses stdout for rendering instead of a proper GUI window.
+**Priority**: HIGH
+**Description**: The Renderer class currently prints rendering instructions to System.out instead of drawing to a BufferedImage/G2D component. This prevents the game window from displaying any graphics.
 
 ### Root Cause
-The Renderer class outputs to System.out instead of rendering to a Swing/JFC component. The Game class has a game loop but no actual visual window is created.
+- Renderer.render() prints tile, entity, and HUD information to stdout
+- No Graphics2D drawing calls exist
+- HUD elements use System.out.println instead of Swing drawing
 
 ### Current State
-- Renderer.render() prints to stdout
-- No JFrame or Swing window exists
-- HUD elements are printed to console instead of displayed
-- Game loop runs but has no visual output
+- Renderer.printTile() prints to stdout
+- Renderer.printEntity() prints to stdout
+- Renderer.printHUD() prints to stdout
+- GamePanel.renderBuffer exists but never receives draw calls
 
 ### Implementation Needed
-1. Create GameWindow.java extending JFrame
-2. Convert Renderer output to BufferedImage
-3. Integrate swing's Component.repaint() in game loop
-4. Display HUD elements as graphical components
-5. Handle window resizing and repainting
-6. Add close handler to stop game loop
+1. Convert Renderer to use Graphics2D for all rendering
+2. Implement tile drawing for floor/wall/decorations
+3. Implement entity drawing for player/enemies/projectiles
+4. Implement HUD drawing using Swing components or buffered text
+5. Integrate with Swing paintComponent lifecycle
 
 ### Progress
-- [ ] Create GameWindow class
-- [ ] Integrate Renderer with JFrame
-- [ ] Implement frame repaint
-- [ ] Display HUD elements
-- [ ] Handle window events
-- [ ] Stop loop on close
+- [x] Analyze Renderer.render() method
+- [ ] Implement Graphics2D tile rendering
+- [ ] Implement Graphics2D entity rendering
+- [ ] Implement Graphics2D HUD rendering
+- [ ] Add color/font for HUD text
+- [ ] Handle window resize events
+- [ ] Test rendering in GameWindow
 
 ### Dependencies
-- Renderer.java - Already implemented with render() method
-- Game.java - Already implemented with game loop
-- App.java - Entry point needs to create window
+- Renderer.java - Main class to update
+- HUDElement.java - Needs graphics-aware callbacks
+- GamePanel.java - Already has buffer setup
+- GameWindow.java - JFrame integration complete
 
 ### Notes
-- Use Swing for GUI (standard JDK, no external dependencies)
-- Game should render to BufferedImage and display in JLabel or custom panel
-- HUD elements need graphical representation
-- Window should handle resize events
+- Use Graphics2D for all rendering operations
+- Store HUD data in buffers or JLabel components
+- Use java.awt.BasicStroke for visual effects
+- Consider using ImageIO for sprite loading later
 
 ### Next Steps
-1. Implement GameWindow class
-2. Integrate with existing Renderer
-3. Test window creation and rendering
-4. Fix any compilation errors
-5. Push to main branch
+1. Replace all stdout.println with Graphics2D.drawImage/g2d operations
+2. Create simple colored rectangles for tiles
+3. Add text rendering for HUD using Font/FontMetrics
+4. Test with simple level
+5. Fix any compilation errors
+6. Commit to main branch
 
 ### TODO for Next Cycle
-- Add collision response visualization
-- Implement achievement system UI
+- Load textures from disk files
+- Add sprite-based rendering
+- Implement collision response visualization
+- Integrate achievement system UI
 - Add map editor GUI integration
-- Save/load system with file dialogs

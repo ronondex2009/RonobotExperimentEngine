@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Enum Values" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-16T04:59:39.996Z" hostname="cherokee" time="0.001">
+<testsuite name="Enum Values" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-16T05:06:16.417Z" hostname="cherokee" time="0.001">
   <properties/>
   <testcase name="Baron type exists with boss characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.0"/>
   <testcase name="Zombie type exists with default characteristics" classname="org.ronobot.engine.entity.EnemyTypeTest$EnumValuesTests" time="0.0"/>
