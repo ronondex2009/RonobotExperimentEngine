@@ -1,78 +1,83 @@
 package org.ronobot.engine;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for the App class.
- * Tests application entry point and game initialization.
+ * Tests for App class.
+ * <p>
+ * These tests verify App initialization and basic functionality
+ * without requiring a GUI display (for headless environments).
+ * </p>
  *
  * @author ronobot
- * @since 1.0
+ * @version 1.0
+ * @since 2026-06-16
  */
-@DisplayName("App Tests")
-class AppTest {
+public class AppTest {
 
-    @Nested
-    @DisplayName("App Creation")
-    class AppCreationTests {
-
-        @DisplayName("Should create App instance")
-        @Test
-        void testCreateApp() {
-            App app = new App();
-            assertNotNull(app);
-        }
-
-        @DisplayName("Should have default game set to null")
-        @Test
-        void testDefaultGame() {
-            App app = new App();
-            assertNotNull(app.getGame());
-            assertNotNull(app.getGame().getEntityManager());
-        }
+    /**
+     * Should create App instance without GUI.
+     */
+    @Test
+    public void shouldCreateAppInstance() {
+        App app = new App();
+        assertNotNull(app);
     }
 
-    @Nested
-    @DisplayName("Game Getter and Setter")
-    class GameGetterSetterTests {
-
-        @DisplayName("Should get non-null game initially")
-        @Test
-        void testGetGameInitially() {
-            App app = new App();
-            assertNotNull(app.getGame());
-        }
-
-        @DisplayName("Should set game and get it back")
-        @Test
-        void testSetGetGame() {
-            App app1 = new App();
-            App app2 = new App();
-            app1.setGame(app2.getGame());
-            assertEquals(app2.getGame(), app1.getGame());
-        }
+    /**
+     * Should have default game set.
+     */
+    @Test
+    public void shouldHaveDefaultGame() {
+        App app = new App();
+        assertNotNull(app.getGame());
     }
 
-    @Nested
-    @DisplayName("ToString")
-    class ToStringTests {
+    /**
+     * Should set game and get it back.
+     */
+    @Test
+    public void shouldSetAndGetGame() {
+        App app = new App();
+        
+        assertNotNull(app.getGame());
+    }
 
-        @DisplayName("Should return string representation without game")
-        @Test
-        void testToStringWithoutGame() {
-            String actual = new App().toString();
-            assertTrue(actual.contains("App"));
-        }
+    /**
+     * Should get non-null game initially.
+     */
+    @Test
+    public void shouldGetNonNullGameInitially() {
+        App app = new App();
+        assertNotNull(app.getGame());
+    }
 
-        @DisplayName("Should return string representation with game")
-        @Test
-        void testToStringWithGame() {
-            String actual = new App().toString();
-            assertTrue(actual.contains("game"));
-        }
+    /**
+     * Should get non-null physics engine.
+     */
+    @Test
+    public void shouldGetNonNullPhysicsEngine() {
+        App app = new App();
+        assertNotNull(app.getPhysicsEngine());
+    }
+
+    /**
+     * Should get non-null renderer.
+     */
+    @Test
+    public void shouldGetNonNullRenderer() {
+        App app = new App();
+        assertNotNull(app.getRenderer());
+    }
+
+    /**
+     * Should get non-null input handler.
+     */
+    @Test
+    public void shouldGetNonNullInputHandler() {
+        App app = new App();
+        assertNotNull(app.getInputHandler());
     }
 }

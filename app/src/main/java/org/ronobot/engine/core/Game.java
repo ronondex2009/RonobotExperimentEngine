@@ -335,6 +335,10 @@ public class Game {
                 Thread.sleep(16); // Approx 60 FPS
                 incrementFrame();
 
+                // Yield control to allow other threads to run
+                Thread.sleep(16); // Approx 60 FPS
+                incrementFrame();
+
             } catch (InterruptedException e) {
                 // Thread interrupted, exit loop
                 break;

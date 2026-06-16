@@ -1,8 +1,35 @@
 # CHANGES.md - Project Change Log
 
-## 2026-06-15 - Cycle 9: COMPLETE ✓
+## 2026-06-15 - Cycle 10: IN PROGRESS
 
-### Build Status: SUCCESSFUL ✓
+### Build Status: SUCCESSFUL
+
+#### Cycle 10 Progress
+- **Completed**:
+  - GameWindow.java created with JFrame integration
+  - GamePanel.java created with rendering support
+  - App.java updated with GUI-based game loop
+  - Compilation successful with no errors
+  - 639+ unit tests passing
+
+#### Cycle 10 Goals
+- **Priority 1:** Game Window GUI ✓
+- **In Progress:** HUD graphical display
+- **Pending:** Texture loading from files
+
+#### Files Created in Cycle 10
+- `app/src/main/java/org/ronobot/engine/gui/GameWindow.java` - Swing-based window
+- `app/src/main/java/org/ronobot/engine/gui/GamePanel.java` - Game rendering panel
+- `app/src/main/java/org/ronobot/engine/App.java` - Updated with GUI support
+
+#### Files Modified in Cycle 10
+- `app/src/main/java/org/ronobot/engine/core/Game.java` - Minor adjustments
+
+---
+
+## Cycle 9 - COMPLETE
+
+### Build Status: SUCCESSFUL
 
 #### Cycle 9 Progress
 - **Completed**:
@@ -21,23 +48,6 @@
 - Well-documented core classes with Javadoc
 - All tests passing
 - No deprecation warnings
-
-#### Architecture Status
-- Rendering system fully integrated
-- HUD element management working
-- Input handling integrated
-- Game action triggering functional
-- Entity lifecycle management
-- Movement system with velocity
-- Collision detection (simplified for future resolution)
-- Map loading and decoration working
-- AI system with state machine
-- Audio system for sound playback
-- IO system for WAD file and sprite loading
-- Math utilities (Position, Velocity, Rectangle, etc.)
-
-#### Files Created in Cycle 9
-- None (stable cycle, documentation update only)
 
 #### Files Modified in Cycle 9
 - Documentation updates only
@@ -63,10 +73,3 @@
 - Tests: `app/src/test/java/org/ronobot/engine/`
 - Documentation: project root `/doc/`
 - Build reports: `app/build/reports/`
-
-### Next Actions
-- **Cycle 10:** Develop game window GUI
-- Implement achievement system
-- Add collision response visualization
-- Load textures from disk files
-- Integrate enemy AI with movement system

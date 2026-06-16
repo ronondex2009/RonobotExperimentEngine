@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Visual Name Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-15T22:42:33.706Z" hostname="cherokee" time="0.002">
+<testsuite name="Visual Name Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-16T03:51:41.683Z" hostname="cherokee" time="0.003">
   <properties/>
   <testcase name="Imp has imp emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.0"/>
   <testcase name="Knight has sword emoji" classname="org.ronobot.engine.entity.EnemyTypeTest$VisualTests" time="0.0"/>
