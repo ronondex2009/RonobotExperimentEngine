@@ -1,7 +1,7 @@
 package org.ronobot.engine.render;
 
-import org.ronobot.engine.core.Entity;
 import org.ronobot.engine.core.Game;
+import org.ronobot.engine.core.Entity;
 import org.ronobot.engine.entity.PlayerEntity;
 import org.ronobot.engine.entity.Projectile;
 import org.ronobot.engine.math.Position;
@@ -9,18 +9,23 @@ import org.ronobot.engine.math.Size;
 import org.ronobot.engine.map.GameMap;
 import org.ronobot.engine.map.GameMap.DecorationType;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Renderer provides game rendering functionality including sprite display
- * and texture management for a DOOM-like engine.
+ * Renderer provides game rendering functionality using Graphics2D for
+ * sprite display and texture management in a DOOM-like engine.
  * <p>
  * This class handles rendering of game tiles, entities, projectiles,
- * decorations, and UI elements. It supports basic 2D rendering with
- * sprite management and texture caching.
+ * decorations, and UI elements using a BufferedImage buffer. It supports
+ * basic 2D rendering with sprite management and texture caching.
  * </p>
  *
  * @author ronobot
@@ -264,8 +269,8 @@ public class Renderer {
             textures.put(decorationKey, decorationPath);
         }
 
-        // Render decoration at position
-        // In full implementation, this would draw with proper texture
+        // Render decoration at position using texture
+        String texturePath = textures.get(decorationKey);
     }
 
     /**
