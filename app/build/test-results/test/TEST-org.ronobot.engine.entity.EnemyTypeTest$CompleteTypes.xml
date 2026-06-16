@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Complete Enemy Types List" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-16T03:51:41.682Z" hostname="cherokee" time="0.0">
+<testsuite name="Complete Enemy Types List" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-16T04:59:39.991Z" hostname="cherokee" time="0.001">
   <properties/>
-  <testcase name="All 5 enemy types are defined" classname="org.ronobot.engine.entity.EnemyTypeTest$CompleteTypes" time="0.0"/>
+  <testcase name="All 5 enemy types are defined" classname="org.ronobot.engine.entity.EnemyTypeTest$CompleteTypes" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
