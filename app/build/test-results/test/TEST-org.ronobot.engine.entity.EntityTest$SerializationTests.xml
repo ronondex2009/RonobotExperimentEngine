@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Serialization" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-17T02:05:29.574Z" hostname="cherokee" time="0.004">
+<testsuite name="Serialization" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-17T03:14:17.494Z" hostname="cherokee" time="0.006">
   <properties/>
-  <testcase name="Entity toString includes name and position" classname="org.ronobot.engine.entity.EntityTest$SerializationTests" time="0.003"/>
-  <testcase name="Entity hashCode is consistent" classname="org.ronobot.engine.entity.EntityTest$SerializationTests" time="0.001"/>
+  <testcase name="Entity toString includes name and position" classname="org.ronobot.engine.entity.EntityTest$SerializationTests" time="0.006"/>
+  <testcase name="Entity hashCode is consistent" classname="org.ronobot.engine.entity.EntityTest$SerializationTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
